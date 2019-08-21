@@ -1,8 +1,9 @@
 {
-  "name": "eng-growth",
+  "name": "automata-snowflake",
   "version": "0.0.1",
+  "private": true,
   "main": "index.js",
-  "repository": "https://github.com/Medium/eng-growth",
+  "repository": "https://github.com/automata-tech/snowflake",
   "license": "MIT",
   "dependencies": {
     "d3": "^4.11.0",

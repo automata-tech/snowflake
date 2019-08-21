@@ -1,29 +1,34 @@
 // @flow
 import * as d3 from 'd3'
 
-export type TrackId = 'MOBILE' | 'WEB_CLIENT' | 'FOUNDATIONS' | 'SERVERS' |
-  'PROJECT_MANAGEMENT' | 'COMMUNICATION' | 'CRAFT' | 'INITIATIVE' |
-  'CAREER_DEVELOPMENT' | 'ORG_DESIGN' | 'WELLBEING' | 'ACCOMPLISHMENT' |
-  'MENTORSHIP' | 'EVANGELISM' | 'RECRUITING' | 'COMMUNITY'
+export type TrackId = 'WEB_CLIENT' | 'WEB_SERVER' | 'LINUX' | 'FIRMWARE' |
+  'APPLIED_ROBOTICS' | 'MFG_TOOL' | 'SW_QA' | 'DEV_OPS' |
+  'IMPACT' | 'COMMUNICATION' | 'CRAFT' | 'INITIATIVE' |
+  'PROF_DEV' | 'DEV_DESIGN' | 'WELLBEING' | 'INSPIRE' |
+  'MENTORSHIP' | 'EVANGELISM' | 'HIRING' | 'COMMUNITY'
 export type Milestone = 0 | 1 | 2 | 3 | 4 | 5
 
 export type MilestoneMap = {
-  'MOBILE': Milestone,
   'WEB_CLIENT': Milestone,
-  'FOUNDATIONS': Milestone,
-  'SERVERS': Milestone,
-  'PROJECT_MANAGEMENT': Milestone,
+  'WEB_SERVER': Milestone,
+  'LINUX': Milestone,
+  'FIRMWARE': Milestone,
+  'APPLIED_ROBOTICS': Milestone,
+  'MFG_TOOL': Milestone,
+  'DEV_OPS': Milestone,
+  'FIRMWARE': Milestone,
+  'IMPACT': Milestone,
   'COMMUNICATION': Milestone,
   'CRAFT': Milestone,
   'INITIATIVE': Milestone,
-  'CAREER_DEVELOPMENT': Milestone,
-  'ORG_DESIGN': Milestone,
+  'PROF_DEV': Milestone,
+  'DEV_DESIGN': Milestone,
   'WELLBEING': Milestone,
-  'ACCOMPLISHMENT': Milestone,
+  'INSPIRE': Milestone,
   'MENTORSHIP': Milestone,
   'EVANGELISM': Milestone,
-  'RECRUITING': Milestone,
-  'COMMUNITY': Milestone
+  'HIRING': Milestone,
+  'COMMUNITY': Milestone,
 }
 export const milestones = [0, 1, 2, 3, 4, 5]
 
@@ -45,19 +50,22 @@ export const pointsToLevels = {
   '11': '1.3',
   '17': '2.1',
   '23': '2.2',
-  '29': '2.3',
-  '36': '3.1',
-  '43': '3.2',
-  '50': '3.3',
-  '58': '4.1',
-  '66': '4.2',
-  '74': '4.3',
-  '90': '5.1',
-  '110': '5.2',
-  '135': '5.3',
+  '30': '2.3',
+  '37': '3.1',
+  '44': '3.2',
+  '52': '3.3',
+  '60': '4.1',
+  '68': '4.2',
+  '77': '4.3',
+  '86': '5.1',
+  '95': '5.2',
+  '107': '5.3',
+  '123': '6.1',
+  '143': '6.2',
+  '177': '6.3',
 }
 
-export const maxLevel = 135
+export const maxLevel = 177
 
 export type Track = {
   displayName: string,
@@ -71,27 +79,98 @@ export type Track = {
 }
 
 type Tracks = {|
-  'MOBILE': Track,
   'WEB_CLIENT': Track,
-  'FOUNDATIONS': Track,
-  'SERVERS': Track,
-  'PROJECT_MANAGEMENT': Track,
+  'WEB_SERVER': Track,
+  'LINUX': Track,
+  'FIRMWARE': Track,
+  'APPLIED_ROBOTICS': Track,
+  'MFG_TOOL': Track,
+  'DEV_OPS': Track,
+  'FIRMWARE': Track,
+  'IMPACT': Track,
   'COMMUNICATION': Track,
   'CRAFT': Track,
   'INITIATIVE': Track,
-  'CAREER_DEVELOPMENT': Track,
-  'ORG_DESIGN': Track,
+  'PROF_DEV': Track,
+  'DEV_DESIGN': Track,
   'WELLBEING': Track,
-  'ACCOMPLISHMENT': Track,
+  'INSPIRE': Track,
   'MENTORSHIP': Track,
   'EVANGELISM': Track,
-  'RECRUITING': Track,
-  'COMMUNITY': Track
+  'HIRING': Track,
+  'COMMUNITY': Track,
 |}
 
 export const tracks: Tracks = {
   "MOBILE": {
     "displayName": "Mobile",
+    "category": "A",
+    "description": "Develops expertise in native mobile platform engineering, such as iOS or Android",
+    "milestones": [{
+      "summary": "Works effectively within established iOS or Android architectures, following current best practices",
+      "signals": [
+        "Delivers features requiring simple local modifications",
+        "Adds simple actions that call server endpoints",
+        "Reuses existing components appropriately",
+      ],
+      "examples": [
+        "Added existing button to a different iOS surface",
+        "Add follow button for publications on Android",
+        "Fetched and displayed a new stream, using existing stream item styles",
+      ],
+    }, {
+      "summary": "Develops new instances of existing architecture, or minor improvements to existing architecture",
+      "signals": [
+        "Defines new useful and appropriate proto-generated objects",
+        "Creates simple new activities on Android",
+        "Migrates code from old patterns to new patterns",
+      ],
+      "examples": [
+        "Upgraded SDWebImage to a new major version",
+        "Added support for rendering a new type of stream item",
+        "Prototyped a simple new feature quickly",
+      ],
+    }, {
+      "summary": "Designs major new features and demonstrates a nuanced understanding of mobile platform constraints",
+      "signals": [
+        "Implements complex features with a large product surface area",
+        "Works effectively with  Android reactive programming framework",
+        "Adds support for new iOS features after a major iOS version upgrade",
+      ],
+      "examples": [
+        "Designed iOS caching strategy for offline reading",
+        "Built series reader on Android",
+        "Informed the team about recent best practice changes and deprecations",
+      ],
+    }, {
+      "summary": "Builds complex, reusable architectures that pioneer best practices and enable engineers to work more effectively",
+      "signals": [
+        "Pioneers architecture migration strategies that reduce programmer burden",
+        "Fixes subtle memory management issues",
+        "Implements interactive dismissals that bring delight",
+      ],
+      "examples": [
+        "Upgraded CocoaPods to a new major version",
+        "Designed architecture for fetching and rendering stream items",
+        "Migrated Android persistance layer to reactive programming",
+      ],
+    }, {
+      "summary": "Is an industry-leading expert in mobile engineering or sets strategic mobile direction for an eng team",
+      "signals": [
+        "Defines long-term goals and ensures active projects are in service of them",
+        "Designs and builds innovative, industry-leading UI interactions",
+        "Invents new techniques to responsibly stretch limits of the Android platform",
+      ],
+      "examples": [
+        "Defined and drove complete migration plan to Swift or Kotlin",
+        "Implemented Android recycler views before platform support existed",
+        "Pioneered application-level abstractions for multi-app environment",
+      ],
+    }],
+  },
+
+  "WEB_SERVER": {
+    "displayName": "Mobile2",
     "category": "A",
     "description": "Develops expertise in native mobile platform engineering, such as iOS or Android",
     "milestones": [{
@@ -1194,13 +1273,14 @@ export const categoryColorScale = d3.scaleOrdinal()
 
 export const titles = [
   {label: 'Engineer I', minPoints: 0, maxPoints: 16},
-  {label: 'Engineer II', minPoints: 17, maxPoints: 35},
-  {label: 'Senior Engineer', minPoints: 36, maxPoints: 57},
-  {label: 'Group Lead', minPoints: 36, maxPoints: 57},
-  {label: 'Staff Engineer', minPoints: 58, maxPoints: 89},
-  {label: 'Senior Group Lead', minPoints: 58, maxPoints: 89},
-  {label: 'Principal Engineer', minPoints: 90},
-  {label: 'Director of Engineering', minPoints: 90}
+  {label: 'Engineer II', minPoints: 17, maxPoints: 36},
+  {label: 'Engineer III', minPoints: 37, maxPoints: 59},
+  {label: 'Senior Engineer', minPoints: 60, maxPoints: 85},
+  {label: 'Engineering Guardian I', minPoints: 60, maxPoints: 85},
+  {label: 'Staff Engineer', minPoints: 86, maxPoints: 122},
+  {label: 'Engineering Guardian II', minPoints: 86, maxPoints: 122},
+  {label: 'Principal Engineer', minPoints: 123},
+  {label: 'Engineering Manager', minPoints: 123},
 ]
 
 export const eligibleTitles = (milestoneMap: MilestoneMap): string[] => {

@@ -1,5 +1,6 @@
-## ⚠️ Heads up: Medium isn’t using this tool anymore, but you’re welcome to!
-[Read more about our current thinking around engineer growth](https://medium.engineering/engineering-growth-at-medium-4935b3234d25).
+# Fork
+
+This is a fork of Medium's engineering growth tool adapted for [Automata](https://automata.tech).
 
 # Snowflake
 

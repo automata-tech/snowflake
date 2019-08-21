@@ -46,54 +46,30 @@ const coerceMilestone = (value: number): Milestone => {
 }
 
 const emptyState = (): SnowflakeAppState => {
+  const milestoneByTrack = {};
+  trackIds.forEach((trackId, i) => {
+    milestoneByTrack[trackId] = 0;
+  });
+
   return {
     name: '',
     title: '',
-    milestoneByTrack: {
-      'MOBILE': 0,
-      'WEB_CLIENT': 0,
-      'FOUNDATIONS': 0,
-      'SERVERS': 0,
-      'PROJECT_MANAGEMENT': 0,
-      'COMMUNICATION': 0,
-      'CRAFT': 0,
-      'INITIATIVE': 0,
-      'CAREER_DEVELOPMENT': 0,
-      'ORG_DESIGN': 0,
-      'WELLBEING': 0,
-      'ACCOMPLISHMENT': 0,
-      'MENTORSHIP': 0,
-      'EVANGELISM': 0,
-      'RECRUITING': 0,
-      'COMMUNITY': 0
-    },
-    focusedTrackId: 'MOBILE'
+    milestoneByTrack,
+    focusedTrackId: trackIds[0],
   }
 }
 
 const defaultState = (): SnowflakeAppState => {
+  const milestoneByTrack = {};
+  trackIds.forEach((trackId, i) => {
+    milestoneByTrack[trackId] = Math.round(Math.random() * 6);
+  });
+
   return {
-    name: 'Cersei Lannister',
+    name: 'Méville Pickleberry',
     title: 'Staff Engineer',
-    milestoneByTrack: {
-      'MOBILE': 1,
-      'WEB_CLIENT': 2,
-      'FOUNDATIONS': 3,
-      'SERVERS': 2,
-      'PROJECT_MANAGEMENT': 4,
-      'COMMUNICATION': 1,
-      'CRAFT': 1,
-      'INITIATIVE': 4,
-      'CAREER_DEVELOPMENT': 3,
-      'ORG_DESIGN': 2,
-      'WELLBEING': 0,
-      'ACCOMPLISHMENT': 4,
-      'MENTORSHIP': 2,
-      'EVANGELISM': 2,
-      'RECRUITING': 3,
-      'COMMUNITY': 0
-    },
-    focusedTrackId: 'MOBILE'
+    milestoneByTrack,
+    focusedTrackId: trackIds[0],
   }
 }
 
@@ -156,7 +132,7 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
           }
         `}</style>
         <div style={{margin: '19px auto 0', width: 142}}>
-          <a href="https://medium.com/" target="_blank">
+          <a href="https://automata.tech/" target="_blank">
             <Wordmark />
           </a>
         </div>
@@ -201,10 +177,10 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
         <div style={{display: 'flex', paddingBottom: '20px'}}>
           <div style={{flex: 1}}>
             Made with ❤️ by <a href="https://medium.engineering" target="_blank">Medium Eng</a>.
+            Adapted with 🤔 by <a href="https://automata.tech" target="_blank">Automata</a>.
             Learn about the <a href="https://medium.com/s/engineering-growth-framework" target="_blank">this version of our growth framework</a>
             {' '}and <a href="https://medium.engineering/engineering-growth-at-medium-4935b3234d25" target="_blank">what we do currently</a>.
-            Get the <a href="https://github.com/Medium/snowflake" target="_blank">source code</a>.
-            Read the <a href="https://medium.com/p/85e078bc15b7" target="_blank">terms of service</a>.
+            Get the <a href="https://github.com/automata-tech/snowflake" target="_blank">source code</a>.
           </div>
         </div>
       </main>

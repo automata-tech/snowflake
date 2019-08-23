@@ -1,37 +1,26 @@
 # Fork [![Build Status](https://travis-ci.org/automata-tech/snowflake.svg?branch=master)](https://travis-ci.org/automata-tech/snowflake)
 
 This is a fork of Medium's engineering growth tool adapted for [Automata](https://automata.tech).
+The tool is hosted [publicly](https://automata-tech.github.io/snowflake/).
 
-# Snowflake
+# Medium's Snowflake
 
 Snowflake is Medium's tool for planning and supporting our engineers' career development. You can read more
 about how we use this tool in our [growth framework documentation](https://medium.com/s/engineering-growth-framework).
-Our growth tool is hosted [publicly](https://snowflake.medium.com).
-
-![The Lannisters send their regards](https://i.imgur.com/e9DYLBr.png)
-
-## Contributions
-
-You are free to use, change and build on this work to make it useful for your organisation. We will happily consider
-unencumbered code contributions to improve functionality, but as this is the actual tool we use within Medium, acceptance is likely to be intentional, and deliberate. Meaning, slow. As such, you may prefer to fork the codebase for your own needs. We will not accept any contributions that modify the text of the application (but, thank you in advance for pointing out any typos).
 
 ## Installation
 
-Get yarn if you don’t have it already:
-
-`npm install -g yarn`
-
 Install dependencies:
 
-`yarn`
+`npm install`
 
 ### Running the dev server
 
-`yarn dev`
+`npm run dev`
 
 ### Building
 
-`yarn export`
+`npm run export`
 
 This will put a static version of the site in `out/`. (note that it will assume that the website will be served under the `/snowflake/` path, see `next.config.js` for more information)
 

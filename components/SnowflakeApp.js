@@ -27,8 +27,9 @@ const hashToState = (hash: String): ?SnowflakeAppState => {
   trackIds.forEach((trackId, i) => {
     result.milestoneByTrack[trackId] = coerceMilestone(Number(hashValues[i]))
   })
-  if (hashValues[16]) result.name = decodeURI(hashValues[16])
-  if (hashValues[17]) result.title = decodeURI(hashValues[17])
+  const len = trackIds.length;
+  if (hashValues[len+0]) result.name = decodeURI(hashValues[len+0])
+  if (hashValues[len+1]) result.title = decodeURI(hashValues[len+1])
   return result
 }
 
@@ -62,11 +63,11 @@ const emptyState = (): SnowflakeAppState => {
 const defaultState = (): SnowflakeAppState => {
   const milestoneByTrack = {};
   trackIds.forEach((trackId, i) => {
-    milestoneByTrack[trackId] = Math.round(Math.random() * 6);
+    milestoneByTrack[trackId] = Math.round(Math.random() * 5);
   });
 
   return {
-    name: 'Méville Pickleberry',
+    name: 'Miéville Pickleberry',
     title: 'Staff Engineer',
     milestoneByTrack,
     focusedTrackId: trackIds[0],

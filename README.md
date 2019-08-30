@@ -1,4 +1,4 @@
-# Fork
+# Fork [![Build Status](https://travis-ci.org/automata-tech/snowflake.svg?branch=master)](https://travis-ci.org/automata-tech/snowflake)
 
 This is a fork of Medium's engineering growth tool adapted for [Automata](https://automata.tech).
 
@@ -33,7 +33,7 @@ Install dependencies:
 
 `yarn export`
 
-This will put a static version of the site in `out/`.
+This will put a static version of the site in `out/`. (note that it will assume that the website will be served under the `/snowflake/` path, see `next.config.js` for more information)
 
 ## Future work
 

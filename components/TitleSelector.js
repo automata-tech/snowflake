@@ -1,33 +1,74 @@
 // @flow
 
 import React from 'react'
-import { eligibleTitles } from '../constants'
+import { eligibleTitles, roleTracks } from '../constants'
 import type { MilestoneMap } from '../constants'
 
 type Props = {
   milestoneByTrack: MilestoneMap,
-  currentTitle: String,
-  setTitleFn: (string) => void
+  currentRoleTrack: String,
+  setRoleTrackFn: (string) => void
 }
 
 class TitleSelector extends React.Component {
   render() {
     const titles = eligibleTitles(this.props.milestoneByTrack)
-    return <select value={this.props.currentTitle} onChange={e => this.props.setTitleFn(e.target.value)}>
+    const multiple = !(typeof titles === 'string' || titles instanceof String);
+    return <div className="title-selector">
       <style jsx>{`
-        select {
-          font-size: 20px;
-          line-height: 20px;
+        .title-selector {
+          display: flex;
+          flex-wrap: wrap;
+          border-spacing: 3px;
           margin-bottom: 20px;
-          min-width: 300px;
+          margin-left: -3px;
+        }
+        .title-item {
+          margin: 3px;
+        }
+        .title-label {
+          font-size: 12px;
+          text-align: center;
+          font-weight: normal;
+          height: 20px;
+        }
+        .title-value {
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          background: #eee;
+          font-weight: bold;
+          font-size: 24px;
+          border-radius: 2px;
+          cursor: pointer;
+          padding: 0px 7px;
+        }
+        .title-active {
+          background: #bbb;
         }
       `}</style>
-      {titles.map(title => (
-        <option key={title}>
-          {title}
-        </option>
+      {!multiple && (
+        <div className="title-item">
+          <div className="title-label">
+            Common
+          </div>
+          <div className="title-value title-active">
+            {titles}
+          </div>
+        </div>
+      )}
+      {multiple && roleTracks.map(roleTrack => (
+        <div key={roleTrack} className="title-item">
+          <div className="title-label">
+            {roleTrack}
+          </div>
+          <div className={`title-value ${roleTrack === this.props.currentRoleTrack ? 'title-active' : ''}`}
+            onClick={e => this.props.setRoleTrackFn(roleTrack)}>
+            {titles[roleTrack]}
+          </div>
+        </div>
       ))}
-    </select>
+    </div>
   }
 }
 

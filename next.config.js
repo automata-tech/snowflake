@@ -1,5 +1,7 @@
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
-  assetPrefix: '/snowflake/',
+  assetPrefix: isProd ? '/snowflake/' : '/',
   exportPathMap: function() {
     return {
       '/': { page: '/' }

@@ -6,7 +6,7 @@ import KeyboardListener from '../components/KeyboardListener'
 import Track from '../components/Track'
 import Wordmark from '../components/Wordmark'
 import LevelThermometer from '../components/LevelThermometer'
-import { eligibleTitles, trackIds, milestones, milestoneToPoints } from '../constants'
+import { eligibleTitles, trackIds, milestones, milestoneToPoints, roleTracks } from '../constants'
 import PointSummaries from '../components/PointSummaries'
 import type { Milestone, MilestoneMap, TrackId } from '../constants'
 import React from 'react'
@@ -15,7 +15,7 @@ import TitleSelector from '../components/TitleSelector'
 type SnowflakeAppState = {
   milestoneByTrack: MilestoneMap,
   name: string,
-  title: string,
+  roleTrack: string,
   focusedTrackId: TrackId,
 }
 
@@ -29,7 +29,7 @@ const hashToState = (hash: String): ?SnowflakeAppState => {
   })
   const len = trackIds.length;
   if (hashValues[len+0]) result.name = decodeURI(hashValues[len+0])
-  if (hashValues[len+1]) result.title = decodeURI(hashValues[len+1])
+  if (hashValues[len+1]) result.roleTrack = decodeURI(hashValues[len+1])
   return result
 }
 
@@ -54,7 +54,7 @@ const emptyState = (): SnowflakeAppState => {
 
   return {
     name: '',
-    title: '',
+    roleTrack: '',
     milestoneByTrack,
     focusedTrackId: trackIds[0],
   }
@@ -63,12 +63,12 @@ const emptyState = (): SnowflakeAppState => {
 const defaultState = (): SnowflakeAppState => {
   const milestoneByTrack = {};
   trackIds.forEach((trackId, i) => {
-    milestoneByTrack[trackId] = Math.round(Math.random() * 5);
+    milestoneByTrack[trackId] = Math.round(Math.random() * 4);
   });
 
   return {
     name: 'Miéville Pickleberry',
-    title: 'Staff Engineer',
+    roleTrack: 'Individual Contributor',
     milestoneByTrack,
     focusedTrackId: trackIds[0],
   }
@@ -76,7 +76,7 @@ const defaultState = (): SnowflakeAppState => {
 
 const stateToHash = (state: SnowflakeAppState) => {
   if (!state || !state.milestoneByTrack) return null
-  const values = trackIds.map(trackId => state.milestoneByTrack[trackId]).concat(encodeURI(state.name), encodeURI(state.title))
+  const values = trackIds.map(trackId => state.milestoneByTrack[trackId]).concat(encodeURI(state.name), encodeURI(state.roleTrack))
   return values.join(',')
 }
 
@@ -149,8 +149,8 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
                   />
               <TitleSelector
                   milestoneByTrack={this.state.milestoneByTrack}
-                  currentTitle={this.state.title}
-                  setTitleFn={(title) => this.setTitle(title)} />
+                  currentRoleTrack={this.state.roleTrack}
+                  setRoleTrackFn={(roleTrack) => this.setRoleTrack(roleTrack)} />
             </form>
             <PointSummaries milestoneByTrack={this.state.milestoneByTrack} />
             <LevelThermometer milestoneByTrack={this.state.milestoneByTrack} />
@@ -192,10 +192,7 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
     const milestoneByTrack = this.state.milestoneByTrack
     milestoneByTrack[trackId] = milestone
 
-    const titles = eligibleTitles(milestoneByTrack)
-    const title = titles.indexOf(this.state.title) === -1 ? titles[0] : this.state.title
-
-    this.setState({ milestoneByTrack, focusedTrackId: trackId, title })
+    this.setState({ milestoneByTrack, focusedTrackId: trackId })
   }
 
   shiftFocusedTrack(delta: number) {
@@ -219,10 +216,10 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
     this.handleTrackMilestoneChange(this.state.focusedTrackId, milestone)
   }
 
-  setTitle(title: string) {
+  setRoleTrack(roleTrack: string) {
     let titles = eligibleTitles(this.state.milestoneByTrack)
-    title = titles.indexOf(title) == -1 ? titles[0] : title
-    this.setState({ title })
+    roleTrack = roleTracks.indexOf(roleTrack) == -1 ? roleTracks[0] : roleTrack
+    this.setState({ roleTrack })
   }
 }
 

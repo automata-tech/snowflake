@@ -1,35 +1,39 @@
 // @flow
 
 import React from 'react'
-import { trackIds, tracks, categoryColorScale } from '../constants'
+import { trackIds, tracks, categoryColorScale, isTechnicalTrack, isCoreTechTrack, softCategories, MilestoneCoreTechTracks } from '../constants'
 import type { MilestoneMap, TrackId } from '../constants'
 
 type Props = {
   milestoneByTrack: MilestoneMap,
   focusedTrackId: TrackId,
-  setFocusedTrackIdFn: (TrackId) => void
+  setFocusedTrackIdFn: (TrackId) => void,
+  othersExpanded: boolean,
+  onToggleOthersFn: () => void,
+  toggleCoreTechTrackFn: (TrackId) => void,
 }
 
 class TrackSelector extends React.Component<Props> {
-  render() {
+  renderTrack(trackId) {
+    const color = categoryColorScale(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]);
     return (
-      <div className="track-selector">
+      <div key={trackId} className="track-selector-item"
+        onClick={() => this.props.setFocusedTrackIdFn(trackId)} onContextMenu={(e) => {
+          e.preventDefault()
+          this.props.toggleCoreTechTrackFn(trackId)
+        }}>
         <style jsx>{`
-          .track-selector {
-            display: flex;
-            flex-wrap: wrap;
-            border-spacing: 3px;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            margin-left: -3px;
-          }
           .track-selector-item {
-            width: 50px;
+            width: 60px;
             margin: 3px;
           }
           .track-selector-label {
-            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column;
+
+            height: 30px;
             text-align: center;
             font-size: 9px;
           }
@@ -44,15 +48,65 @@ class TrackSelector extends React.Component<Props> {
             cursor: pointer;
           }
         `}</style>
-        {trackIds.map(trackId => (
-          <div key={trackId} className="track-selector-item" onClick={() => this.props.setFocusedTrackIdFn(trackId)}>
-            <div className="track-selector-label">
-              {tracks[trackId].displayName}
-            </div>
-            <div className="track-selector-value" style={{border: '4px solid ' + (trackId == this.props.focusedTrackId ? '#000': categoryColorScale(tracks[trackId].category)), background: categoryColorScale(tracks[trackId].category)}}>
-              {this.props.milestoneByTrack[trackId]}
-            </div>
-          </div>
+        <div className="track-selector-label">
+          {tracks[trackId].displayName}
+        </div>
+        <div className="track-selector-value" style={{border: '4px solid ' + (trackId == this.props.focusedTrackId ? '#000': color), background: color}}>
+          {this.props.milestoneByTrack[trackId]}
+        </div>
+      </div>
+    )
+  }
+
+  render() {
+    const coreTechTrackIds = trackIds.filter(trackId => isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]))
+    const otherTechTrackIds = trackIds.filter(trackId => isTechnicalTrack(trackId) && !isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]))
+    const softTrackIds = trackIds.filter(trackId => softCategories.has(tracks[trackId].category))
+
+    return (
+      <div className="track-selector">
+        <style jsx>{`
+          .track-selector {
+            display: flex;
+            flex-wrap: wrap;
+            border-spacing: 3px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            margin-left: -3px;
+          }
+          .track-selector-break {
+            flex-basis: 100%;
+          }
+          .track-selector-expand {
+            font-size: 10px;
+            font-weight: none;
+            display: inline-block;
+            margin-left: 10px;
+          }
+          h3 {
+            margin-bottom: 5px;
+          }
+        `}</style>
+        <h3>Core technical skills</h3>
+        <div className="track-selector-break" />
+        {coreTechTrackIds.map(trackId => (
+          this.renderTrack(trackId)
+        ))}
+        <div className="track-selector-break" />
+        <h3>
+          Other technical skills
+          <span className="track-selector-expand" onClick={this.props.onToggleOthersFn}>{this.props.othersExpanded ? '▲' : '▼'}</span>
+        </h3>
+        <div className="track-selector-break" />
+        {this.props.othersExpanded && otherTechTrackIds.map(trackId => (
+          this.renderTrack(trackId)
+        ))}
+        <div className="track-selector-break" />
+        <h3>Automata skills</h3>
+        <div className="track-selector-break" />
+        {softTrackIds.map(trackId => (
+          this.renderTrack(trackId)
         ))}
       </div>
     )

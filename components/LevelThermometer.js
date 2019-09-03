@@ -1,7 +1,7 @@
 // @flow
 
 import * as d3 from 'd3'
-import { pointsToLevels, categoryPointsFromMilestoneMap, categoryColorScale, categoryIds, maxLevel } from '../constants'
+import { pointsToLevels, categoryPointsFromMilestoneMap, categoryColorScaleReal, categoryColorScaleDisabled, categoryIds, maxLevel } from '../constants'
 import React from 'react'
 import type { MilestoneMap } from '../constants'
 
@@ -16,6 +16,7 @@ const width = 550
 
 type Props = {
   milestoneByTrack: MilestoneMap,
+  detailed: boolean,
 }
 
 class LevelThermometer extends React.Component<Props> {
@@ -72,6 +73,7 @@ class LevelThermometer extends React.Component<Props> {
   }
   render() {
     let categoryPoints = categoryPointsFromMilestoneMap(this.props.milestoneByTrack)
+    let allCategoryPoints = categoryPointsFromMilestoneMap(this.props.milestoneByTrack, true)
     let lastCategoryIndex = 0
     categoryPoints.forEach((categoryPoint, i) => {
       if (categoryPoint.points) lastCategoryIndex = i
@@ -93,6 +95,7 @@ class LevelThermometer extends React.Component<Props> {
             {categoryPoints.map((categoryPoint, i) => {
               const x = this.pointScale(cumulativePoints)
               const width = this.pointScale(cumulativePoints + categoryPoint.points) - x
+              const color = categoryColorScaleReal(categoryPoint.categoryId)
               cumulativePoints += categoryPoint.points
               return (i != lastCategoryIndex ?
                 <rect
@@ -101,12 +104,34 @@ class LevelThermometer extends React.Component<Props> {
                     y={0}
                     width={width}
                     height={height - margins.top - margins.bottom}
-                    style={{fill: categoryColorScale(categoryPoint.categoryId), borderRight: "1px solid #000"}}
+                    style={{fill: color, borderRight: "1px solid #000"}}
                     /> :
                 <path
                     key={categoryPoint.categoryId}
                     d={this.rightRoundedRect(x, 0, width, height - margins.top - margins.bottom, 3)}
-                    style={{fill: categoryColorScale(categoryPoint.categoryId)}}
+                    style={{fill: color}}
+                    />
+              )
+            })}
+            {this.props.detailed && allCategoryPoints.map((categoryPoint, i) => {
+              const points = categoryPoint.points - categoryPoints[i].points
+              const x = this.pointScale(cumulativePoints)
+              const width = this.pointScale(cumulativePoints + points) - x
+              const color = categoryColorScaleDisabled(categoryPoint.categoryId)
+              cumulativePoints += points
+              return (i != lastCategoryIndex ?
+                <rect
+                    key={categoryPoint.categoryId}
+                    x={x}
+                    y={0}
+                    width={width}
+                    height={height - margins.top - margins.bottom}
+                    style={{fill: color, borderRight: "1px solid #000"}}
+                    /> :
+                <path
+                    key={categoryPoint.categoryId}
+                    d={this.rightRoundedRect(x, 0, width, height - margins.top - margins.bottom, 3)}
+                    style={{fill: color}}
                     />
               )
             })}

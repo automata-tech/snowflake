@@ -1,6 +1,6 @@
 // @flow
 
-import { tracks, milestones, categoryColorScale } from '../constants'
+import { tracks, milestones, categoryColorScale, MilestoneCoreTechTracks } from '../constants'
 import React from 'react'
 import type { MilestoneMap, TrackId, Milestone } from '../constants'
 
@@ -48,17 +48,18 @@ class Track extends React.Component<Props> {
             line-height: 1.5em;
           }
         `}</style>
-        <h2>{track.displayName}</h2>
+        <h2>{track.category}: {track.displayName}</h2>
         <p className="track-description">{track.description}</p>
         <div style={{display: 'flex'}}>
           <table style={{flex: 0, marginRight: 50}}>
             <tbody>
               {milestones.slice().reverse().map((milestone) => {
                 const isMet = milestone <= currentMilestoneId
+                const color = categoryColorScale(this.props.trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks])
                 return (
                   <tr key={milestone}>
                     <td onClick={() => this.props.handleTrackMilestoneChangeFn(this.props.trackId, milestone)}
-                        style={{border: `4px solid ${milestone === currentMilestoneId ? '#000' : isMet ? categoryColorScale(track.category) : '#eee'}`, background: isMet ? categoryColorScale(track.category) : undefined}}>
+                        style={{border: `4px solid ${milestone === currentMilestoneId ? '#000' : isMet ? color : '#eee'}`, background: isMet ? color : undefined}}>
                       {milestone}
                     </td>
                   </tr>

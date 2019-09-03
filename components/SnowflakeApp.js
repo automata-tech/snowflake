@@ -6,7 +6,7 @@ import KeyboardListener from '../components/KeyboardListener'
 import Track from '../components/Track'
 import Wordmark from '../components/Wordmark'
 import LevelThermometer from '../components/LevelThermometer'
-import { eligibleTitles, trackIds, milestones, milestoneToPoints, roleTracks } from '../constants'
+import { eligibleTitles, trackIds, milestones, milestoneToPoints, roleTracks, isTechnicalTrack, MilestoneCoreTechTracks, maxCoreTechTracks } from '../constants'
 import PointSummaries from '../components/PointSummaries'
 import type { Milestone, MilestoneMap, TrackId } from '../constants'
 import React from 'react'
@@ -14,23 +14,21 @@ import TitleSelector from '../components/TitleSelector'
 
 type SnowflakeAppState = {
   milestoneByTrack: MilestoneMap,
+  coreTechTracks: TrackId[],
   name: string,
   roleTrack: string,
   focusedTrackId: TrackId,
+  otherTechTracksExanded: boolean,
+  detailedView: boolean,
 }
 
 const hashToState = (hash: String): ?SnowflakeAppState => {
   if (!hash) return null
-  const result = defaultState()
-  const hashValues = hash.split('#')[1].split(',')
-  if (!hashValues) return null
-  trackIds.forEach((trackId, i) => {
-    result.milestoneByTrack[trackId] = coerceMilestone(Number(hashValues[i]))
-  })
-  const len = trackIds.length;
-  if (hashValues[len+0]) result.name = decodeURI(hashValues[len+0])
-  if (hashValues[len+1]) result.roleTrack = decodeURI(hashValues[len+1])
-  return result
+  try {
+    return JSON.parse(window.atob(hash.split('#')[1]))
+  } catch (SyntaxError) {
+    return null;
+  }
 }
 
 const coerceMilestone = (value: number): Milestone => {
@@ -51,12 +49,15 @@ const emptyState = (): SnowflakeAppState => {
   trackIds.forEach((trackId, i) => {
     milestoneByTrack[trackId] = 0;
   });
+  milestoneByTrack[MilestoneCoreTechTracks] = [];
 
   return {
     name: '',
     roleTrack: '',
     milestoneByTrack,
     focusedTrackId: trackIds[0],
+    otherTechTracksExanded: true,
+    detailedView: false,
   }
 }
 
@@ -65,19 +66,21 @@ const defaultState = (): SnowflakeAppState => {
   trackIds.forEach((trackId, i) => {
     milestoneByTrack[trackId] = Math.round(Math.random() * 4);
   });
+  milestoneByTrack[MilestoneCoreTechTracks] = trackIds.filter(isTechnicalTrack).sort(() => 0.5 - Math.random()).slice(0, maxCoreTechTracks);
 
   return {
     name: 'Miéville Pickleberry',
     roleTrack: 'Individual Contributor',
     milestoneByTrack,
     focusedTrackId: trackIds[0],
+    otherTechTracksExanded: true,
+    detailedView: false,
   }
 }
 
 const stateToHash = (state: SnowflakeAppState) => {
   if (!state || !state.milestoneByTrack) return null
-  const values = trackIds.map(trackId => state.milestoneByTrack[trackId]).concat(encodeURI(state.name), encodeURI(state.roleTrack))
-  return values.join(',')
+  return window.btoa(JSON.stringify(state))
 }
 
 type Props = {}
@@ -127,6 +130,12 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
             border-bottom: 2px solid #ccc;
             outline: 0;
           }
+          .detailed-input {
+            font-size: 10px;
+          }
+          .detailed-input label {
+            padding-left: 5px;
+          }
           a {
             color: #888;
             text-decoration: none;
@@ -147,13 +156,22 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
                   onChange={e => this.setState({name: e.target.value})}
                   placeholder="Name"
                   />
+              <div className="detailed-input">
+                <input
+                    id="detailed-input"
+                    type="checkbox"
+                    value={this.state.detailedView}
+                    onChange={e => this.setState({detailedView: e.target.checked})}
+                    />
+                <label for="detailed-input">Detailed view</label>
+              </div>
               <TitleSelector
                   milestoneByTrack={this.state.milestoneByTrack}
                   currentRoleTrack={this.state.roleTrack}
                   setRoleTrackFn={(roleTrack) => this.setRoleTrack(roleTrack)} />
             </form>
-            <PointSummaries milestoneByTrack={this.state.milestoneByTrack} />
-            <LevelThermometer milestoneByTrack={this.state.milestoneByTrack} />
+            <PointSummaries milestoneByTrack={this.state.milestoneByTrack} detailed={this.state.detailedView} />
+            <LevelThermometer milestoneByTrack={this.state.milestoneByTrack} detailed={this.state.detailedView} />
           </div>
           <div style={{flex: 0}}>
             <NightingaleChart
@@ -165,7 +183,10 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
         <TrackSelector
             milestoneByTrack={this.state.milestoneByTrack}
             focusedTrackId={this.state.focusedTrackId}
-            setFocusedTrackIdFn={this.setFocusedTrackId.bind(this)} />
+            setFocusedTrackIdFn={this.setFocusedTrackId.bind(this)}
+            othersExpanded={this.state.otherTechTracksExanded}
+            onToggleOthersFn={this.onToggleOtherTechTracks.bind(this)}
+            toggleCoreTechTrackFn={this.toggleCoreTechTrack.bind(this)} />
         <KeyboardListener
             selectNextTrackFn={this.shiftFocusedTrack.bind(this, 1)}
             selectPrevTrackFn={this.shiftFocusedTrack.bind(this, -1)}
@@ -206,6 +227,29 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
     let index = trackIds.indexOf(trackId)
     const focusedTrackId = trackIds[index]
     this.setState({ focusedTrackId })
+  }
+
+  onToggleOtherTechTracks() {
+    this.setState({ otherTechTracksExanded: !this.state.otherTechTracksExanded })
+  }
+
+  toggleCoreTechTrack(trackId: TrackId) {
+    if (!isTechnicalTrack(trackId)) {
+      return;
+    }
+    const milestoneByTrack = this.state.milestoneByTrack
+    const coreTracks = milestoneByTrack[MilestoneCoreTechTracks]
+    const trackIndex = coreTracks.indexOf(trackId);
+    if (trackIndex === -1) {
+      if (coreTracks.length >= maxCoreTechTracks) {
+        return;
+      }
+      coreTracks.push(trackId);
+    } else {
+      coreTracks.splice(trackIndex, 1);
+    }
+    milestoneByTrack[MilestoneCoreTechTracks] = coreTracks
+    this.setState({ milestoneByTrack, focusedTrackId: trackId })
   }
 
   shiftFocusedTrackMilestoneByDelta(delta: number) {

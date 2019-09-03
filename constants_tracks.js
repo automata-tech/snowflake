@@ -846,18 +846,16 @@ export const tracks: Tracks = {
     }],
   },
 
-  // TODO: replace every milestone summary and signals with the new ones from the document
-
   "COMMUNICATION": {
     "displayName": "Communication",
     "category": "Execution",
     "description": "Shares relevant information with the right people, at the right time, and listens actively",
     "milestones": [{
-      "summary": "Communicates effectively to close stakeholders when called upon, and incorporates constructive feedback",
+      "summary": "Communicates effectively to peers and stakeholders, asks for help and acts upon feedback",
       "signals": [
-        "Communicates project status clearly and effectively",
-        "Collaborates with others with empathy",
-        "Asks for help at the appropriate juncture",
+        "Effectively communicates status of projects",
+        "Happy to collaborate with others",
+        "Confident asking for help when appropriate",
       ],
       "examples": [
         "TODO: Updated The Watch before running a backfill",
@@ -865,11 +863,11 @@ export const tracks: Tracks = {
         "TODO: Gave thoughtful check-in and check-out comments",
       ],
     }, {
-      "summary": "Communicates with the wider team appropriately, focusing on timeliness and good quality conversations",
+      "summary": "Communicates with the wider team appropriately, keeps timelines clear",
       "signals": [
-        "Practises active listening and suspension of attention",
-        "Ensures stakeholders are aware of current blockers",
-        "Chooses the appropriate tools for accurate and timely communication",
+        "Improves active listening skills",
+        "Escalates issues and risks to stakeholders",
+        "Knows which tools are appropriate for different types of communication",
       ],
       "examples": [
         "TODO: Received and integrated critical feedback positively",
@@ -877,11 +875,11 @@ export const tracks: Tracks = {
         "TODO: Spoke to domain experts before writing spec",
       ],
     }, {
-      "summary": "Proactively shares information, actively solicits feedback, and facilitates communication for multiple stakeholders",
+      "summary": "Proactively shares information, actively solicits feedback, and gets buy-in for projects",
       "signals": [
-        "Resolves communication difficulties between others",
-        "Anticipates and shares schedule deviations in plenty of time",
-        "Manages project stakeholder expectations effectively",
+        "Notices and resolves communication blocks in the team",
+        "Anticipates and flags up risks to the schedule in plenty of time",
+        "Manages stakeholder expectations with empathy",
       ],
       "examples": [
         "TODO: Directed team response effectively during outages",
@@ -889,27 +887,27 @@ export const tracks: Tracks = {
         "TODO: Gave notice of upcoming related work in Eng Briefing",
       ],
     }, {
-      "summary": "Communicates complex ideas skillfully and with nuance, and establishes alignment within the wider organization",
+      "summary": "Communicates complex ideas skilfully and with nuance, establishes alignment within the wider org",
       "signals": [
-        "Communicates project risk and tradeoffs skillfully and with nuance",
-        "Contextualizes and clarifies ambiguous direction and strategy for others",
+        "Communicates project risk and tradeoffs skilfully and with nuance",
+        "Contextualises and clarifies ambiguous direction and strategy for others",
         "Negotiates resourcing compromises with other teams",
       ],
       "examples": [
         "TODO: Lead off-site workshop on interviewing",
         "TODO: Wrote Medium's growth framework and rationale",
-        "TODO: Aligned the entire organization around claps",
+        "TODO: Aligned the entire organisation around claps",
       ],
     }, {
-      "summary": "Influences outcomes at the highest level, moves beyond mere broadcasting, and sets best practices for others",
+      "summary": "Influences outcomes at the highest level, communicates long term vision and mission for the org, moves beyond broadcasting, sets best practices for others",
       "signals": [
         "Defines processes for clear communication for the entire team",
         "Shares the right amount of information with the right people, at the right time",
         "Develops and delivers plans to execs, the board, and outside investors",
       ],
       "examples": [
-        "TODO: Organized half year check-in company offsite",
-        "TODO: Created the communication plan for a large organizational change",
+        "TODO: Organised half year check-in company offsite",
+        "TODO: Created the communication plan for a large organisational change",
         "TODO: Presented to the board about key company metrics and projects",
       ],
     }],
@@ -922,9 +920,9 @@ export const tracks: Tracks = {
     "milestones": [{
       "summary": "Delivers consistently good quality work",
       "signals": [
-        "Tests new code thoroughly, both locally, and in production once shipped",
-        "Writes tests for every new feature and bug fix",
-        "Writes clear comments and documentation",
+        "Spends time planning before beginning to execute ",
+        "Receives regular reviews on their work throughout projects",
+        "Independently creates supporting documentation for their work ",
       ],
       "examples": [
         "TODO: Caught a bug on Hatch before it went live",
@@ -932,11 +930,11 @@ export const tracks: Tracks = {
         "TODO: Wrote hermetic tests for the happy and sad cases",
       ],
     }, {
-      "summary": "Increases the robustness and reliability of codebases, and devotes time to polishing products and systems",
+      "summary": "Increases the robustness and reliability of products - improves the current process and systems",
       "signals": [
-        "Refactors existing code to make it more testable",
-        "Adds tests for uncovered areas",
-        "Deletes unnecessary code and deprecates proactively when safe to do so",
+        "Works with the customer perspective in mind ",
+        "Gathers and integrates feedback with little prompting ",
+        "Let's work 'die' when it's right to do so",
       ],
       "examples": [
         "TODO: Requested tests for a PR when acting as reviewer",
@@ -946,9 +944,9 @@ export const tracks: Tracks = {
     }, {
       "summary": "Improves others' ability to deliver great quality work",
       "signals": [
-        "Implements systems that enable better testing",
-        "Gives thoughtful code reviews as a domain expert",
-        "Adds tooling to improve code quality",
+        "Implements systems that enable better delivery of work",
+        "Delivers meaningful feedback to others on their work in the project",
+        "Chooses tools to improve ongoing quality of work ",
       ],
       "examples": [
         "TODO: Improved PRB to run the same volume of tests faster",
@@ -956,11 +954,11 @@ export const tracks: Tracks = {
         "TODO: Created fixture system for visual quality",
       ],
     }, {
-      "summary": "Advocates for and models great quality with proactive actions, and tackles difficult and subtle system issues",
+      "summary": "Advocates for and models great quality with proactive actions, and tackles difficult and subtle issues",
       "signals": [
-        "Builds systems so as to eliminate entire classes of programmer error",
-        "Focuses the team on quality with regular reminders",
-        "Coordinates Watch priorities and projects",
+        "Builds upon structures and systems to eliminate recurring errors within team",
+        "Is the voice of quality in the team, keeping the focus for other members",
+        "Coordinates priorities across teams with input from POs",
       ],
       "examples": [
         "TODO: Added code coverage reporting to iOS CI pipeline",
@@ -968,11 +966,11 @@ export const tracks: Tracks = {
         "TODO: Defined and oversaw plan for closing Heartbleed vulnerability",
       ],
     }, {
-      "summary": "Enables and encourages the entire organization to make quality a central part of the development process",
+      "summary": "Enables and encourages entire org to make customer and quality a central part of their working process",
       "signals": [
-        "Defines policies for the engineering org that encourage quality work",
-        "Identifies and eliminates single points of failure throughout the organization",
-        "Secures time and resources from execs to support great quality",
+        "Defines policies for their department that foster quality work",
+        "Identifies and eliminates single points of failure throughout the org",
+        "Secures time and resources from the leadership team to support great quality ",
       ],
       "examples": [
         "TODO: Negotiated resources for Fix-It week with exec team",
@@ -987,11 +985,11 @@ export const tracks: Tracks = {
     "category": "Execution",
     "description": "Challenges the status quo and effects positive organisation change outside the mandated work",
     "milestones": [{
-      "summary": "Identifies opportunities for organizational change or product improvements",
+      "summary": "Identifies opportunities for change or improvement",
       "signals": [
-        "Writes Hatch posts about improvement opportunities",
-        "Raises meaningful tensions in tactical meetings",
-        "Asks leadership team probing questions at FAM",
+        "Consistently works to improve daily daily tasks, systems & collaborates with colleagues ",
+        "Raises meaningful conflict with colleagues to promote change",
+        "Asks leadership team probing questions",
       ],
       "examples": [
         "TODO: Wrote about problems with TTR on Hatch",
@@ -999,11 +997,11 @@ export const tracks: Tracks = {
         "TODO: Reported a site issue in Github",
       ],
     }, {
-      "summary": "Causes change to positively impact a few individuals or minor improvement to an existing product or service",
+      "summary": "Causes change which positively impacts a few individuals, or minor improvements to an existing product or system ",
       "signals": [
-        "Picks bugs off the backlog proactively when blocked elsewhere",
-        "Makes design quality improvements unprompted",
-        "Takes on trust and safety tasks proactively when blocked elsewhere",
+        "Proactively reviews and improves own workflow ",
+        "Suggests improvements to team process unprompted ",
+        "Creatively tries out new solutions, involving peers to bring about a new, innovative approach",
       ],
       "examples": [
         "TODO: Advocated on own behalf for a change in role",
@@ -1011,11 +1009,11 @@ export const tracks: Tracks = {
         "TODO: Audited web client performance in Chrome and proposed fixes",
       ],
     }, {
-      "summary": "Causes change to positively impact an entire team or instigates a minor feature or service",
+      "summary": "Causes change to positively impact an entire team",
       "signals": [
-        "Demonstrates concepts proactively with prototypes",
-        "Fixes complicated bugs outside of regular domain",
-        "Takes ownership of systems that nobody owns or wants",
+        "Demonstrates change opportunities with well defined examples",
+        "Searches for opportunities outside of their regular domain",
+        "Reviews, owns and possibly 'retires' systems that nobody wants or engages with",
       ],
       "examples": [
         "TODO: Defined style guide to resolve style arguments",
@@ -1023,11 +1021,11 @@ export const tracks: Tracks = {
         "TODO: Implemented video for Android independently, unprompted",
       ],
     }, {
-      "summary": "Effects change that has a substantial positive impact on the engineering organization or a major product impact",
+      "summary": "Effects change that has a substantial positive impact in their department",
       "signals": [
         "Champions and pioneers new technologies to solve new classes of problem",
         "Exemplifies grit and determination in the face of persistent obstacles",
-        "Instigates major new features, services, or architectures",
+        "Instigates major new features, services, or solutions within their area",
       ],
       "examples": [
         "TODO: Created the interviewing rubric and booklet",
@@ -1035,11 +1033,11 @@ export const tracks: Tracks = {
         "TODO: Migrated medium2 to mono repo and bazel",
       ],
     }, {
-      "summary": "Effects change that has a substantial positive impact on the whole company",
+      "summary": "Effects change that has a substantial positive impact on the entire org ",
       "signals": [
-        "Creates a new function to solve systemic issues",
-        "Galvanizes the entire company and garners buy in for a new strategy",
-        "Changes complex organizational processes",
+        "Exemplifies collaboration in all projects, creating a 'lead by example' culture of excellence",
+        "Galvanises the entire company and garners buy in for a new strategy",
+        "Changes complex organisational processes",
       ],
       "examples": [
         "TODO: Migrated the organization from Holacracy",
@@ -1054,11 +1052,11 @@ export const tracks: Tracks = {
     "category": "Contribution to the team",
     "description": "Provides strategic support to individuals, help build a pathway to the career they want",
     "milestones": [{
-      "summary": "Gives insight into opportunities and helps identify individuals' strengths and weaknesses",
+      "summary": "Helps to identify the individuals strengths & weaknesses, encourages them to explore opportunities",
       "signals": [
-        "Advocates on behalf and in defense of a group member",
+        "Advocates on behalf of team members",
         "Shares opportunities for improvements and recognises achievements",
-        "Explains appropriate available industry paths",
+        "Explains available industry paths",
       ],
       "examples": [
         "TODO: Collected and delivered feedback",
@@ -1066,10 +1064,10 @@ export const tracks: Tracks = {
         "TODO: Hosted a Floodgate Academy intern",
       ],
     }, {
-      "summary": "Formally supports and advocates for one person and provides tools to help them solve career problems",
+      "summary": "Formally supports and advocates for one or more individuals, provides effective tools to help them solves their career problems",
       "signals": [
-        "Ensure a group member has an appropriate role on their team",
-        "Offers effective career advice to group members, without being prescriptive",
+        "Notices if team members are not doing an appropriate role in their team",
+        "Offers effective career advice to team members, without being prescriptive",
         "Creates space for people to talk through challenges",
       ],
       "examples": [
@@ -1081,7 +1079,7 @@ export const tracks: Tracks = {
       "summary": "Inspires and retains a small group of people and actively pushes them to stretch themselves",
       "signals": [
         "Discusses paths, and creates plans for personal and professional growth",
-        "Advocates to align people with appropriate roles within organization",
+        "Advocates to align people with appropriate roles within organisation",
         "Works with team leads to elevate emerging leaders",
       ],
       "examples": [
@@ -1093,7 +1091,7 @@ export const tracks: Tracks = {
       "summary": "Manages interactions and processes between groups, promoting best practices and setting a positive example",
       "signals": [
         "Manages team transitions smoothly, respecting team and individual needs",
-        "Develops best practices for conflict resolution",
+        "Uses best practices for conflict resolution",
         "Ensures all group members' roles are meeting their career needs",
       ],
       "examples": [
@@ -1102,10 +1100,10 @@ export const tracks: Tracks = {
         "TODO: Prevented regretted attrition with intentional, targeted intervention",
       ],
     }, {
-      "summary": "Supports the development of a signficant part of the engineering org, and widely viewed as a trusted advisor",
+      "summary": "Supports the development of a significant part of the org, and widely viewed as a trusted advisor",
       "signals": [
         "Supports and develops senior leaders",
-        "Identified leadership training opportunities for senior leadership",
+        "Identifies leadership training opportunities for senior leadership",
         "Pushes everyone to be as good as they can be, with empathy",
       ],
       "examples": [
@@ -1121,11 +1119,11 @@ export const tracks: Tracks = {
     "category": "Contribution to the team",
     "description": "Defines processes and structures that enables the strong growth and execution of a diverse team",
     "milestones": [{
-      "summary": "Respects and participates in processes, giving meaningful feedback to help the organization improve",
+      "summary": "Respects and participates in processes, giving meaningful feedback to help the org improve",
       "signals": [
-        "Reflects on meetings that leave them inspired or frustrated",
+        "Reflects on situations that leave them inspired or frustrated",
         "Teaches others about existing processes",
-        "Actively participates and makes contributions within organizational processes",
+        "Actively participates and makes contributions within organisational processes",
       ],
       "examples": [
         "TODO: Facilitated effective tactical meeting with empathy",
@@ -1133,11 +1131,11 @@ export const tracks: Tracks = {
         "TODO: Provided feedback on sprint planning meeting",
       ],
     }, {
-      "summary": "Identifies opportunities to improve existing processes and makes changes that positively affect the local team",
+      "summary": "Identifies opportunities to improve existing processes and passes this data across to HR to positively affect the local team",
       "signals": [
         "Defines meeting structure and cadence that meets team needs",
-        "Engages in organizational systems thinking",
-        "Advocates for improved diversity and inclusion, and proposes ideas to help",
+        "Engages in organisational systems thinking",
+        "Advocates for improved diversity and inclusion, and proposes ideas to HR to help",
       ],
       "examples": [
         "TODO: Defined Frankenmeeting structure for small team",
@@ -1145,11 +1143,11 @@ export const tracks: Tracks = {
         "TODO: Defined standard channels for inter-team communication",
       ],
     }, {
-      "summary": "Develops processes to solve ongoing organizational problems",
+      "summary": "Develops process and programs to solve ongoing organisational problems within small groups of people",
       "signals": [
-        "Creates programs that meaningfully improve organizational diversity",
-        "Solves long-standing organizational problems",
-        "Reallocates resources to meet organizational needs",
+        "Creates programs that meaningfully improve organisational diversity",
+        "Solves long-standing organisational problems",
+        "Reallocates resources to meet the businesses needs",
       ],
       "examples": [
         "TODO: Developed baseline team templates for consistency",
@@ -1157,11 +1155,11 @@ export const tracks: Tracks = {
         "TODO: Defined Guilds manifesto and charter",
       ],
     }, {
-      "summary": "Thinks deeply about organizational issues and identifies hidden dynamics that contribute to them",
+      "summary": "Thinks deeply about organisational issues and identifies hidden dynamics that contribute to them",
       "signals": [
         "Evaluates incentive structures and their effect on execution",
-        "Analyzes existing processes for bias and shortfall",
-        "Ties abstract concerns to concrete organizational actions or norms",
+        "Analyses existing processes for bias and shortfall",
+        "Ties abstract concerns to concrete organisational actions or norms",
       ],
       "examples": [
         "TODO: Connected mobile recruiting difficulties to focus on excellence",
@@ -1173,7 +1171,7 @@ export const tracks: Tracks = {
       "signals": [
         "Builds programs to train leadership in desired skills",
         "Creates new structures that provide unique growth opportunities",
-        "Leads planning and communication for reorgs",
+        "Leads planning and communication for re-orgs",
       ],
       "examples": [
         "TODO: Lead efforts to increase number of mobile engineers",
@@ -1191,7 +1189,7 @@ export const tracks: Tracks = {
       "summary": "Uses tools and processes to help ensure colleagues are healthy and happy",
       "signals": [
         "Keeps confidences unless legally or morally obliged to do otherwise",
-        "Applies the reasonable person principle to others",
+        "Applies the reasonable common sense to handling personal situations",
         "Avoids blame and focuses on positive change",
       ],
       "examples": [
@@ -1202,7 +1200,7 @@ export const tracks: Tracks = {
     }, {
       "summary": "Creates a positive, supportive, engaging team environment for group members",
       "signals": [
-        "Sheds light on other experiences to build empathy and compassion",
+        "Knows how to build empathy and compassion",
         "Validates ongoing work and sustains motivation",
         "Proposes solutions when teams get bogged down or lose momentum",
       ],
@@ -1212,9 +1210,9 @@ export const tracks: Tracks = {
         "TODO: Noted a team without a recent win and suggested some easy quick wins",
       ],
     }, {
-      "summary": "Manages expectations across peers, leads in the org, promotes calm, and prevents consensus building",
+      "summary": "Manages expectations across peers, leads in the org, empowers individuals to have ownership of their work",
       "signals": [
-        "Trains group members to separate stimulus from response",
+        "Focuses on fostering a proactive mindset within their team, minimises reactive, emotional responses to change",
         "Maintains a pulse on individual and team morale",
         "Helps group members approach problems with curiosity",
       ],
@@ -1224,10 +1222,10 @@ export const tracks: Tracks = {
         "TODO: Reframed a problem as a challenge, instead of a barrier, when appropriate",
       ],
     }, {
-      "summary": "Advocates for the needs of teams and group members, and proactively works to calm the organization",
+      "summary": "Advocates for the needs of individuals and teams, including L&D, proactively searches for upskilling opportunities and focuses on retention of high performing employees",
       "signals": [
         "Ensures team environments are safe and inclusive, proactively",
-        "Grounds group member anxieties in reality",
+        "Identifies ares for L&D, encourages focus and advocates for time spent in these areas",
         "Tracks team retention actively and proposes solutions to strengthen it",
       ],
       "examples": [
@@ -1238,8 +1236,8 @@ export const tracks: Tracks = {
     }, {
       "summary": "Manages narratives, channels negativity into inspiration and motivation, and protects the entire team",
       "signals": [
-        "Recognizes and points out narratives when appropriate",
-        "Works to reshape narratives from victimization to ownership",
+        "Recognises and points out narratives when appropriate",
+        "Works to reshape narratives from victimisation to ownership",
         "Increases the psychological safety of the entire team",
       ],
       "examples": [
@@ -1257,7 +1255,7 @@ export const tracks: Tracks = {
     "milestones": [{
       "summary": "Helps individuals identify blockers and helps them identify next steps for resolution",
       "signals": [
-        "Notices when someone is stuck and reaches out",
+        "Offers help as soon as the notice someone is stuck",
         "Helps others break down problems into feasible, tangible next steps",
         "Talks through problems non-judgmentally",
       ],
@@ -1270,7 +1268,7 @@ export const tracks: Tracks = {
       "summary": "Helps individuals resolve difficult performance issues, with insight, compassion, and skill",
       "signals": [
         "Gathers context outside the immediate problem",
-        "Recognizes issues within local environment and suggests change",
+        "Recognises issues within local environment and suggests change",
         "Works to encourage ownership of actions and responsibilities",
       ],
       "examples": [
@@ -1279,9 +1277,9 @@ export const tracks: Tracks = {
         "TODO: Gave honest feedback about poor performance, with compassion",
       ],
     }, {
-      "summary": "Intervenes in long-standing performance issues with targeted behavior change or performance plans",
+      "summary": "Intervenes in long-standing performance issues with targeted behaviour change or performance plans",
       "signals": [
-        "Aggregates signals of poor performance and creates process for improvement",
+        "Notices and communicates proactively or poor performance and creates process for improvement",
         "Investigates motivation and externalities for consistent poor performance",
         "Puts together comprehensive, achievable performance plans",
       ],
@@ -1293,8 +1291,8 @@ export const tracks: Tracks = {
     }, {
       "summary": "Mediates escalated situations, empowers underperforming teams, and resolves conflict",
       "signals": [
-        "Recognizes heightened situations and toxic or aggressive interactions",
-        "Inserts themself into conflict where appropriate to calm and mediate",
+        "Recognises heightened situations and toxic or aggressive interactions",
+        "Inserts them-self into conflict where appropriate to calm and mediate",
         "Encourages open dialog and builds trust between parties in conflict",
       ],
       "examples": [
@@ -1303,7 +1301,7 @@ export const tracks: Tracks = {
         "TODO: Mediated sit-down between team members to address tension",
       ],
     }, {
-      "summary": "Resolves complex organizational dysfunction, or persistent conflict at senior levels",
+      "summary": "Resolves complex organisational dysfunction, or persistent conflict at senior levels",
       "signals": [
         "Takes control of dysfunctional teams to organise chaos",
         "Repairs broken team dynamics and builds harmony",
@@ -1322,9 +1320,9 @@ export const tracks: Tracks = {
     "category": "Demonstration of culture/values",
     "description": "Provides support to colleagues, spreads knowledge, develops the team outside of normal reporting structures",
     "milestones": [{
-      "summary": "Informally mentors individuals in an ad-hoc way, supports new hires, and conveys institutional knowledge",
+      "summary": "Informally mentors individuals in an ad-hoc way, develops relationship with new hires to provide onboarding support, conveys institutional knowledge",
       "signals": [
-        "Makes themself available for informal support and advice",
+        "Makes them-self available for informal support and advice",
         "Acts as sounding board for peers and more junior members",
         "Provides sound advice when asked",
       ],
@@ -1334,7 +1332,7 @@ export const tracks: Tracks = {
         "TODO: Helped a colleague understand their feelings",
       ],
     }, {
-      "summary": "Mentors people proactively, and guides people to realizations rather than providing the answer",
+      "summary": "Mentors people proactively, and guides people to realisations rather than providing the answer",
       "signals": [
         "Takes time to explain concepts and best practices",
         "Asks questions to illuminate concepts, rather than stating them",
@@ -1346,10 +1344,10 @@ export const tracks: Tracks = {
         "TODO: Lead from behind to support someone new to a leadership role",
       ],
     }, {
-      "summary": "Teaches small groups of engineers and contributes to Medium's shared knowledge base",
+      "summary": "Teaches small groups and contributes to Automata’s shared knowledge base",
       "signals": [
         "Avoids siloing information when it can be usefully shared with others",
-        "Works to increase the bus factor of systems",
+        "Works to increase transparency and organisation of our collective knowledge",
         "Finds tools that work best for a team member's personality",
       ],
       "examples": [
@@ -1360,9 +1358,9 @@ export const tracks: Tracks = {
     }, {
       "summary": "Encourages people to mentor each other, and creates ways for them to do so",
       "signals": [
-        "Defines an entire curriculum for a discipline",
+        "Creates spaces for individuals to learn from and teach each other",
         "Draws positive attention to well-modeled mentor and teaching behaviours",
-        "Creates brown bag series and lines up speakers",
+        "Creates regular discussions within the team and encourages speakers",
       ],
       "examples": [
         "TODO: Created and lead Medium's Women in Eng group",
@@ -1370,7 +1368,7 @@ export const tracks: Tracks = {
         "TODO: Designed and taught web client guild curriculum",
       ],
     }, {
-      "summary": "Instills and promotes a culture of learning and development within the team",
+      "summary": "Instills and promotes a culture of learning and dev within the entire team",
       "signals": [
         "Sets incentive structures to recognise and reward mentorship",
         "Empowers team members to develop themselves",
@@ -1389,10 +1387,10 @@ export const tracks: Tracks = {
     "category": "Demonstration of culture/values",
     "description": "Promotes Automata to the outside world and establishes it as an attractive place to work",
     "milestones": [{
-      "summary": "Represents Medium well externally, and influences individuals positively",
+      "summary": "Represents Automata well externally, and positively influences individuals",
       "signals": [
-        "Shares personal and organizational successes with their network",
-        "Attends Medium-hosted events and talks with guests",
+        "Shares organisational successes with their network",
+        "Attends Automata events and talks with guests",
         "Communicates genuine and honest excitement about their work externally",
       ],
       "examples": [
@@ -1403,9 +1401,9 @@ export const tracks: Tracks = {
     }, {
       "summary": "Participates more centrally in small events, and takes simple actions that positively influence groups of people",
       "signals": [
-        "Takes meaningful action to introduce people to Medium",
-        "Joined public Slack group and represented Medium appropriately, and well",
-        "Organizes positive small- or medium-sized events that bring people to Medium",
+        "Takes meaningful action to introduce people to Automata",
+        "Represent Automata appropriately, and well in public, online forums (Slack, Meetup groups etc.)",
+        "Organises small-or medium-sized events that bring people to Automata",
       ],
       "examples": [
         "TODO: Volunteered as a helper for CODE2040 writing workshop",
@@ -1413,11 +1411,11 @@ export const tracks: Tracks = {
         "TODO: Talked at a Women Who Code event hosted at Medium",
       ],
     }, {
-      "summary": "Works hard to positively influence large groups of people on their views of Medium",
+      "summary": "Works hard to positively influence large groups of people on their views of Automata",
       "signals": [
-        "Mentors or participates in a high visibility way in an external organization",
-        "Builds fruitful partnerships with external organizations",
-        "Writes blog posts about Medium that receive moderate traffic",
+        "Mentors or participates in a high visibility way",
+        "Builds fruitful partnerships with external organisations",
+        "Suggests thoughtful blog post content to Marketing that receives moderate traffic",
       ],
       "examples": [
         "TODO: Represented Medium on a panel at a conference of industry experts",
@@ -1425,23 +1423,23 @@ export const tracks: Tracks = {
         "TODO: Built a durable, long-standing relationship with Code2040",
       ],
     }, {
-      "summary": "Establishes Medium as an great, innovative company and workplace to the whole industry",
+      "summary": "Establishes Automata as an great, innovative company and workplace to the whole industry",
       "signals": [
-        "Establishes themself as an industry thought leader who attracts talent",
-        "Publishes material about Medium's organizational or technical innovations",
-        "Leverages significant following to evangelise Medium",
+        "Establishes them-self as an industry thought leader who attracts talent",
+        "Publishes material about Automata’s technical and organisational innovations",
+        "Leverages significant following to evangelise Automata",
       ],
       "examples": [
         "TODO: Published a paper on Medium technology in a peer-reviewed journal",
         "TODO: Authored joint-press release with EFF on DNT",
-        "TODO: Published “Why Content Editable Is Terrible” on the Medium engineering blog",
+        "TODO: Published 'Why Content Editable Is Terrible' on the Medium engineering blog",
       ],
     }, {
-      "summary": "Introduces Medium in a positive light to a wider audience outside the industry",
+      "summary": "Introduces Automata in a positive light to a wider audience outside the industry",
       "signals": [
         "Delivers key messages to broad, mainstream audiences",
-        "Influences people with large audiences to talk about Medium positively",
-        "Drives recognition and adoption of Medium in significant numbers",
+        "Influences people with large audiences to talk about Automata",
+        "Drives recognition os Automata in significant numbers",
       ],
       "examples": [
         "TODO: Published or interviewed in a mainstream newspaper or website outside tech",
@@ -1456,11 +1454,11 @@ export const tracks: Tracks = {
     "category": "Demonstration of culture/values",
     "description": "Strengthens Automata's team by bringing in stand-out talent",
     "milestones": [{
-      "summary": "Brings new candidates into the pipeline and understands how to evaluate candidates at Medium",
+      "summary": "Understands how to evaluate candidates for Automata and encourages new candidates into the pipeline",
       "signals": [
         "Reviews existing network for hiring leads regularly",
         "Shadows interviews to gain familiarity with process",
-        "Reviews current job postings regularly",
+        "Reviews current job postings regularly and proactively asks 'Talent' for ways to help",
       ],
       "examples": [
         "TODO: Completed interview calibration",
@@ -1468,9 +1466,9 @@ export const tracks: Tracks = {
         "TODO: Referred appropriate individuals for open positions",
       ],
     }, {
-      "summary": "Interviews regularly, helps the team make meaningful hiring decisions, and helps build a diverse pipeline",
+      "summary": "Participates in interviews, helps the team make meaningful hiring decisions and helps to build a diverse pipeline",
       "signals": [
-        "Uses interview rubric to provide clear, objective feedback on candidates",
+        "Provides quick, objective feedback on candidates",
         "Interviews candidates with empathy and treats them all with equal respect",
         "Researches approaches for sourcing candidates and diversifying hiring",
       ],
@@ -1482,7 +1480,7 @@ export const tracks: Tracks = {
     }, {
       "summary": "Maintains and strengthens the integrity of the current process, and regularly brings in great candidates",
       "signals": [
-        "Teaches new interviewers how to interview with empathy",
+        "Advocates for empathetic interviewing",
         "Models great interview technique and feedback when shadowed",
         "Reverse shadows trainees and helps calibrate their feedback",
       ],
@@ -1494,7 +1492,7 @@ export const tracks: Tracks = {
     }, {
       "summary": "Actively contributes to and leads hiring decisions, and goes to great lengths to source great candidates",
       "signals": [
-        "Documents subtle cues in interviews that indicate values alignment",
+        "Expert at recognising and documenting values alignment in candidates",
         "Makes hiring decisions, resolving discrepancies between conflicting reports",
         "Top-grades candidates and teases out character traits",
       ],
@@ -1504,9 +1502,9 @@ export const tracks: Tracks = {
         "TODO: Started CODE2040 internship program",
       ],
     }, {
-      "summary": "Sets recruitment strategy, invests in long-term relationships for critical roles, and recruits at scale",
+      "summary": "Invests in long-term relationships for critical roles",
       "signals": [
-        "Sets the tone, policy and goals around building a diverse, high-quality team",
+        "Sets the tone, around building a diverse, high-quality team",
         "Identifies and brings in promising acquisitions",
         "Tracks industry activity, identifying opportunities for critical roles",
       ],
@@ -1525,7 +1523,7 @@ export const tracks: Tracks = {
     "milestones": [{
       "summary": "Is available and present on current teams, and works to contribute positively to company culture",
       "signals": [
-        "Participates in team activities and offsites",
+        "Participates in team activities",
         "Treats colleagues and clients with respect",
         "Joins groups or committees outside regular duties",
       ],
@@ -1538,7 +1536,7 @@ export const tracks: Tracks = {
       "summary": "Steps up, builds connectedness, and takes concrete actions to promote an inclusive culture",
       "signals": [
         "Makes space for others to participate",
-        "Collaborates with other engineers outside direct responsibilities",
+        "Collaborates with other team members outside direct responsibilities",
         "Finds ways to ramp up and engage new hires quickly",
       ],
       "examples": [
@@ -1549,7 +1547,7 @@ export const tracks: Tracks = {
     }, {
       "summary": "Contributes to improving team relatedness, and helps build a culture of lending support",
       "signals": [
-        "Takes on additional Watch shifts at short notice",
+        "Takes on additional responsibilities at short notice",
         "Pitches in to help other teams hit deadlines, without missing own deadlines",
         "Uses position to raise difficult issues on someone's behalf",
       ],
@@ -1561,8 +1559,8 @@ export const tracks: Tracks = {
     }, {
       "summary": "Exemplifies selflessness for the team without compromising responsibilities, and lifts everyone up",
       "signals": [
-        "Goes above and beyond on the Watch, serving the team without complaint",
-        "Implements concrete programs to signficantly improve team inclusivity",
+        "Goes above and beyond, serving the team without complaint",
+        "Implements concrete programs to significantly improve team inclusivity",
         "Takes on large amounts of tedious grunt work for the team without being asked",
       ],
       "examples": [
@@ -1574,7 +1572,7 @@ export const tracks: Tracks = {
       "summary": "Lives the company values, guards positive culture, and defines policies that support relatedness between teams",
       "signals": [
         "Brings separate teams together to build relatedness",
-        "Holds individuals, teams, and leadership accountable to Medium's values",
+        "Holds individuals, teams, and leadership accountable to Automata’s values",
         "Sets the tone, policy, and goals around maintaining an inclusive company",
       ],
       "examples": [

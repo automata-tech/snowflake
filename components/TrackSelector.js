@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { trackIds, tracks, categoryColorScale, isTechnicalTrack, isCoreTechTrack, softCategories, MilestoneCoreTechTracks } from '../constants'
+import { trackIds, tracks, categoryColorScale, isTechnicalTrack, isCoreTechTrack, techCategories, softCategories, tracksFromCategory, MilestoneCoreTechTracks } from '../constants'
 import type { MilestoneMap, TrackId } from '../constants'
 
 type Props = {
@@ -60,7 +60,6 @@ class TrackSelector extends React.Component<Props> {
 
   render() {
     const coreTechTrackIds = trackIds.filter(trackId => isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]))
-    const otherTechTrackIds = trackIds.filter(trackId => isTechnicalTrack(trackId) && !isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]))
     const softTrackIds = trackIds.filter(trackId => softCategories.has(tracks[trackId].category))
 
     return (
@@ -98,10 +97,21 @@ class TrackSelector extends React.Component<Props> {
           Other technical skills
           <span className="track-selector-expand" onClick={this.props.onToggleOthersFn}>{this.props.othersExpanded ? '▲' : '▼'}</span>
         </h3>
-        <div className="track-selector-break" />
-        {this.props.othersExpanded && otherTechTrackIds.map(trackId => (
-          this.renderTrack(trackId)
-        ))}
+        {this.props.othersExpanded && Array.from(techCategories.keys()).map(category => {
+          const tracks = tracksFromCategory(category)
+          return (
+            <React.Fragment>
+              <div className="track-selector-break" />
+              <h3>
+                {category} skills
+              </h3>
+              <div className="track-selector-break" />
+              {tracks.map(trackId => (
+                this.renderTrack(trackId)
+              ))}
+            </React.Fragment>
+          )
+        })}
         <div className="track-selector-break" />
         <h3>Automata skills</h3>
         <div className="track-selector-break" />

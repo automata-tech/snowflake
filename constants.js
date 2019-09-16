@@ -107,6 +107,17 @@ export const techCategories: Set<string> = trackIds.reduce((set, trackId) => {
   return set
 }, new Set())
 
+// TODO: remove in the future
+const extraCategories = ['Mechanical', 'Electronics', 'Marketing', 'Sales', 'And more']
+extraCategories.forEach(category => techCategories.add(category))
+
+export const tracksFromCategory = (category: string): TrackId[] => trackIds.reduce((list, trackId) => {
+  if (tracks[trackId].category === category) {
+    list.push(trackId);
+  }
+  return list
+}, [])
+
 export const categoryPointsFromMilestoneMap = (milestoneMap: MilestoneMap, includeAll?: boolean = false) => {
   let pointsByCategory = new Map()
   trackIds.forEach((trackId) => {

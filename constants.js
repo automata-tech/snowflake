@@ -132,6 +132,9 @@ export const isCoreTechTrack = (trackId: TrackId, coreTechTracks: TrackId[]): bo
 export const doesTrackCount = (trackId: TrackId, coreTechTracks: TrackId[]): bool =>
   !isTechnicalTrack(trackId) || isCoreTechTrack(trackId, coreTechTracks)
 
+export const countingTracks = (coreTechTracks: TrackId[]): TrackId[] =>
+  trackIds.filter(trackId => doesTrackCount(trackId, coreTechTracks))
+
 export const totalPointsFromMilestoneMapAll = (milestoneMap: MilestoneMap): number =>
   trackIds.map(trackId => milestoneToPoints(milestoneMap[trackId]))
     .reduce((sum, addend) => (sum + addend), 0)

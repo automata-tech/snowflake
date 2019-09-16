@@ -2,7 +2,7 @@
 
 import React from 'react'
 import * as d3 from 'd3'
-import { trackIds, milestones, tracks, categoryColorScale, doesTrackCount, MilestoneCoreTechTracks } from '../constants'
+import { trackIds, milestones, tracks, categoryColorScale, countingTracks, MilestoneCoreTechTracks } from '../constants'
 import type { TrackId, Milestone, MilestoneMap } from '../constants'
 
 const width = 400
@@ -11,7 +11,8 @@ const arcMilestones = milestones.slice(1) // we'll draw the '0' milestone with a
 type Props = {
   milestoneByTrack: MilestoneMap,
   focusedTrackId: TrackId,
-  handleTrackMilestoneChangeFn: (TrackId, Milestone) => void
+  handleTrackMilestoneChangeFn: (TrackId, Milestone) => void,
+  detailed: boolean,
 }
 
 class NightingaleChart extends React.Component<Props> {
@@ -29,18 +30,20 @@ class NightingaleChart extends React.Component<Props> {
       .domain(arcMilestones)
       .range([.15 * width, .45 * width])
       .paddingInner(0.1)
+  }
+
+  render() {
+    const currentTrackIds = this.props.detailed ? trackIds : countingTracks(this.props.milestoneByTrack[MilestoneCoreTechTracks]);
 
     this.arcFn = d3.arc()
       .innerRadius(milestone => this.radiusScale(milestone))
       .outerRadius(milestone => this.radiusScale(milestone) + this.radiusScale.bandwidth())
-      .startAngle(- Math.PI / trackIds.length)
-      .endAngle(Math.PI / trackIds.length)
+      .startAngle(- Math.PI / currentTrackIds.length)
+      .endAngle(Math.PI / currentTrackIds.length)
       .padAngle(Math.PI / 200)
       .padRadius(.45 * width)
       .cornerRadius(2)
-  }
 
-  render() {
     const currentMilestoneId = this.props.milestoneByTrack[this.props.focusedTrackId]
     return (
       <figure>
@@ -64,11 +67,11 @@ class NightingaleChart extends React.Component<Props> {
         `}</style>
         <svg>
           <g transform={`translate(${width/2},${width/2}) rotate(-33.75)`}>
-            {trackIds.map((trackId, i) => {
+            {currentTrackIds.map((trackId, i) => {
               const isCurrentTrack = trackId == this.props.focusedTrackId
               let color = categoryColorScale(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]);
               return (
-                <g key={trackId} transform={`rotate(${i * 360 / trackIds.length})`}>
+                <g key={trackId} transform={`rotate(${i * 360 / currentTrackIds.length})`}>
                   {arcMilestones.map((milestone) => {
                     const isCurrentMilestone = isCurrentTrack && milestone == currentMilestoneId
                     const isMet = this.props.milestoneByTrack[trackId] >= milestone || milestone == 0

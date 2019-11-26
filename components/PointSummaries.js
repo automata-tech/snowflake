@@ -9,7 +9,11 @@ type Props = {
   detailed: boolean,
 }
 
-class PointSummaries extends React.Component<Props> {
+type State = {
+  showDescriptions: boolean,
+}
+
+class PointSummaries extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {showDescriptions: false};

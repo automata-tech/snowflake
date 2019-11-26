@@ -44,7 +44,7 @@ class NightingaleChart extends React.Component<Props> {
       .padRadius(.45 * width)
       .cornerRadius(2)
 
-    const currentMilestoneId = this.props.milestoneByTrack[this.props.focusedTrackId]
+    const currentMilestoneId = this.props.milestoneByTrack[this.props.focusedTrackId].level
     return (
       <figure>
         <style jsx>{`
@@ -74,7 +74,7 @@ class NightingaleChart extends React.Component<Props> {
                 <g key={trackId} transform={`rotate(${i * 360 / currentTrackIds.length})`}>
                   {arcMilestones.map((milestone) => {
                     const isCurrentMilestone = isCurrentTrack && milestone == currentMilestoneId
-                    const isMet = this.props.milestoneByTrack[trackId] >= milestone || milestone == 0
+                    const isMet = this.props.milestoneByTrack[trackId].level >= milestone || milestone == 0
                     return (
                       <path
                           key={milestone}

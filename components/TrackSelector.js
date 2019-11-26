@@ -52,7 +52,7 @@ class TrackSelector extends React.Component<Props> {
           {tracks[trackId].displayName}
         </div>
         <div className="track-selector-value" style={{border: '4px solid ' + (trackId == this.props.focusedTrackId ? '#000': color), background: color}}>
-          {this.props.milestoneByTrack[trackId]}
+          {this.props.milestoneByTrack[trackId].level}
         </div>
       </div>
     )
@@ -97,10 +97,10 @@ class TrackSelector extends React.Component<Props> {
           Other technical skills
           <span className="track-selector-expand" onClick={this.props.onToggleOthersFn}>{this.props.othersExpanded ? '▲' : '▼'}</span>
         </h3>
-        {this.props.othersExpanded && Array.from(techCategories.keys()).map(category => {
+        {this.props.othersExpanded && Array.from(techCategories.keys()).map((category, i) => {
           const tracks = tracksFromCategory(category)
           return (
-            <React.Fragment>
+            <React.Fragment key={i}>
               <div className="track-selector-break" />
               <h3>
                 {category} skills

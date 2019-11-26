@@ -23,8 +23,3 @@ Install dependencies:
 `npm run export`
 
 This will put a static version of the site in `out/`. (note that it will assume that the website will be served under the `/snowflake/` path, see `next.config.js` for more information)
-
-## Future work
-
-* Load initial data from a file, to improve flexibility.
-* Add restricted job title selection and validation.

@@ -7,14 +7,32 @@ import type { MilestoneMap, TrackId, Milestone } from '../constants'
 type Props = {
   milestoneByTrack: MilestoneMap,
   trackId: TrackId,
-  handleTrackMilestoneChangeFn: (TrackId, Milestone) => void
+  handleTrackMilestoneChangeFn: (TrackId, Milestone) => void,
+  handleTrackNotesChangeFn: (TrackId, String) => void,
 }
 
 class Track extends React.Component<Props> {
   render() {
     const track = tracks[this.props.trackId]
-    const currentMilestoneId = this.props.milestoneByTrack[this.props.trackId]
+    const currentLevelData = this.props.milestoneByTrack[this.props.trackId];
+    const currentNotes = currentLevelData.notes || "";
+    const currentMilestoneId = currentLevelData.level;
     const currentMilestone = track.milestones[currentMilestoneId - 1]
+    let examples;
+
+    if (currentMilestone && currentMilestone.examples) {
+      examples = (
+        <React.Fragment>
+          <h4>Example tasks:</h4>
+          <ul>
+            {currentMilestone.examples.map((example, i) => (
+              <li key={i}>{example}</li>
+            ))}
+          </ul>
+        </React.Fragment>
+      );
+    }
+
     return (
       <div className="track">
         <style jsx>{`
@@ -76,14 +94,23 @@ class Track extends React.Component<Props> {
                   <li key={i}>{signal}</li>
                 ))}
               </ul>
-              <h4>Example tasks:</h4>
-              <ul>
-                {currentMilestone.examples.map((example, i) => (
-                  <li key={i}>{example}</li>
-                ))}
-              </ul>
+              {examples}
             </div>
           ) : null}
+        </div>
+        <div className="notes">
+          <p>
+            <label htmlFor="track-notes">
+              <strong>Supporting Comments - any examples/evidence for why you’ve self-selected this level</strong>
+            </label>
+          </p>
+          <textarea
+            id="track-notes"
+            value={currentNotes}
+            onChange={(e) => this.props.handleTrackNotesChangeFn(this.props.trackId, e.target.value)}
+            cols={100}
+            rows={12}
+            />
         </div>
       </div>
     )

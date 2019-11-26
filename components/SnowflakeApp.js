@@ -6,7 +6,7 @@ import KeyboardListener from '../components/KeyboardListener'
 import Track from '../components/Track'
 import Wordmark from '../components/Wordmark'
 import LevelThermometer from '../components/LevelThermometer'
-import { eligibleTitles, trackIds, milestones, milestoneToPoints, roleTracks, isTechnicalTrack, MilestoneCoreTechTracks, maxCoreTechTracks } from '../constants'
+import { eligibleTitles, trackIds, milestones, milestoneToPoints, roleTracks, isTechnicalTrack, MilestoneCoreTechTracks, maxCoreTechTracks, countingTracks } from '../constants'
 import PointSummaries from '../components/PointSummaries'
 import type { Milestone, MilestoneMap, TrackId } from '../constants'
 import React from 'react'
@@ -25,7 +25,15 @@ type SnowflakeAppState = {
 const hashToState = (hash: String): ?SnowflakeAppState => {
   if (!hash) return null
   try {
-    return JSON.parse(window.atob(hash.split('#')[1]))
+    const result = JSON.parse(window.atob(hash.split('#')[1]));
+    // Transform state to support notes for each track
+    trackIds.forEach((trackId) => {
+      const track = result.milestoneByTrack[trackId];
+      if (track.level === undefined) {
+        result.milestoneByTrack[trackId] = {level: track};
+      }
+    });
+    return result;
   } catch (SyntaxError) {
     return null;
   }
@@ -46,13 +54,14 @@ const coerceMilestone = (value: number): Milestone => {
 
 const emptyState = (): SnowflakeAppState => {
   const milestoneByTrack = {};
-  trackIds.forEach((trackId, i) => {
-    milestoneByTrack[trackId] = 0;
+  trackIds.forEach((trackId) => {
+    milestoneByTrack[trackId] = {level: 0};
   });
   milestoneByTrack[MilestoneCoreTechTracks] = [];
 
   return {
     name: '',
+    title: '',
     roleTrack: '',
     milestoneByTrack,
     focusedTrackId: trackIds[0],
@@ -64,12 +73,13 @@ const emptyState = (): SnowflakeAppState => {
 const defaultState = (): SnowflakeAppState => {
   const milestoneByTrack = {};
   trackIds.forEach((trackId, i) => {
-    milestoneByTrack[trackId] = Math.round(Math.random() * 4);
+    milestoneByTrack[trackId] = {level: Math.round(Math.random() * 4)};
   });
   milestoneByTrack[MilestoneCoreTechTracks] = trackIds.filter(isTechnicalTrack).sort(() => 0.5 - Math.random()).slice(0, maxCoreTechTracks);
 
   return {
     name: 'Miéville Pickleberry',
+    title: 'Senior Documancer Analyst',
     roleTrack: 'Individual Contributor',
     milestoneByTrack,
     focusedTrackId: trackIds[0],
@@ -116,22 +126,23 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
             width: 960px;
             margin: 0 auto;
           }
-          .name-input {
+          .nice-input {
             border: none;
             display: block;
             border-bottom: 2px solid #fff;
             font-size: 30px;
             line-height: 40px;
             font-weight: bold;
-            width: 380px;
             margin-bottom: 10px;
+            width: 500px;
           }
-          .name-input:hover, .name-input:focus {
+          .nice-input:hover, .nice-input:focus {
             border-bottom: 2px solid #ccc;
             outline: 0;
           }
           .detailed-input {
             font-size: 10px;
+            margin: 10px 0 15px;
           }
           .detailed-input label {
             padding-left: 5px;
@@ -141,20 +152,33 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
             text-decoration: none;
           }
         `}</style>
-        <div style={{margin: '19px auto 0', width: 142}}>
+        <div style={{margin: '19px auto 0', width: 128}}>
           <a href="https://automata.tech/" target="_blank">
             <Wordmark />
           </a>
+        </div>
+        <div style={{margin: '20px 0 40px'}}>
+          <h2>Snowflake</h2>
+          <p>
+            Score yourself honestly based on where you are <strong>currently</strong> performing at Automata, even if you feel you are capable of performing at a higher level but don't currently have the opportunity to.
+          </p>
         </div>
         <div style={{display: 'flex'}}>
           <div style={{flex: 1}}>
             <form>
               <input
                   type="text"
-                  className="name-input"
+                  className="nice-input name-input"
                   value={this.state.name}
                   onChange={e => this.setState({name: e.target.value})}
                   placeholder="Name"
+                  />
+              <input
+                  type="text"
+                  className="nice-input title-input"
+                  value={this.state.title}
+                  onChange={e => this.setState({title: e.target.value})}
+                  placeholder="Title"
                   />
               <div className="detailed-input">
                 <input
@@ -163,12 +187,12 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
                     value={this.state.detailedView}
                     onChange={e => this.setState({detailedView: e.target.checked})}
                     />
-                <label for="detailed-input">Detailed view</label>
+                <label htmlFor="detailed-input">Detailed view</label>
               </div>
-              <TitleSelector
-                  milestoneByTrack={this.state.milestoneByTrack}
-                  currentRoleTrack={this.state.roleTrack}
-                  setRoleTrackFn={(roleTrack) => this.setRoleTrack(roleTrack)} />
+              { /*<TitleSelector
+                milestoneByTrack={this.state.milestoneByTrack}
+                currentRoleTrack={this.state.roleTrack}
+                setRoleTrackFn={(roleTrack) => this.setRoleTrack(roleTrack)} /> */ }
             </form>
             <PointSummaries milestoneByTrack={this.state.milestoneByTrack} detailed={this.state.detailedView} />
             <LevelThermometer milestoneByTrack={this.state.milestoneByTrack} detailed={this.state.detailedView} />
@@ -196,7 +220,9 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
         <Track
             milestoneByTrack={this.state.milestoneByTrack}
             trackId={this.state.focusedTrackId}
-            handleTrackMilestoneChangeFn={(track, milestone) => this.handleTrackMilestoneChange(track, milestone)} />
+            handleTrackMilestoneChangeFn={(track, milestone) => this.handleTrackMilestoneChange(track, milestone)}
+            handleTrackNotesChangeFn={(track, notes) => this.handleTrackNotesChange(track, notes)}
+          />
         <div style={{display: 'flex', paddingBottom: '20px'}}>
           <div style={{flex: 1}}>
             Made with ❤️ by <a href="https://medium.engineering" target="_blank">Medium Eng</a>.
@@ -212,12 +238,20 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
 
   handleTrackMilestoneChange(trackId: TrackId, milestone: Milestone) {
     const milestoneByTrack = this.state.milestoneByTrack
-    milestoneByTrack[trackId] = milestone
+    milestoneByTrack[trackId].level = milestone
+
+    this.setState({ milestoneByTrack, focusedTrackId: trackId })
+  }
+
+  handleTrackNotesChange(trackId: TrackId, notes: String) {
+    const milestoneByTrack = this.state.milestoneByTrack
+    milestoneByTrack[trackId].notes = notes
 
     this.setState({ milestoneByTrack, focusedTrackId: trackId })
   }
 
   shiftFocusedTrack(delta: number) {
+    const trackIds = countingTracks(this.state.milestoneByTrack[MilestoneCoreTechTracks]);
     let index = trackIds.indexOf(this.state.focusedTrackId)
     index = (index + delta + trackIds.length) % trackIds.length
     const focusedTrackId = trackIds[index]
@@ -254,7 +288,7 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
   }
 
   shiftFocusedTrackMilestoneByDelta(delta: number) {
-    let prevMilestone = this.state.milestoneByTrack[this.state.focusedTrackId]
+    let prevMilestone = this.state.milestoneByTrack[this.state.focusedTrackId].level
     let milestone = prevMilestone + delta
     if (milestone < 0) milestone = 0
     if (milestone > 5) milestone = 5

@@ -10,36 +10,40 @@ export type TrackId = 'FRONT_END' | 'BACK_END' | 'LINUX'  | 'SYS_PROG' | 'FIRMWA
   'PROF_DEV' | 'DEV_DESIGN' | 'WELLBEING' | 'INSPIRE' |
   'MENTORSHIP' | 'EVANGELISM' | 'HIRING' | 'COMMUNITY'
 export type Milestone = 0 | 1 | 2 | 3 | 4 | 5
+export type MilestoneWithNote = {
+  level: Milestone,
+  notes: string,
+}
 
 export const MilestoneCoreTechTracks = 'CORE_TECH_TRACKS'
 export type MilestoneMap = {
-  'FRONT_END': Milestone,
-  'BACK_END': Milestone,
-  'LINUX': Milestone,
-  'SYS_PROG': Milestone,
-  'FIRMWARE': Milestone,
-  'APPLIED_ROBOTICS': Milestone,
-  'MFG_TOOL': Milestone,
-  'SW_QA': Milestone,
-  'DEV_OPS': Milestone,
+  'FRONT_END': MilestoneWithNote,
+  'BACK_END': MilestoneWithNote,
+  'LINUX': MilestoneWithNote,
+  'SYS_PROG': MilestoneWithNote,
+  'FIRMWARE': MilestoneWithNote,
+  'APPLIED_ROBOTICS': MilestoneWithNote,
+  'MFG_TOOL': MilestoneWithNote,
+  'SW_QA': MilestoneWithNote,
+  'DEV_OPS': MilestoneWithNote,
 
-  'CTRL_MODEL': Milestone,
-  'TRAJ_MODEL': Milestone,
+  'CTRL_MODEL': MilestoneWithNote,
+  'TRAJ_MODEL': MilestoneWithNote,
 
-  'IMPACT': Milestone,
-  'COMMUNICATION': Milestone,
-  'CRAFT': Milestone,
-  'INITIATIVE': Milestone,
+  'IMPACT': MilestoneWithNote,
+  'COMMUNICATION': MilestoneWithNote,
+  'CRAFT': MilestoneWithNote,
+  'INITIATIVE': MilestoneWithNote,
 
-  'PROF_DEV': Milestone,
-  'DEV_DESIGN': Milestone,
-  'WELLBEING': Milestone,
-  'INSPIRE': Milestone,
+  'PROF_DEV': MilestoneWithNote,
+  'DEV_DESIGN': MilestoneWithNote,
+  'WELLBEING': MilestoneWithNote,
+  'INSPIRE': MilestoneWithNote,
 
-  'MENTORSHIP': Milestone,
-  'EVANGELISM': Milestone,
-  'HIRING': Milestone,
-  'COMMUNITY': Milestone,
+  'MENTORSHIP': MilestoneWithNote,
+  'EVANGELISM': MilestoneWithNote,
+  'HIRING': MilestoneWithNote,
+  'COMMUNITY': MilestoneWithNote,
 
   MilestoneCoreTechTracks: TrackId[],
 }
@@ -47,8 +51,8 @@ export const milestones = [0, 1, 2, 3, 4, 5]
 
 export const maxCoreTechTracks = 5
 
-export const milestoneToPoints = (milestone: Milestone): number => {
-  switch (milestone) {
+export const milestoneToPoints = (milestone: MilestoneWithNote): number => {
+  switch (milestone.level) {
     case 0: return 0
     case 1: return 1
     case 2: return 3

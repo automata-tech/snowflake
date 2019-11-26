@@ -11,11 +11,13 @@ import PointSummaries from '../components/PointSummaries'
 import type { Milestone, MilestoneMap, TrackId } from '../constants'
 import React from 'react'
 import TitleSelector from '../components/TitleSelector'
+import Head from 'next/head'
+import { pathPrefix } from '../config.js'
 
 type SnowflakeAppState = {
   milestoneByTrack: MilestoneMap,
-  coreTechTracks: TrackId[],
   name: string,
+  title: string,
   roleTrack: string,
   focusedTrackId: TrackId,
   otherTechTracksExanded: boolean,
@@ -26,6 +28,10 @@ const hashToState = (hash: String): ?SnowflakeAppState => {
   if (!hash) return null
   try {
     const result = JSON.parse(window.atob(hash.split('#')[1]));
+    // Ensure a title is present
+    if (!result.title) {
+      result.title = defaultState().title;
+    }
     // Transform state to support notes for each track
     trackIds.forEach((trackId) => {
       const track = result.milestoneByTrack[trackId];
@@ -73,7 +79,7 @@ const emptyState = (): SnowflakeAppState => {
 const defaultState = (): SnowflakeAppState => {
   const milestoneByTrack = {};
   trackIds.forEach((trackId, i) => {
-    milestoneByTrack[trackId] = {level: Math.round(Math.random() * 4)};
+    milestoneByTrack[trackId] = {level: coerceMilestone(Math.round(Math.random() * 4))};
   });
   milestoneByTrack[MilestoneCoreTechTracks] = trackIds.filter(isTechnicalTrack).sort(() => 0.5 - Math.random()).slice(0, maxCoreTechTracks);
 
@@ -152,6 +158,14 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
             text-decoration: none;
           }
         `}</style>
+        <Head>
+          <title>Automata Snowflake</title>
+          <link rel="icon" href={`${pathPrefix}favicon.ico`} />
+          <link rel="apple-touch-icon" sizes="180x180" href={`${pathPrefix}apple-touch-icon.png`} />
+          <link rel="icon" type="image/png" sizes="32x32" href={`${pathPrefix}favicon-32x32.png`} />
+          <link rel="icon" type="image/png" sizes="16x16" href={`${pathPrefix}favicon-16x16.png`} />
+        </Head>
+
         <div style={{margin: '19px auto 0', width: 128}}>
           <a href="https://automata.tech/" target="_blank">
             <Wordmark />
@@ -243,7 +257,7 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
     this.setState({ milestoneByTrack, focusedTrackId: trackId })
   }
 
-  handleTrackNotesChange(trackId: TrackId, notes: String) {
+  handleTrackNotesChange(trackId: TrackId, notes: string) {
     const milestoneByTrack = this.state.milestoneByTrack
     milestoneByTrack[trackId].notes = notes
 
@@ -292,11 +306,11 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
     let milestone = prevMilestone + delta
     if (milestone < 0) milestone = 0
     if (milestone > 5) milestone = 5
-    this.handleTrackMilestoneChange(this.state.focusedTrackId, milestone)
+    this.handleTrackMilestoneChange(this.state.focusedTrackId, coerceMilestone(milestone))
   }
 
   setRoleTrack(roleTrack: string) {
-    let titles = eligibleTitles(this.state.milestoneByTrack)
+    let titles = eligibleTitles(this.state.milestoneByTrack, this.state.milestoneByTrack[MilestoneCoreTechTracks])
     roleTrack = roleTracks.indexOf(roleTrack) == -1 ? roleTracks[0] : roleTrack
     this.setState({ roleTrack })
   }

@@ -14,7 +14,7 @@ type Props = {
 }
 
 class TrackSelector extends React.Component<Props> {
-  renderTrack(trackId) {
+  renderTrack(trackId: TrackId) {
     const color = categoryColorScale(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]);
     return (
       <div key={trackId} className="track-selector-item"

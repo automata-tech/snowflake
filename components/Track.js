@@ -8,7 +8,7 @@ type Props = {
   milestoneByTrack: MilestoneMap,
   trackId: TrackId,
   handleTrackMilestoneChangeFn: (TrackId, Milestone) => void,
-  handleTrackNotesChangeFn: (TrackId, String) => void,
+  handleTrackNotesChangeFn: (TrackId, string) => void,
 }
 
 class Track extends React.Component<Props> {

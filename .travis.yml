@@ -3,6 +3,7 @@ node_js:
   - "node"
 
 script:
+  - npm run flow
   - npm run export
   - touch out/.nojekyll # See https://github.com/zeit/next.js/wiki/Deploying-a-Next.js-app-into-GitHub-Pages#add-a-nojekyll-file
 

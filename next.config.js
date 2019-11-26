@@ -1,7 +1,7 @@
-const isProd = process.env.NODE_ENV === 'production'
+const { pathPrefix } = require('./config.js');
 
 module.exports = {
-  assetPrefix: isProd ? '/snowflake/' : '/',
+  assetPrefix:  pathPrefix,
   exportPathMap: function() {
     return {
       '/': { page: '/' }

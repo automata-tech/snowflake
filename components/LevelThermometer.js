@@ -26,7 +26,7 @@ class LevelThermometer extends React.Component<Props> {
   topAxis: *
   bottomAxis: *
 
-  constructor(props: *) {
+  constructor(props: Props) {
     super(props)
 
     this.pointScale = d3.scaleLinear()
@@ -62,7 +62,7 @@ class LevelThermometer extends React.Component<Props> {
       .style('text-anchor', 'start')
   }
 
-  rightRoundedRect(x, y, width, height, radius) {
+  rightRoundedRect(x: number, y: number, width: number, height: number, radius: number) {
     return "M" + x + "," + y
          + "h" + (width - radius)
          + "a" + radius + "," + radius + " 0 0 1 " + radius + "," + radius
@@ -76,7 +76,9 @@ class LevelThermometer extends React.Component<Props> {
     let allCategoryPoints = categoryPointsFromMilestoneMap(this.props.milestoneByTrack, true)
     let lastCategoryIndex = 0
     categoryPoints.forEach((categoryPoint, i) => {
-      if (categoryPoint.points) lastCategoryIndex = i
+      if (categoryPoint.points) {
+        lastCategoryIndex = i
+      }
     })
     let cumulativePoints = 0
     return (

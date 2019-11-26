@@ -12,7 +12,7 @@ export type TrackId = 'FRONT_END' | 'BACK_END' | 'LINUX'  | 'SYS_PROG' | 'FIRMWA
 export type Milestone = 0 | 1 | 2 | 3 | 4 | 5
 export type MilestoneWithNote = {
   level: Milestone,
-  notes: string,
+  notes?: string,
 }
 
 export const MilestoneCoreTechTracks = 'CORE_TECH_TRACKS'
@@ -45,7 +45,7 @@ export type MilestoneMap = {
   'HIRING': MilestoneWithNote,
   'COMMUNITY': MilestoneWithNote,
 
-  MilestoneCoreTechTracks: TrackId[],
+  'CORE_TECH_TRACKS': TrackId[],
 }
 export const milestones = [0, 1, 2, 3, 4, 5]
 
@@ -122,7 +122,9 @@ export const tracksFromCategory = (category: string): TrackId[] => trackIds.redu
   return list
 }, [])
 
-export const categoryPointsFromMilestoneMap = (milestoneMap: MilestoneMap, includeAll?: boolean = false) => {
+type categoryPoints = {categoryId: string, points: number};
+
+export const categoryPointsFromMilestoneMap = (milestoneMap: MilestoneMap, includeAll?: boolean = false) =>  {
   let pointsByCategory = new Map()
   trackIds.forEach((trackId) => {
     const milestone = milestoneMap[trackId]
@@ -132,7 +134,7 @@ export const categoryPointsFromMilestoneMap = (milestoneMap: MilestoneMap, inclu
       pointsByCategory.set(categoryId, currentPoints + milestoneToPoints(milestone))
     }
   })
-  return Array.from(categoryIds.values()).map(categoryId => {
+  return Array.from(categoryIds.values()).map<categoryPoints>(categoryId => {
     const points = pointsByCategory.get(categoryId)
     return { categoryId, points: pointsByCategory.get(categoryId) || 0 }
   })
@@ -162,7 +164,7 @@ export const categoryColorScaleReal = d3.scaleOrdinal()
   .domain(categoryIds)
   .range(['#00abc2', '#428af6', '#e1439f', '#e54552', '#baed91'])
 
-export const categoryColorScaleDisabled = (category) =>
+export const categoryColorScaleDisabled = (category: string) =>
   d3.color(categoryColorScaleReal(category)).darker(2)
 
 export const categoryColorScale = (trackId: TrackId, coreTechTracks: TrackId[]) =>
@@ -197,7 +199,7 @@ export const titles = [
 
 export const roleTracks = ['People', 'Individual Contributor']
 
-export const eligibleTitles = (milestoneMap: MilestoneMap, coreTechTracks): string[] => {
+export const eligibleTitles = (milestoneMap: MilestoneMap, coreTechTracks: TrackId[]): (string[] | string) => {
   const totalPoints = totalPointsFromMilestoneMap(milestoneMap)
 
   let title = titles[0];

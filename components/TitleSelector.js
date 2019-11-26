@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { eligibleTitles, roleTracks } from '../constants'
+import { eligibleTitles, roleTracks, MilestoneCoreTechTracks } from '../constants'
 import type { MilestoneMap } from '../constants'
 
 type Props = {
@@ -10,9 +10,9 @@ type Props = {
   setRoleTrackFn: (string) => void
 }
 
-class TitleSelector extends React.Component {
+class TitleSelector extends React.Component<Props> {
   render() {
-    const titles = eligibleTitles(this.props.milestoneByTrack)
+    const titles = eligibleTitles(this.props.milestoneByTrack, this.props.milestoneByTrack[MilestoneCoreTechTracks])
     const multiple = !(typeof titles === 'string' || titles instanceof String);
     return <div className="title-selector">
       <style jsx>{`
@@ -57,14 +57,14 @@ class TitleSelector extends React.Component {
           </div>
         </div>
       )}
-      {multiple && roleTracks.map(roleTrack => (
+      {multiple && roleTracks.map((roleTrack, i) => (
         <div key={roleTrack} className="title-item">
           <div className="title-label">
             {roleTrack}
           </div>
           <div className={`title-value ${roleTrack === this.props.currentRoleTrack ? 'title-active' : ''}`}
             onClick={e => this.props.setRoleTrackFn(roleTrack)}>
-            {titles[roleTrack]}
+            {titles[i]}
           </div>
         </div>
       ))}

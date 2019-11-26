@@ -10,6 +10,15 @@ type Props = {
 }
 
 class PointSummaries extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {showDescriptions: false};
+  }
+
+  toggleDescriptions = () => {
+    this.setState({showDescriptions: !this.state.showDescriptions});
+  }
+
   render() {
     const totalPoints = totalPointsFromMilestoneMap(this.props.milestoneByTrack)
     const inactivePoints = totalPointsFromMilestoneMapAll(this.props.milestoneByTrack) - totalPoints
@@ -51,8 +60,22 @@ class PointSummaries extends React.Component<Props> {
       })
     }
 
+    let descriptions;
+    if (this.state.showDescriptions) {
+      descriptions = (
+        <React.Fragment>
+          <p><strong>Milestone 6</strong>: Industry & company innovator - strategic, creative thinker & influencer, inspires success</p>
+          <p><strong>Milestone 5</strong>: Company leader - strategic thinker, capable of setting direction and fostering growth in colleagues</p>
+          <p><strong>Milestone 4</strong>: Change Driver - Able to identify and solve most issues and problems. Uses skills to set & drive team or company objectives</p>
+          <p><strong>Milestone 3</strong>: Change Supporter - Understands the business, identifies issues and prioritises independently to add value & supports others</p>
+          <p><strong>Milestone 2</strong>: Self-starter - Needs limited management to add meaningfully to the business</p>
+          <p><strong>Milestone 1</strong>: Contributor - Requires management support to set objectives and deliverables</p>
+        </React.Fragment>
+      );
+    }
+
     return (
-      <table>
+      <React.Fragment>
         <style jsx>{`
           table {
             border-spacing: 3px;
@@ -74,24 +97,42 @@ class PointSummaries extends React.Component<Props> {
             border-radius: 2px;
             text-align: center;
           }
-        `}</style>
-        <tbody>
-          <tr>
-          {blocks.map(({label}, i) => (
-            <th key={i} className="point-summary-label">
-              {label}
-            </th>
-          ))}
-          </tr>
-          <tr>
-          {blocks.map(({value}, i) => (
-            <td key={i} className="point-summary-value">
-              {value}
-            </td>
-          ))}
-          </tr>
-        </tbody>
-      </table>
+          .milestone-title {
+            font-weight: bold;
+            margin: 10px 0 25px;
+          }
+          .milestone-shower {
+            font-size: 10px;
+            font-weight: none;
+            display: inline-block;
+            margin-left: 10px;
+            cursor: pointer;
+          }
+          `}</style>
+        <table>
+          <tbody>
+            <tr>
+            {blocks.map(({label}, i) => (
+              <th key={i} className="point-summary-label">
+                {label}
+              </th>
+            ))}
+            </tr>
+            <tr>
+            {blocks.map(({value}, i) => (
+              <td key={i} className="point-summary-value">
+                {value}
+              </td>
+            ))}
+            </tr>
+          </tbody>
+        </table>
+
+        <div>
+          <div className="milestone-title">Milestones summary <span className="milestone-shower" onClick={this.toggleDescriptions}>{this.state.showDescriptions ? '▲' : '▼'}</span></div>
+          {descriptions}
+        </div>
+      </React.Fragment>
     )
   }
 }

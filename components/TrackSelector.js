@@ -82,6 +82,7 @@ class TrackSelector extends React.Component<Props> {
             font-weight: none;
             display: inline-block;
             margin-left: 10px;
+            cursor: pointer;
           }
           h3 {
             margin-bottom: 5px;

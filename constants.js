@@ -4,8 +4,10 @@ import * as d3 from 'd3'
 import { tracks } from './constants_tracks';
 import type { Track } from './constants_tracks';
 
-export type TrackId = 'FRONT_END' | 'BACK_END' | 'LINUX'  | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' | 'MFG_TOOL' | 'SW_QA' | 'DEV_OPS' |
+export type TrackId =
+  'FRONT_END' | 'BACK_END' | 'LINUX'  | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' | 'MFG_TOOL' | 'SW_QA' | 'DEV_OPS' |
   'CTRL_MODEL' | 'TRAJ_MODEL' |
+  'ELEC_SAFE' | 'EMC_RED' | 'FUNC_SAFE' | 'MACH_SAFE' | 'OCC_HAS' | 'RISK_ASSESS' | 'TECH_FILE' | 'WORLD_MARKETS' |
   'IMPACT' | 'COMMUNICATION' | 'CRAFT' | 'INITIATIVE' |
   'PROF_DEV' | 'DEV_DESIGN' | 'WELLBEING' | 'INSPIRE' |
   'MENTORSHIP' | 'EVANGELISM' | 'HIRING' | 'COMMUNITY'
@@ -29,6 +31,15 @@ export type MilestoneMap = {
 
   'CTRL_MODEL': MilestoneWithNote,
   'TRAJ_MODEL': MilestoneWithNote,
+
+  'ELEC_SAFE': MilestoneWithNote,
+  'EMC_RED': MilestoneWithNote,
+  'FUNC_SAFE': MilestoneWithNote,
+  'MACH_SAFE': MilestoneWithNote,
+  'OCC_HAS': MilestoneWithNote,
+  'RISK_ASSESS': MilestoneWithNote,
+  'TECH_FILE': MilestoneWithNote,
+  'WORLD_MARKETS': MilestoneWithNote,
 
   'IMPACT': MilestoneWithNote,
   'COMMUNICATION': MilestoneWithNote,
@@ -110,10 +121,6 @@ export const techCategories: Set<string> = trackIds.reduce((set, trackId) => {
   }
   return set
 }, new Set())
-
-// TODO: remove in the future
-const extraCategories = ['Mechanical', 'Electronics', 'Marketing', 'Sales', 'And more']
-extraCategories.forEach(category => techCategories.add(category))
 
 export const tracksFromCategory = (category: string): TrackId[] => trackIds.reduce((list, trackId) => {
   if (tracks[trackId].category === category) {

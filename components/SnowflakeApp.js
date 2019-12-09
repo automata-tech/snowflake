@@ -35,7 +35,9 @@ const hashToState = (hash: String): ?SnowflakeAppState => {
     // Transform state to support notes for each track
     trackIds.forEach((trackId) => {
       const track = result.milestoneByTrack[trackId];
-      if (track.level === undefined) {
+      if (track == undefined) {
+        result.milestoneByTrack[trackId] = {level: 0};
+      } else if (track.level === undefined) {
         result.milestoneByTrack[trackId] = {level: track};
       }
     });

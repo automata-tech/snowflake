@@ -19,8 +19,8 @@ type Tracks = {|
   'FIRMWARE': Track,
   'APPLIED_ROBOTICS': Track,
   'MFG_TOOL': Track,
-  'SW_QA': Track,
   'DEV_OPS': Track,
+  'WEB_MASTERY': Track,
 
   'CTRL_MODEL': Track,
   'TRAJ_MODEL': Track,
@@ -532,10 +532,10 @@ export const tracks: Tracks = {
     }],
   },
 
-  "SW_QA": {
-    "displayName": "QA",
+  "DEV_OPS": {
+    "displayName": "DevOps",
     "category": "Software",
-    "description": "Ability to write and perform tests in an automated or manual fashion, understanding of the different system quirks toward testing, able to execute tests and gather feedback effectively",
+    "description": "Ability to deploy and maintain infrastructure (cloud, local, etc), knowledge of performance, scaling and security, expertise with build pipelines",
     "milestones": [{
       "summary": "TODO",
       "signals": [
@@ -599,10 +599,10 @@ export const tracks: Tracks = {
     }],
   },
 
-  "DEV_OPS": {
-    "displayName": "DevOps",
+  "WEB_MASTERY": {
+    "displayName": "Web Mastery",
     "category": "Software",
-    "description": "Ability to deploy and maintain infrastructure (cloud, local, etc), knowledge of performance, scaling and security, expertise with build pipelines",
+    "description": "Ability to integrate different web services and components together, understanding of web best practices and systems, able to deliver and maintain web products effectively",
     "milestones": [{
       "summary": "TODO",
       "signals": [

@@ -200,7 +200,7 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
                 <input
                     id="detailed-input"
                     type="checkbox"
-                    value={this.state.detailedView}
+                    checked={this.state.detailedView}
                     onChange={e => this.setState({detailedView: e.target.checked})}
                     />
                 <label htmlFor="detailed-input">Detailed view</label>

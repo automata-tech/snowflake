@@ -5,8 +5,9 @@ import { tracks } from './constants_tracks';
 import type { Track } from './constants_tracks';
 
 export type TrackId =
-  'FRONT_END' | 'BACK_END' | 'LINUX'  | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' | 'MFG_TOOL' | 'SW_QA' | 'DEV_OPS' |
+  'FRONT_END' | 'BACK_END' | 'LINUX' | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' | 'MFG_TOOL' | 'DEV_OPS' | 'WEB_MASTERY' |
   'CTRL_MODEL' | 'TRAJ_MODEL' |
+  'ELEC_DESIGN' | 'PCB' |
   'ELEC_SAFE' | 'EMC_RED' | 'FUNC_SAFE' | 'MACH_SAFE' | 'OCC_HAS' | 'RISK_ASSESS' | 'TECH_FILE' | 'WORLD_MARKETS' |
   'IMPACT' | 'COMMUNICATION' | 'CRAFT' | 'INITIATIVE' |
   'PROF_DEV' | 'DEV_DESIGN' | 'WELLBEING' | 'INSPIRE' |
@@ -26,8 +27,8 @@ export type MilestoneMap = {
   'FIRMWARE': MilestoneWithNote,
   'APPLIED_ROBOTICS': MilestoneWithNote,
   'MFG_TOOL': MilestoneWithNote,
-  'SW_QA': MilestoneWithNote,
   'DEV_OPS': MilestoneWithNote,
+  'WEB_MASTERY': MilestoneWithNote,
 
   'CTRL_MODEL': MilestoneWithNote,
   'TRAJ_MODEL': MilestoneWithNote,

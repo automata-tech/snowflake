@@ -69,7 +69,7 @@ class NightingaleChart extends React.Component<Props> {
           <g transform={`translate(${width/2},${width/2}) rotate(-33.75)`}>
             {currentTrackIds.map((trackId, i) => {
               const isCurrentTrack = trackId == this.props.focusedTrackId
-              let color = categoryColorScale(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]);
+              const color = categoryColorScale(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]);
               return (
                 <g key={trackId} transform={`rotate(${i * 360 / currentTrackIds.length})`}>
                   {arcMilestones.map((milestone) => {
@@ -87,7 +87,7 @@ class NightingaleChart extends React.Component<Props> {
                   <circle
                       r="8"
                       cx="0"
-                      cy="-50"
+                      cy={this.props.detailed ? (i % 2 == 0 ? -50 : -35) : -50}
                       style={{fill: color}}
                       className={"track-milestone " + (isCurrentTrack && !currentMilestoneId ? "track-milestone-current" : "")}
                       onClick={() => this.props.handleTrackMilestoneChangeFn(trackId, 0)} />

@@ -32,6 +32,9 @@ export type MilestoneMap = {
   'CTRL_MODEL': MilestoneWithNote,
   'TRAJ_MODEL': MilestoneWithNote,
 
+  'ELEC_DESIGN': MilestoneWithNote,
+  'PCB': MilestoneWithNote,
+
   'ELEC_SAFE': MilestoneWithNote,
   'EMC_RED': MilestoneWithNote,
   'FUNC_SAFE': MilestoneWithNote,

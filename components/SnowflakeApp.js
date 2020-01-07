@@ -267,10 +267,10 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
   }
 
   shiftFocusedTrack(delta: number) {
-    const trackIds = countingTracks(this.state.milestoneByTrack[MilestoneCoreTechTracks]);
-    let index = trackIds.indexOf(this.state.focusedTrackId)
-    index = (index + delta + trackIds.length) % trackIds.length
-    const focusedTrackId = trackIds[index]
+    const ctracks = this.state.detailedView ? trackIds : countingTracks(this.state.milestoneByTrack[MilestoneCoreTechTracks]);
+    let index = ctracks.indexOf(this.state.focusedTrackId)
+    index = (index + delta + ctracks.length) % ctracks.length
+    const focusedTrackId = ctracks[index]
     this.setState({ focusedTrackId })
   }
 

@@ -17,21 +17,7 @@ class Track extends React.Component<Props> {
     const currentLevelData = this.props.milestoneByTrack[this.props.trackId];
     const currentNotes = currentLevelData.notes || "";
     const currentMilestoneId = currentLevelData.level;
-    const currentMilestone = track.milestones[currentMilestoneId - 1]
-    let examples;
-
-    if (currentMilestone && currentMilestone.examples) {
-      examples = (
-        <React.Fragment>
-          <h4>Example tasks:</h4>
-          <ul>
-            {currentMilestone.examples.map((example, i) => (
-              <li key={i}>{example}</li>
-            ))}
-          </ul>
-        </React.Fragment>
-      );
-    }
+    const currentMilestone = track.milestones[currentMilestoneId - 1];
 
     return (
       <div className="track">
@@ -94,7 +80,16 @@ class Track extends React.Component<Props> {
                   <li key={i}>{signal}</li>
                 ))}
               </ul>
-              {examples}
+              {currentMilestone.examples ? (
+                <React.Fragment>
+                  <h4>Example tasks:</h4>
+                  <ul>
+                    {currentMilestone.examples.map((example, i) => (
+                      <li key={i}>{example}</li>
+                    ))}
+                  </ul>
+                </React.Fragment>
+              ) : null}
             </div>
           ) : null}
         </div>

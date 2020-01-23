@@ -63,7 +63,7 @@ const coerceMilestone = (value: number): Milestone => {
 const emptyState = (): SnowflakeAppState => {
   const milestoneByTrack = {};
   trackIds.forEach((trackId) => {
-    milestoneByTrack[trackId] = {level: 0};
+    milestoneByTrack[trackId] = {level: coerceMilestone(0)};
   });
   milestoneByTrack[MilestoneCoreTechTracks] = [];
 
@@ -73,14 +73,14 @@ const emptyState = (): SnowflakeAppState => {
     roleTrack: '',
     milestoneByTrack,
     focusedTrackId: trackIds[0],
-    otherTechTracksExanded: true,
+    otherTechTracksExanded: false,
     detailedView: false,
   }
 }
 
 const defaultState = (): SnowflakeAppState => {
   const milestoneByTrack = {};
-  trackIds.forEach((trackId, i) => {
+  trackIds.forEach((trackId) => {
     milestoneByTrack[trackId] = {level: coerceMilestone(Math.round(Math.random() * 4))};
   });
   milestoneByTrack[MilestoneCoreTechTracks] = trackIds.filter(isTechnicalTrack).sort(() => 0.5 - Math.random()).slice(0, maxCoreTechTracks);
@@ -155,6 +155,10 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
           .detailed-input label {
             padding-left: 5px;
           }
+          .detailed-input .reset {
+            display: inline-block;
+            margin-left: 15px;
+          }
           a {
             color: #888;
             text-decoration: none;
@@ -204,6 +208,10 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
                     onChange={e => this.setState({detailedView: e.target.checked})}
                     />
                 <label htmlFor="detailed-input">Detailed view</label>
+
+                <div className="reset">
+                  <button onClick={e => this.reset()}>Reset</button>
+                </div>
               </div>
               { /*<TitleSelector
                 milestoneByTrack={this.state.milestoneByTrack}
@@ -315,6 +323,13 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
     let titles = eligibleTitles(this.state.milestoneByTrack, this.state.milestoneByTrack[MilestoneCoreTechTracks])
     roleTrack = roleTracks.indexOf(roleTrack) == -1 ? roleTracks[0] : roleTrack
     this.setState({ roleTrack })
+  }
+
+  reset() {
+    const sure = confirm("Are you sure you want to reset Snowflake? This cannot be undone.")
+    if (sure) {
+      this.setState(emptyState());
+    }
   }
 }
 

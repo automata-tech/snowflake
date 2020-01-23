@@ -2,16 +2,11 @@
 import * as d3 from 'd3'
 
 import { tracks } from './constants_tracks';
-import type { Track } from './constants_tracks';
+import type { Track, TrackId } from './constants_tracks';
 
-export type TrackId =
-  'FRONT_END' | 'BACK_END' | 'LINUX' | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' | 'MFG_TOOL' | 'DEV_OPS' | 'WEB_MASTERY' |
-  'CTRL_MODEL' | 'TRAJ_MODEL' |
-  'ELEC_DESIGN' | 'PCB' |
-  'ELEC_SAFE' | 'EMC_RED' | 'FUNC_SAFE' | 'MACH_SAFE' | 'OCC_HAS' | 'RISK_ASSESS' | 'TECH_FILE' | 'WORLD_MARKETS' |
-  'IMPACT' | 'COMMUNICATION' | 'CRAFT' | 'INITIATIVE' |
-  'PROF_DEV' | 'DEV_DESIGN' | 'WELLBEING' | 'INSPIRE' |
-  'MENTORSHIP' | 'EVANGELISM' | 'HIRING' | 'COMMUNITY'
+export type { Track, TrackId }
+export { tracks }
+
 export type Milestone = 0 | 1 | 2 | 3 | 4 | 5
 export type MilestoneWithNote = {
   level: Milestone,
@@ -20,46 +15,7 @@ export type MilestoneWithNote = {
 
 export const MilestoneCoreTechTracks = 'CORE_TECH_TRACKS'
 export type MilestoneMap = {
-  'FRONT_END': MilestoneWithNote,
-  'BACK_END': MilestoneWithNote,
-  'LINUX': MilestoneWithNote,
-  'SYS_PROG': MilestoneWithNote,
-  'FIRMWARE': MilestoneWithNote,
-  'APPLIED_ROBOTICS': MilestoneWithNote,
-  'MFG_TOOL': MilestoneWithNote,
-  'DEV_OPS': MilestoneWithNote,
-  'WEB_MASTERY': MilestoneWithNote,
-
-  'CTRL_MODEL': MilestoneWithNote,
-  'TRAJ_MODEL': MilestoneWithNote,
-
-  'ELEC_DESIGN': MilestoneWithNote,
-  'PCB': MilestoneWithNote,
-
-  'ELEC_SAFE': MilestoneWithNote,
-  'EMC_RED': MilestoneWithNote,
-  'FUNC_SAFE': MilestoneWithNote,
-  'MACH_SAFE': MilestoneWithNote,
-  'OCC_HAS': MilestoneWithNote,
-  'RISK_ASSESS': MilestoneWithNote,
-  'TECH_FILE': MilestoneWithNote,
-  'WORLD_MARKETS': MilestoneWithNote,
-
-  'IMPACT': MilestoneWithNote,
-  'COMMUNICATION': MilestoneWithNote,
-  'CRAFT': MilestoneWithNote,
-  'INITIATIVE': MilestoneWithNote,
-
-  'PROF_DEV': MilestoneWithNote,
-  'DEV_DESIGN': MilestoneWithNote,
-  'WELLBEING': MilestoneWithNote,
-  'INSPIRE': MilestoneWithNote,
-
-  'MENTORSHIP': MilestoneWithNote,
-  'EVANGELISM': MilestoneWithNote,
-  'HIRING': MilestoneWithNote,
-  'COMMUNITY': MilestoneWithNote,
-
+  [TrackId]: MilestoneWithNote,
   'CORE_TECH_TRACKS': TrackId[],
 }
 export const milestones = [0, 1, 2, 3, 4, 5]
@@ -105,9 +61,6 @@ const levelsToPoints = Object.keys(pointsToLevels).reduce((obj, point) => {
 }, {})
 
 export const maxLevel = Math.max.apply(null, Object.keys(pointsToLevels).map(point => parseFloat(point)))
-
-export type { Track }
-export { tracks }
 
 export const trackIds: TrackId[] = Object.keys(tracks)
 

@@ -1,57 +1,41 @@
 // @flow
 
-export type Track = {
+export type TrackId =
+  'FRONT_END' | 'BACK_END' | 'LINUX' | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' | 'MFG_TOOL' | 'DEV_OPS' | 'WEB_MASTERY' |
+  'CTRL_MODEL' | 'TRAJ_MODEL' |
+  'ELEC_DESIGN' | 'PCB' |
+  'ELEC_SAFE' | 'EMC_RED' | 'FUNC_SAFE' | 'MACH_SAFE' | 'OCC_HAS' | 'RISK_ASSESS' | 'TECH_FILE' | 'WORLD_MARKETS' |
+  'IMPACT' | 'COMMUNICATION' | 'CRAFT' | 'INITIATIVE' |
+  'PROF_DEV' | 'DEV_DESIGN' | 'WELLBEING' | 'INSPIRE' |
+  'MENTORSHIP' | 'EVANGELISM' | 'HIRING' | 'COMMUNITY' |
+  "IDEATION A" | "IDEATION B" | "REALISATION A" | "REALISATION B" | "VALIDATION/SIMULATION A" | "VALIDATION/SIMULATION B" | "IMPLEMENTATION A" | "IMPLEMENTATION B" |
+  "DRIVING CHANGE A" | "DRIVING CHANGE B" | "DFM A" | "DFM B" | "NPI A" | "NPI B" | "DIAGNOSTIC TOOLS" | "PROCESS DOCUMENTATION" | "QUALITY CONTROL A" | "QUALITY CONTROL B" | "DRIVING CHANGE A" | "DRIVING CHANGE B" |
+  "SUPPLY CHAIN MANAGEMENT A" | "SUPPLY CHAIN MANAGEMENT B" |
+  "INVENTORY CONTROL A" | "INVENTORY CONTROL B" | "LOGISTICS " | "PRODUCTION MANAGEMENT A" | "PRODUCTION MANAGEMENT B" | "SYSTEM DEVELOPMENT A" | "SYSTEM DEVELOPMENT B" | "CHANGE MANAGEMENT" |
+  "CHANGE CONTROL A" | "CHANGE CONTROL B" | "QUALITY TOOLS A" | "QUALITY TOOLS B" | "TEST & VALIDATION A" | "TEST & VALIDATION B" | "SUPPLIER DEVELOPMENT A" | "SUPPLIER DEVELOPMENT B" | "DRIVING CHANGE A" | "DRIVING CHANGE B"
+
+type TrackMilestone = {|
+  summary: string,
+  signals: string[],
+  examples ?: string[]
+|}
+
+export type Track = {|
   displayName: string,
   category: string, // TK categoryId type?
   description: string,
-  milestones: {
-    summary: string,
-    signals: string[],
-    examples?: string[]
-  }[]
-}
-
-type Tracks = {|
-  'FRONT_END': Track,
-  'BACK_END': Track,
-  'LINUX': Track,
-  'SYS_PROG': Track,
-  'FIRMWARE': Track,
-  'APPLIED_ROBOTICS': Track,
-  'MFG_TOOL': Track,
-  'DEV_OPS': Track,
-  'WEB_MASTERY': Track,
-
-  'CTRL_MODEL': Track,
-  'TRAJ_MODEL': Track,
-
-  'ELEC_DESIGN': Track,
-  'PCB': Track,
-
-  'ELEC_SAFE': Track,
-  'EMC_RED': Track,
-  'FUNC_SAFE': Track,
-  'MACH_SAFE': Track,
-  'OCC_HAS': Track,
-  'RISK_ASSESS': Track,
-  'TECH_FILE': Track,
-  'WORLD_MARKETS': Track,
-
-  'IMPACT': Track,
-  'COMMUNICATION': Track,
-  'CRAFT': Track,
-  'INITIATIVE': Track,
-
-  'PROF_DEV': Track,
-  'DEV_DESIGN': Track,
-  'WELLBEING': Track,
-  'INSPIRE': Track,
-
-  'MENTORSHIP': Track,
-  'EVANGELISM': Track,
-  'HIRING': Track,
-  'COMMUNITY': Track,
+  milestones: [
+    TrackMilestone,
+    TrackMilestone,
+    TrackMilestone,
+    TrackMilestone,
+    TrackMilestone,
+  ],
 |}
+
+type Tracks = {
+  [TrackId]: Track,
+}
 
 export const tracks: Tracks = {
   "FRONT_END": {
@@ -1774,5 +1758,1515 @@ export const tracks: Tracks = {
         "Sets the tone, policy, and goals around maintaining an inclusive company",
       ],
     }],
+  },
+
+  "IDEATION A": {
+    "displayName": "Ideation A",
+    "category": "Design Engineering",
+    "description":
+      "Ability to use CAD/Drawings/Calculation and Prototyping to develop and prove parts, mechanisms and structures",
+    "milestones": [
+      {
+        "summary":
+          "Basic Concepts of 3D Modelling//2D Drawing and Production of Prototypes.  Can design machined/cast/sheet metal parts.  Simple Engineering Calculations and Analysis.  Can create controlled parts",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Intermediary Use of CAD Tools [Inc Surfacing/Assemblies/Linear FEA Applications] and ability to produce detailed 2D Drawings.  Good applied understanding of Mechanisms and Joining of Materials.  Understands conceptual limitations and best practice of the parts they are designing",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Advanced use of CAD including Analytic Tools, GDT, Tolerance Modelling and Clash Fit/Mass Properties Inc use of Inbuilt or Ancillary FEA Packages and Data Management Systems.  In Depth understanding of the processes they are designing for at a theoretical and practical level and is able to anticipate issues in their designs.  Can support detailed engineering design decisions with detailed calculation, i.e Bolts, Gears, General Stress Calculations.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Expert: Full Mastery and Command of all user features in CAD Stack and able to support and upskill other users to Advanced Level.  Ability to identify shortcomings in current systems and in-depth knowledge of mechanisms and structures, transmission of forces.  Understanding of wide range of application areas and how they work/fail at a theoretical level and can provide analysis and calculations to support ideas and insights.  Has strong understanding of issues in the electronics and controls design systems used in the robot",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  As above but Defines strategic direction for development of Company Wide CAD Application Stack, Engineering Technologies and a recognised subject area Engineering Expert.  Wide experience of Mechanism Design and Analysis.  Strong Understanding of Electronics and Controls Design Issues and can engage with other Subject Area Experts to guide and upskil others.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "IDEATION B": {
+    "displayName": "Ideation B",
+    "category": "Design Engineering",
+    "description":
+      "Use of Analytic Frameworks to Manage Risk, Performance and Failure Rates [P/DFMEA/SF] in design concepts",
+    "milestones": [
+      {
+        "summary":
+          "Understands Basic application of DFMEA and can perform Safety Limit Calculations using Cad/Spreadsheets ",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Deeper Understanding of DFMEA process and can set up and complete DFMEA.  Can use these to predictively indicate where designs need to be rationalised or reconsidered.  General understanding of what safety factors are appropriate and is proficient in decision making relating to safety factory and risk assessment",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above but understands the relationship between DFMEA and compliance issues in the compilation of technical files.  Can provide detailed calculations and assessments of Safety limits for use in compliance files.  Can use FMEA to propose projects and bring about meaningful objective outcomes.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Can organise and run work groups to conclude D/P FMEA at the appropriate point and liaise with compliance and quality experts to develop/extend the FMEA frameworks..  Upskill others and evolve and critique completed FMEA",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: As above but is able to improve and introduce new analytic frameworks and tools for understanding risk and failure in designs.  Complete complexe FMEA style exercises and break down outputs into plans of action.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "REALISATION A": {
+    "displayName": "Realisation A",
+    "category": "Design Engineering",
+    "description": "Materials, Mechanisms and Process Knowledge",
+    "milestones": [
+      {
+        "summary":
+          "Basic Knowledge of Metals [Ferrous and Non-Ferrous], Plastics , CAD/CAM, Machining techniques and limitations",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Intermediary Knowledge of Metals [Ferrous and Non-Ferrous], Plastics and their processing and processing limits.  BAsic knowledge of typical materials applications.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Advanced Knowledge of Metals [Ferrous and Non-Ferrous], Plastics , Machining and Forming techniques and limitations and their structural/mechanical limitations",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Expert: As above but with clear understanding of applications, limitations of use and common failure modes in complex mechanisms and materials being proposed",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: As above but with the ability to contact and liaise with experts outside of the business or identify specialist/new materials/mechanisms which may provide performance gains in the company's product.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "REALISATION B": {
+    "displayName": "Realisation B",
+    "category": "Design Engineering",
+    "description": "Prototype and First Part Inspection ",
+    "milestones": [
+      {
+        "summary":
+          "Can produce prototyping drawings and order parts to build prototypes",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Ability to conduct first part/prototype inspections and compile reports",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above  is capable of assembling prototype with all necessary accompanying documentation",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above Can use prototyping information to develop pack for PPaP/PSW",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert can train and upskill people people in building advanced first builds, inspecting parts and developing prototype reports suitable to be fed back into the teams",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "VALIDATION/SIMULATION A": {
+    "displayName": "Validation/Simulation A",
+    "category": "Design Engineering",
+    "description":
+      "Experimental Design, Analysis and Drawing Meaningful Conclusions",
+    "milestones": [
+      {
+        "summary":
+          "Can develop test and analysis frameworks for simple parts and systems.  Get jigs built and run them.  Collect basic data and complete simple analysis of the experiment",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above demonstrated experience of using measurement and data gathering tools ",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above ability to develop advanced data analysis which leads to tangible outcomes and give insights into the performance of prototypes.  Advance understanding of Hypothesis testing as a tool, Socratic Methods etc. in developing conclusions from data",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above the ability to upskil others and evolve test and analytic best practice",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Advise on Testing and has ability to work closely with quality and compliance to ensure presented test outcomes maintain a adequate evidential quality to meet the company's requirements.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "VALIDATION/SIMULATION B": {
+    "displayName": "Validation/Simulation B",
+    "category": "Design Engineering",
+    "description": "Documenting, Recording and Communicating Findings",
+    "milestones": [
+      {
+        "summary": "Can write Basic Reports and file them correctly",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Develop more detailed reports capable of inclusion into TDF's/PSW/MMF which may include complex analysis or data representations",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Can articulate finding of reports concisely and communicate findings and impacts to a broader audience",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Can upskill others and critique others work and performance",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: As above plus extending the tools and procedures used for the team when recording, analysing and representing data",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "IMPLEMENTATION A": {
+    "displayName": "Implementation A",
+    "category": "Design Engineering",
+    "description": "Getting Parts Out PPaP/PSW/QCP ",
+    "milestones": [
+      {
+        "summary": "Understanding the elements that comprise PPaP/PSW and QCP",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Can compile PPaP and PSW for simple part implementations",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Can compile PPaP and PSW for complex designs or critical parts and can assist in the development of QCP's",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above  Upskill and Train others in the established system",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:   Able to develop management processes of the change cycle with other teams and has deep insight into the use of the   use of PPaP/QCP and PSW",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "IMPLEMENTATION B": {
+    "displayName": "Implementation B",
+    "category": "Design Engineering",
+    "description": "Change Management and Sustaining the DMAIC Cycle",
+    "milestones": [
+      {
+        "summary":
+          "Understands the basic elements of the change management system",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "As above Can complete simple changes through to PSI level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Can complete complex changes through to PSW level and liaise with other groups actioning the change process",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above  Can upskil Others and resolve complex change management issues",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Able to develop management processes of the change cycle with other teams and has deep insight into the use of DMAIC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "DRIVING CHANGE A": {
+    "displayName": "Driving Change A",
+    "category": "Design Engineering",
+    "description":
+      "Ability to Influence, Communicate and Generate Consensus on Change",
+    "milestones": [
+      {
+        "summary":
+          "Can identify specific areas within the Mech Eng Stack which lead to an increase in Payload, Capability, Lifetime, Reliability or Consistency using statistical or evidence based information",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above  Able to present ideas in a considered manner and generate buy in an consensus on findings and proposals",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Introduces strategic thinking and long term thinking into proposals which can support multiple successive projects",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Is able to formulate and generate buy in/consuses on major projects and features or strategic headlines which will influence multiple projects",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Can provide vision and guidance to coworkers in formulating their proposals and champion large initiatives and bring people together to support their completion. ",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "DRIVING CHANGE B": {
+    "displayName": "Driving Change B",
+    "category": "Design Engineering",
+    "description": "Identifying and Creating Meaningful Measurable Improvement",
+    "milestones": [
+      {
+        "summary":
+          "Can define, scope and execute small projects within a DMAIC framework and create realisable measurable performance measures for proposed outcomes",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above  Executes quantitative tracking to show how implemented outcomes have been demonstrated and quantify the anticipated performance gain.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Produces data from projects which is capable of being used by other teams to develop their own projects and insights.  Acts as a voice for internal and external customers. Able to identify and draw in customer voice to the organisation.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "As above But at Medium Large Scale",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Can guide and upskill others in this area whilst providing oversight on large projects.  ",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+
+  "DFM A": {
+    "displayName": "DFM A",
+    "category": "Manufacturing Development",
+    "description":
+      "Ability to understand Parts, Capability and work with Suppliers/Designers to define reliable repeatable parts.",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: : Understands basic concepts of makes a part easy or difficult to produce reliably for machiend and sheet metal parts and is able to identify areas where proposed parts may have poor levels of capability or repeatability",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "As Above + : Injection and HPDC parts",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Understands advance concepts relating to tool wear/ degradation part variation and relate these to proposed designs or existing parts",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Understands and can diagnose potential faults that may occur in different batches of the same part and has demonstrated an ability to critique potential issues in parts presented for manufacture by engineering design",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "DFM B": {
+    "displayName": "DFM B",
+    "category": "Manufacturing Development",
+    "description":
+      "Ability to understand process flow, structure and risk in the procurement and assembly of the product",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point:  Can identify material handling/processing or assembly work flows which may cause issues relating to repeatability",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :  But with more advance or complex process flows",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Can complete studies to demonstrate or predict the likelihood of process failure and impact",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Understands comprehensive best practice in the organisation of process and materials flows and is able to extend the company's knowledge of these areas and communicate this to other team members",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "NPI A": {
+    "displayName": "NPI A",
+    "category": "Manufacturing Development",
+    "description":
+      "The ability to release and control data using PDM, ERP and BOM etc in the implimentation of change or new products.",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point:  : Can  Edit BOMs on the ERP Systems and use the PDM system to find information",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Can set up new BOMs and understands the full management cycle of Bills of Material.   Understands the function ans application of auto assemble/disassemble functions",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Can use import/export features to bulk process the above function///Set up work flows on the PDM system",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Can act as full system administrator/architect for PDM system or ERP sytem and understands at a conceptual level what the systems deliver and how that should be achieved.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "NPI B": {
+    "displayName": "NPI B",
+    "category": "Manufacturing Development",
+    "description":
+      "The ability to work with suppliers to created tools,, parts and pilot builds to manufacture items in low volumes",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point:  Can send out drawings and process quotes according to company proceedures with various suppliers already on the system",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :  Can deal with larger drawing packs for RFQ and organisinng production of pilot builds using three or more suppliers to source the full build",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : As above but can introduce new suppliers to system including ERP setup, Put NDA's in Place and conduct low level Diligence/Risk assesment on the supplier. Purchase parts at low volumes",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Can organise and source complex trial builds which involve large numbers of parts and suppliers.  Align sourcing options in pilot builds with PPaP requirements and leverage activity to support transition to volume manufacture",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "DIAGNOSTIC TOOLS": {
+    "displayName": "Diagnostic Tools",
+    "category": "Manufacturing Development",
+    "description":
+      "Ability to identify failure points and propose/realise tests, jigs or check gautes to understand if items are non-conformant ",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: :  Able to understand necessity for key check gates at identify necessary check points in process flows",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :  Ability to design brief or specify simple tooling and jigs to meet requirements and reach out to get it built",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Overseeing/specifying the development of more complex jigs which may involve multiple collaborators and/or software/electronics",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:   Can look outside of organisation to develop best practice and draw in information that will lead to measurable improovements in the development of conformance checks and data aquisiton about our product and can work with others to realise this with suppliers",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "PROCESS DOCUMENTATION": {
+    "displayName": "Process Documentation",
+    "category": "Manufacturing Development",
+    "description":
+      "Production of SOP's work instruction, dignostic trees, FAT's and other documents necessary to define cnoformant products ",
+    "milestones": [
+      {
+        "summary": "Entry Point:  Can edit SOP's, Fault Trees and FAT's",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Can write from scratch high grade SOPs/FAT's an test documentation for simple processes and assemblies",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Can write from scratch high grade SOPs/FAT's an test documentation for complex processes and assemblies",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Can look beyo/FAT/nd our systems and organsiation and establish best practice and more effiient ways we can construct, control and disemenate SOP/FAT and other documents",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "QUALITY CONTROL A": {
+    "displayName": "Quality Control A",
+    "category": "Manufacturing Development",
+    "description":
+      "Inspection processes, methods and tools used in quality control",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point:  Basic idea of simple metrology tools and processes",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Understands use and applications of gauging and other inspection tools and can integrate them into control documents",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Understands use CMM/Laser Scanning and automated data collection techniques for QC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  wider knowledge of use of inspection tools where they are applied and can introduce new techniques and technologies to improove performance in this area",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "QUALITY CONTROL B": {
+    "displayName": "Quality Control B",
+    "category": "Manufacturing Development",
+    "description":
+      "Development and sustainance of control and analysis frameworks to ensure consitency in parts and production",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: : Can interpret a suppliers data submission pack for batch conformance approval",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can develop QC frameworks for checks and inspections on simple parts",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Can write a QCP for a manufacture to control components or assemblies.  Has complete PSW on production parts more",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Deep understanding of use and construction of QCP/PPaP and can loook out for best practice to improove our systems",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "DRIVING CHANGE A": {
+    "displayName": "Driving Change A",
+    "category": "Manufacturing Development",
+    "description":
+      "Ability to Influence, create change and introduce Best practice",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: Can identify systems or processes within the manufacturing sphere whic cause problems and concisely communicate the issues within the group",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : But can spread understanding and buy in accros multiple skills groups",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : But can deal with complex issues which affect multiple groups and communicate effectivly across them and at executive level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Can draw new techniques for generating consensus and buy in accross groups into the organisation",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "DRIVING CHANGE B": {
+    "displayName": "Driving Change B",
+    "category": "Manufacturing Development",
+    "description":
+      "Propergation of the DMAIC cycle and use of data driven decision making",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point:  Understands and can apply the DMAIC cycle to simple projects to create improvement",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + : Can complete larger more complex data anlaysis looking at multiple aspects of product and production process and draw these into clear action plans with impllimented outcomes",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :  Has demonstrated DMAIC as a part the definition and implimentation of  \"change cycle\" and can produce evidence to show improovement and sustained control stratergies for medium complexity parts and simple assemblies",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As Above + :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Can use advance data tools in data analysis and drive through complexe projects structures around the DMAIC framework and create constant change and improovement",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+
+  "SUPPLY CHAIN MANAGEMENT A": {
+    "displayName": "Supply Chain Management A",
+    "category": "Manufacturing Operations",
+    "description":
+      "SCM: Supplier management for Cost, Value, Quality of relationship, IP, Contract definition and Strategic Development ",
+    "milestones": [
+      {
+        "summary":
+          "Understands most of the listed items in relation to company objectives and requirements ",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Level of Proficiency in some of these areas allows individual to cooperate with external parties such as supplier or agents acting the company [IP Lawyers]",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above Deeper insight and can deal with making complex trade-offs with regard to all of these areas or request additional support",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Advance understanding and significant experience in dealing with these areas.  Can make strategic decisions in relation to the company's requirements for these areas",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "SUPPLY CHAIN MANAGEMENT B": {
+    "displayName": "Supply Chain Management B",
+    "category": "Manufacturing Operations",
+    "description":
+      "SCM: Auditing Suppliers and understanding the requirements for prospective supply chain partners and the risks/benefits that they may entail",
+    "milestones": [
+      {
+        "summary":
+          "Understand the necessity for auditing and understands how to build the requirements set for an audit.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "As above plus Can conduct audits and compile findings ",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Organise audits by third parties and specify schedules of work for multiple subject specific audits and make risk analysis based on their findings",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: able to evolve and critique auditing practices and develop best practice in auditing for multiple areas of the supply chain.  Can complete ISO style audits on suppliers and use recognised standards in structuring audits.  Can advise on supply chain risk in strategic supply chain discussions",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "INVENTORY CONTROL A": {
+    "displayName": "Inventory Control A",
+    "category": "Manufacturing Operations",
+    "description":
+      "Inv Control: Ability to Use and Develop performance of ERP function and manage purchase against demand.",
+    "milestones": [
+      {
+        "summary":
+          "Understand function of ERP, individual functional elements and can add parts, assemblies, complete SA/TX and SC functions.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can Run reporter reports and compile shortages and buy lists",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can Place PO's and Book Stock into System, Use Assembly functions to manage demand through the system",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Advance understanding of use of conceptual and financial drivers in inventory management.  Can help to develop best practice within the company.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "INVENTORY CONTROL B": {
+    "displayName": "Inventory Control B",
+    "category": "Manufacturing Operations",
+    "description":
+      "Inv Control: Management of costs, stock holdings and cost accuracy. Including Stock Takes with 3PL's and Supply Chain Partners",
+    "milestones": [
+      {
+        "summary":
+          "Understand function of ERP, individual functional elements and can add parts, assemblies, complete SA/TX and SC functions.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can Run reporter reports and compile shortages and buy lists.  Has strong grasp of key concepts and language",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can calculate and modify Valuations and ROP's/Stock Alerts and organise stock takes",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Advance understanding of use of conceptual and financial drivers in inventory management.  Can help to develop best practice within the company.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "LOGISTICS ": {
+    "displayName": "Logistics ",
+    "category": "Manufacturing Operations",
+    "description":
+      "Logistics: Can identify and execute appropriate means and processes to move goods from one location to another",
+    "milestones": [
+      {
+        "summary": "Can organise a national courier movement",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Can organise an international courier movement and deal with duties, entry codes.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Understands Palletisation and Air freight/Containerisation and Sea Forwarding as well as basic duties requirements",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Can identify potential partners, develop quotations and outline strategic logistical objectives.  Can develop best practice and transfer learnings from outside of the company into our behaviours",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "PRODUCTION MANAGEMENT A": {
+    "displayName": "Production Management A",
+    "category": "Manufacturing Operations",
+    "description":
+      "Production Management: Ensuring Continued availability of goods in the required volumes at the required price.",
+    "milestones": [
+      {
+        "summary":
+          "Understands KPI that production activity is measured against. Can rationalise current and anticipated future behaviour against the production schedules",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can anticipate problems and communicate this to the relevant people and generate consensus around actions",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can think strategically to resolve issues and understands their circle of influence to generate changes in performance.  Understands the finances of the current production model and can recommend fact based improvements",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Advance understanding of process management models and can strategically develop the company's production management processes to yield demonstrable results",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "PRODUCTION MANAGEMENT B": {
+    "displayName": "Production Management B",
+    "category": "Manufacturing Operations",
+    "description":
+      "Production Management: Development of Best practice including Lean, Process structure and Materials Handling to ensure we are making products in the most effective way possible",
+    "milestones": [
+      {
+        "summary":
+          "Understands Materials Handling steps in our product and operations stack and can apply basic efficiency principles to simple workflows",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can apply principles to more complex issues and examples.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can use conceptual tools to identify and resolve issues in production systems and formulate programs to address these issues",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Advance understanding of Materials and Process flow and can make complexe strategic decisions backed by factual evidence",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "SYSTEM DEVELOPMENT A": {
+    "displayName": "System Development A",
+    "category": "Manufacturing Operations",
+    "description":
+      "System Development and Scale:  Understanding Capability, Risk and Control Levers in the Supply Chain",
+    "milestones": [
+      {
+        "summary":
+          "Can understand and estimate where the operational boundary limits of our current production and supply chains are",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Understands the levers that can be used to improve performance and meet business objectives",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Has significant awareness of risk and its causes and plan contingency in supply chain activity [requires with objective examples]",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Advance understanding of how to scale and manage risk and get buy in from other areas of the company to support plans and proposed changes",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "SYSTEM DEVELOPMENT B": {
+    "displayName": "System Development B",
+    "category": "Manufacturing Operations",
+    "description":
+      "System Development and Scale: Creating Change that aligns the Supply Chain against Business Objectives",
+    "milestones": [
+      {
+        "summary":
+          "Understands the strengths and weakness in our supply chains and can propose alternative actions or suppliers",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can identify risk and complexity and where it may present a threat to Key objectives or sustainability",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus  Is able to make complex tradeoffs in risk to produce best fit with key objectives from across the business",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Can think strategically and use supply chain partners to deliver our objects and communicate activity and reasoning across multiple subject groups in the company",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "CHANGE MANAGEMENT": {
+    "displayName": "Change Management",
+    "category": "Manufacturing Operations",
+    "description":
+      "Change Management:  Systems and Processes for Implementing Change within the Supply Chain.",
+    "milestones": [
+      {
+        "summary":
+          "Basic Understanding of the systems and processes to introduce or change new partners",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Intermediary Ability to complete the required stages of the change cycle and has complete small to medium sized changes",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus  Advanced understanding of change cycle and can compile complex change pieces within the supply chain",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Advance understanding of change system and has the ability to develop new best practice, build consensus and influence the behaviours of others",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+
+  "CHANGE CONTROL A": {
+    "displayName": "Change Control A",
+    "category": "Quality",
+    "description":
+      "Can define and develop from best practice the systems and processes used to control the verification, implementation and configuration of our parts and products.",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: : Full conceptual and practical understanding of Capa, Concession ECN and PPaP and PSW//Change System for all Groups in Mechanical, Electronic and Software Stack",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Can Define Change Control Scope for complex major changes and advise work groups on implications of change path.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Able to Champion the use of above systems with teams and provide examples of how they have correctly control change ",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Able to engage with outside bodies and draw in evolving best practice and regulatory requirements into the organisation and develop systems in response to this",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "CHANGE CONTROL B": {
+    "displayName": "Change Control B",
+    "category": "Quality",
+    "description":
+      "Understanding of the full technical stack and an ability to understand risks to performance, consistency and availability  when implementing change.",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: : Understands and can define change scopes for Product Level and propose appropriate control frameworks and necessary change control tools",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Full understanding of all Configuration Control Issues and Tools in Manufacture which may be affected by change",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Able to advise and support teams in controlling change across the full stack to ensure production and product functionality is not compromised",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Able to engage with outside bodies and draw in evolving best practice and regulatory requirements into the organisation and develop systems in response to this",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "QUALITY TOOLS A": {
+    "displayName": "Quality Tools A",
+    "category": "Quality",
+    "description":
+      "Use of General and Statistical Process control tools to identify failure in product and process to highlight areas for improvement  ",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: : Can complete basic statistical analysis, gauge R&R pareto analysis etc. on simple parts",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Can use specialist tools to complete calculations relating to MTF, Reliability and Performance",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : has demonstrated ability to apply more complex calculations such a Cp, Cpk to understand process performance on more complex parts",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Recognised certification and multiple examples of this being used in the context of the business to bring measurable performance gains",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "QUALITY TOOLS B": {
+    "displayName": "Quality Tools B",
+    "category": "Quality",
+    "description":
+      "Implementation and development of PPaP/ PSW/QCP procedures  to ensure parts are correctly attributed and controlled.",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: : Understands the necessity and framework of PPaP/PSW/QCP and can develop simple plans to control release of parts and suppliers part submissions",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can write and structure above for parts of medium complexity",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can write and structure the above for complex parts and assembly systems and champion the processes with other teams across the company",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Can develop the existing systems to meet changing requirements and is in touch with current thinking and best practice relating to this area",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "TEST & VALIDATION A": {
+    "displayName": "Test & Validation A",
+    "category": "Quality",
+    "description":
+      "Defining, Organising and Delegating Part and Product Testing to ensure standards are met",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: :  Can work with teams to define scope of testing requirements, control variable framework and ensure this is done to the agreed standard.  Has a wide skills set in dealing with a variety of test and measurement technologies",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Can work with teams dealing with more complex parts/assembly/software structures to ensure necessary testing has been completed",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Can connect teams to in outside test and measurement facilities to make sure appropriate third party testing takes place to the required standard",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Comprehensive knowledge of all aspects of test required to produce the Robot and connect to industry leading organisations to understand how they tackle similar issues",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "TEST & VALIDATION B": {
+    "displayName": "Test & Validation B",
+    "category": "Quality",
+    "description":
+      "Development of standardised test and data collection frameworks to maintain Quality",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: : Understands how to design and develop specific tests which can be used to assess comparative performance on iterative design cycles of similar parts",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :  Can produce standardised tests for sub assemblies to allow A/B performance testing and indicate the strengths and weaknesses in the testing approach",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Full robot level standardised tests plus critique on the approach",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Constantly reviews evolving test and measurement technologies and their applications to draw current \"state of the art\" and best practice into the organisation",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "SUPPLIER DEVELOPMENT A": {
+    "displayName": "Supplier Development A",
+    "category": "Quality",
+    "description":
+      "Develop process and behaviours in suppliers to ensure they can prevent the shipment of defective goods",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: :  Understands how process data is a proxy for part quality and can work with others to identify the elements in a component which will allow us understand conformance and suitability before shipment [simple parts] and has worked with a suppplier to develop a data submission pack which represents our understanding of quality",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :  Complex parts or assemblies and can generate buy in from suppliers on implementing these measurements",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Can propose measurements to revel characteristics that are not directly measurable as part of the parts manufacturing process and work with suppliers to build this into the data pack. [e.g Batch% destructive inspection] and has demonstrated use of this as a way of reducing failure rates in key parts",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Is able to look to industry best practice and world class to suppliers to see how they are developing data submissions and draw best practice into the organisation",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "SUPPLIER DEVELOPMENT B": {
+    "displayName": "Supplier Development B",
+    "category": "Quality",
+    "description":
+      "Ensure suppliers understand specification and are providing appropriate data to support their conformance declaration",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: :  Work with suppliers to develop batch conformance data packs on simple parts using certification submissions and physical measurement to support the development of TDF's",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Moulded or post processed parts which require process control data to form part of the pack and translates this into part of the TDF",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Complex parts or assemblies with critical characteristics which extend beyond physical dimensional measurement",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Is able to look to industry best practice and world class to suppliers to see how they are developing data submissions and draw best practice into the organisation",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "DRIVING CHANGE A": {
+    "displayName": "Driving Change A",
+    "category": "Quality",
+    "description":
+      "Can improve the understanding and practice of quality in the whole organisation",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: : Is an advocate of quality control best practice for the manufacturing team",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Is an advocate for quality control across the company and has the necessary skills set to engage with other teams",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus : Is able to engage and develop \"buy in\" to improve quality control in all areas of the company",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus: Has trained motivated and mentored others to work within the QMS to advocate and enhance performance.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert:  Engages with external quality control professionals outside of the company to understand their approaches to develop new approaches and improve the performance of our quality systems.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+  "DRIVING CHANGE B": {
+    "displayName": "Driving Change B",
+    "category": "Quality",
+    "description":
+      "Champion use of best practice and formal quality structures in all areas of the company.",
+    "milestones": [
+      {
+        "summary":
+          "Entry Point: : Identifies areas for the improvement of quality systems or practices and develops plans to resolve them, develops buy in and engages others",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Has generated change or structure in Quality control practices which has improved the reliability or performance of team or systemic area of the company.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Has established a certified QC system to the company for one or more areas of activity,e.g. ISO 9001 for the Manufacturing ",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "As above plus :Can upskill and train other members of team to equivalent level",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary":
+          "Subject Area Expert: Can Manage the continuous improvement programs put in place of our QMS and enhance its performance.  Keeps abreast of regulatory changes and is responsible for certification and renewal of all externally audited quality certification.",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
   },
 }

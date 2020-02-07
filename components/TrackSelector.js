@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { trackIds, tracks, categoryColorScale, isTechnicalTrack, isCoreTechTrack, techCategories, softCategories, tracksFromCategory, MilestoneCoreTechTracks } from '../constants'
+import { trackIds, tracks, categoryColorScale, isTechnicalTrack, isCoreTechTrack, techCategories, softCategories, tracksFromCategory, MilestoneCoreTechTracks, maxCoreTechTracks } from '../constants'
 import type { MilestoneMap, TrackId } from '../constants'
 
 type Props = {
@@ -88,7 +88,7 @@ class TrackSelector extends React.Component<Props> {
             margin-bottom: 5px;
           }
         `}</style>
-        <h3>Core technical skills</h3>
+        <h3>Core technical skills [{coreTechTrackIds.length}/{maxCoreTechTracks}] <small>(right-click on a skill to select/deselect it as a core skill)</small></h3>
         <div className="track-selector-break" />
         {coreTechTrackIds.map(trackId => (
           this.renderTrack(trackId)

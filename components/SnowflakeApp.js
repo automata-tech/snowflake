@@ -25,11 +25,11 @@ type SnowflakeAppState = {
 }
 
 const hashToState = (hash: String): ?SnowflakeAppState => {
-  if (!hash) return null
+  if (!hash) return null;
   try {
     const result = JSON.parse(window.atob(hash.split('#')[1]));
     // Ensure a title is present
-    if (!result.title) {
+    if (!result.title && result.title !== '') {
       result.title = defaultState().title;
     }
     // Transform state to support notes for each track

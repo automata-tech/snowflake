@@ -1,7 +1,7 @@
 // @flow
 
 export type TrackId =
-  'FRONT_END' | 'BACK_END' | 'LINUX' | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' | 'MFG_TOOL' | 'DEV_OPS' | 'WEB_MASTERY' |
+  'FRONT_END' | 'BACK_END' | 'LINUX' | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' | 'MFG_TOOL' | 'DEV_OPS' | 'WEB_MASTERY' | 'DATABASES' | 'USER_EXP' |
   'CTRL_MODEL' | 'TRAJ_MODEL' |
   'ELEC_DESIGN' | 'PCB' |
   'ELEC_SAFE' | 'EMC_RED' | 'FUNC_SAFE' | 'MACH_SAFE' | 'OCC_HAS' | 'RISK_ASSESS' | 'TECH_FILE' | 'WORLD_MARKETS' |
@@ -649,6 +649,73 @@ export const tracks: Tracks = {
       ],
     }],
   },
+
+  "DATABASES": {
+    "displayName": "Databases",
+    "category": "Software",
+    "description": "TBC",
+    "milestones": [
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+
+  "USER_EXP": {
+    "displayName": "User Experience",
+    "category": "Software",
+    "description": "The ability to design engaging, accessible and straight-forward user journeys on different devices (mobile, desktop, etc) and for different audiences (engineering, layman, etc)",
+    "milestones": [
+      {
+        "summary": "Follows the company guidelines on UX, develop new or existing journeys and behaviors based on someone else's recommendation",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "Creates low-fidelity mockup using recommended tools, TODO",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+
 
   "CTRL_MODEL": {
     "displayName": "Controls Modelling",

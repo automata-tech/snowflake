@@ -9,6 +9,7 @@ type Props = {
   focusedTrackId: TrackId,
   setFocusedTrackIdFn: (TrackId) => void,
   othersExpanded: boolean,
+  detailed: boolean,
   onToggleOthersFn: () => void,
   toggleCoreTechTrackFn: (TrackId) => void,
 }
@@ -60,6 +61,9 @@ class TrackSelector extends React.Component<Props> {
 
   render() {
     const coreTechTrackIds = trackIds.filter(trackId => isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]))
+    const otherTechTrackIds = trackIds.filter(trackId =>
+      !isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]) && this.props.milestoneByTrack[trackId].level > 0
+    )
     const softTrackIds = trackIds.filter(trackId => softCategories.has(tracks[trackId].category))
 
     return (
@@ -95,7 +99,15 @@ class TrackSelector extends React.Component<Props> {
         ))}
         <div className="track-selector-break" />
         <h3>
-          Other technical skills
+          Other technical skills <small>(do not count towards your milestone)</small>
+        </h3>
+        <div className="track-selector-break" />
+        {otherTechTrackIds.map(trackId => (
+          this.renderTrack(trackId)
+        ))}
+        <div className="track-selector-break" />
+        <h3>
+          Technical skills
           <span className="track-selector-expand" onClick={this.props.onToggleOthersFn}>{this.props.othersExpanded ? '▲' : '▼'}</span>
         </h3>
         {this.props.othersExpanded && Array.from(techCategories.keys()).map((category, i) => {

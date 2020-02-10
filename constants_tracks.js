@@ -1,7 +1,8 @@
 // @flow
 
 export type TrackId =
-  'FRONT_END' | 'BACK_END' | 'LINUX' | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' | 'MFG_TOOL' | 'DEV_OPS' | 'WEB_MASTERY' | 'DATABASES' | 'USER_EXP' |
+  'FRONT_END' | 'BACK_END' | 'LINUX' | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' |
+  'MFG_TOOL' | 'DEV_OPS' | 'WEB_MASTERY' | 'DATABASES' | 'USER_EXP' | 'IT' | 'DATA_SCIENCE' |
   'CTRL_MODEL' | 'TRAJ_MODEL' |
   'ELEC_DESIGN' | 'PCB' |
   'ELEC_SAFE' | 'EMC_RED' | 'FUNC_SAFE' | 'MACH_SAFE' | 'OCC_HAS' | 'RISK_ASSESS' | 'TECH_FILE' | 'WORLD_MARKETS' |
@@ -39,7 +40,7 @@ type Tracks = {
 
 export const tracks: Tracks = {
   "FRONT_END": {
-    "displayName": "Front-End",
+    "displayName": "Front-End Sorcery",
     "category": "Software",
     "description": "Ability to create browser-side applications, knowledge of the associated technologies (HTML, CSS, JavaScript), understanding of the domain-specific challenges and best practices",
     "milestones": [ {
@@ -106,7 +107,7 @@ export const tracks: Tracks = {
   },
 
   "BACK_END": {
-    "displayName": "Back-End",
+    "displayName": "Back-End Wizardry",
     "category": "Software",
     "description": "Ability to create server-side applications, knowledge of the associated technologies (HTTP, Websocket, Databases and the ones we use in the company: Go and SQLite), understanding of the domain-specific challenges and best practices",
     "milestones": [{
@@ -165,15 +166,15 @@ export const tracks: Tracks = {
         "Identifies and solves systemic problems with current architecture",
       ],
       "examples": [
-        "Researched, vetted, and selected Go as Automata's statically typed language",
-        "Defined Choreograph backend architecture and migration plan",
-        "Defined and implemented proprietary IP core to the company's success",
+        "TODO",
+        "TODO",
+        "TODO",
       ],
     }],
   },
 
   "LINUX": {
-    "displayName": "Linux System",
+    "displayName": "Linux System Hegemon",
     "category": "Software",
     "description": "Ability to create Linux commands and daemons, knowledge of the associated technologies (Linux, syscalls and the ones we use in the company: Go and C++), understanding of the domain-specific challenges and best practices (build systems, etc), able to engineer our update system to be reliable and adapt our Yocto distribution",
     "milestones": [{
@@ -240,7 +241,7 @@ export const tracks: Tracks = {
   },
 
   "SYS_PROG": {
-    "displayName": "System Programming",
+    "displayName": "System Programming Rock Star",
     "category": "Software",
     "description": "Ability to maintain complex system applications (C++, ZeroMQ, protobuf) and their build systems (CMake), understand of the domain-specific challenges (threading, network) and best practices, knowledge of cryptography",
     "milestones": [{
@@ -450,7 +451,7 @@ export const tracks: Tracks = {
   },
 
   "MFG_TOOL": {
-    "displayName": "Manufacturing Tooling",
+    "displayName": "Manufacturing Tooling Necromancer",
     "category": "Software",
     "description": "Ability to create tools and applications that will be used in the manufacturing process, knowledge of the associated technologies (Python, ansible, etc), deployment, contact with Tharsus",
     "milestones": [{
@@ -517,7 +518,7 @@ export const tracks: Tracks = {
   },
 
   "DEV_OPS": {
-    "displayName": "DevOps",
+    "displayName": "DevOps Rogue",
     "category": "Software",
     "description": "Ability to deploy and maintain infrastructure (cloud, local, etc), knowledge of performance, scaling and security, expertise with build pipelines",
     "milestones": [{
@@ -588,7 +589,7 @@ export const tracks: Tracks = {
     "category": "Software",
     "description": "Ability to integrate different web services and components together, understanding of web best practices and systems, able to deliver and maintain web products effectively",
     "milestones": [{
-      "summary": "TODO",
+      "summary": "Able to effect minor changes to layout (HTML) and styling (CSS), can deploy websites by following written instructions",
       "signals": [
         "TODO",
         "TODO",
@@ -600,7 +601,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Able to fully maintain ",
       "signals": [
         "TODO",
         "TODO",
@@ -651,7 +652,7 @@ export const tracks: Tracks = {
   },
 
   "DATABASES": {
-    "displayName": "Databases",
+    "displayName": "Databases Architect",
     "category": "Software",
     "description": "TBC",
     "milestones": [
@@ -684,7 +685,7 @@ export const tracks: Tracks = {
   },
 
   "USER_EXP": {
-    "displayName": "User Experience",
+    "displayName": "User Experience Seer",
     "category": "Software",
     "description": "The ability to design engaging, accessible and straight-forward user journeys on different devices (mobile, desktop, etc) and for different audiences (engineering, layman, etc)",
     "milestones": [
@@ -694,7 +695,73 @@ export const tracks: Tracks = {
         "examples": ["TBC"]
       },
       {
-        "summary": "Creates low-fidelity mockup using recommended tools, TODO",
+        "summary": "Keep the user in their mind at all time, creates low-fidelity mockup using recommended tools, design with all supported devices and platforms in mind",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "Iterate design ideas through fast prototyping using recommended technologies, champion accessibility through all user journeys",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "Deliver design through A/B testing (using data to support their choices), understands the theory (psychology, etc) behind HMI design and use it to produce the right feelings and reactions from the user",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "Define the company philosophy towards user experience, oversee and review any work on user journeys to enforce consistency and high quality interactions",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+
+  "IT": {
+    "displayName": "Information Technology Paladin",
+    "category": "Software",
+    "description": "TBC",
+    "milestones": [
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      }
+    ]
+  },
+
+  "DATA_SCIENCE": {
+    "displayName": "Data Science Dexterity",
+    "category": "Software",
+    "description": "TBC",
+    "milestones": [
+      {
+        "summary": "TBC",
+        "signals": ["TBC"],
+        "examples": ["TBC"]
+      },
+      {
+        "summary": "TBC",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },

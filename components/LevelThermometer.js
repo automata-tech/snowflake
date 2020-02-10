@@ -71,15 +71,44 @@ class LevelThermometer extends React.Component<Props> {
          + "h" + (radius - width)
          + "z";
   }
+
+  renderLevel(categoryPoint, last, points, cumulativePoints, funcColor) {
+    const x = this.pointScale(cumulativePoints)
+    const width = this.pointScale(cumulativePoints + points) - x
+    const color = funcColor(categoryPoint.categoryId)
+    return (!last ?
+      <rect
+        key={categoryPoint.categoryId}
+        x={x}
+        y={0}
+        width={width}
+        height={height - margins.top - margins.bottom}
+        style={{ fill: color, borderRight: "1px solid #000" }}
+      /> :
+      <path
+        key={categoryPoint.categoryId}
+        d={this.rightRoundedRect(x, 0, width, height - margins.top - margins.bottom, 3)}
+        style={{ fill: color }}
+      />
+    )
+  }
+
   render() {
     let categoryPoints = categoryPointsFromMilestoneMap(this.props.milestoneByTrack)
     let allCategoryPoints = categoryPointsFromMilestoneMap(this.props.milestoneByTrack, true)
     let lastCategoryIndex = 0
     categoryPoints.forEach((categoryPoint, i) => {
-      if (categoryPoint.points) {
+      if (categoryPoint.points > 0) {
         lastCategoryIndex = i
       }
     })
+    if (this.props.detailed) {
+      allCategoryPoints.forEach((categoryPoint, i) => {
+        if (categoryPoint.points - categoryPoints[i].points > 0) {
+          lastCategoryIndex = i + categoryPoints.length
+        }
+      })
+    }
     let cumulativePoints = 0
     return (
       <figure>
@@ -95,47 +124,27 @@ class LevelThermometer extends React.Component<Props> {
         <svg>
           <g transform={`translate(${margins.left},${margins.top})`}>
             {categoryPoints.map((categoryPoint, i) => {
-              const x = this.pointScale(cumulativePoints)
-              const width = this.pointScale(cumulativePoints + categoryPoint.points) - x
-              const color = categoryColorScaleReal(categoryPoint.categoryId)
-              cumulativePoints += categoryPoint.points
-              return (i != lastCategoryIndex ?
-                <rect
-                    key={categoryPoint.categoryId}
-                    x={x}
-                    y={0}
-                    width={width}
-                    height={height - margins.top - margins.bottom}
-                    style={{fill: color, borderRight: "1px solid #000"}}
-                    /> :
-                <path
-                    key={categoryPoint.categoryId}
-                    d={this.rightRoundedRect(x, 0, width, height - margins.top - margins.bottom, 3)}
-                    style={{fill: color}}
-                    />
+              const result = this.renderLevel(
+                categoryPoint,
+                i === lastCategoryIndex,
+                categoryPoint.points,
+                cumulativePoints,
+                categoryColorScaleReal,
               )
+              cumulativePoints += categoryPoint.points
+              return result
             })}
             {this.props.detailed && allCategoryPoints.map((categoryPoint, i) => {
               const points = categoryPoint.points - categoryPoints[i].points
-              const x = this.pointScale(cumulativePoints)
-              const width = this.pointScale(cumulativePoints + points) - x
-              const color = categoryColorScaleDisabled(categoryPoint.categoryId)
-              cumulativePoints += points
-              return (i != lastCategoryIndex ?
-                <rect
-                    key={categoryPoint.categoryId}
-                    x={x}
-                    y={0}
-                    width={width}
-                    height={height - margins.top - margins.bottom}
-                    style={{fill: color, borderRight: "1px solid #000"}}
-                    /> :
-                <path
-                    key={categoryPoint.categoryId}
-                    d={this.rightRoundedRect(x, 0, width, height - margins.top - margins.bottom, 3)}
-                    style={{fill: color}}
-                    />
+              const result = this.renderLevel(
+                categoryPoint,
+                i + categoryPoints.length === lastCategoryIndex,
+                points,
+                cumulativePoints,
+                categoryColorScaleDisabled,
               )
+              cumulativePoints += points
+              return result
             })}
             <g ref={ref => this.topAxis = ref} className="top-axis"
                 transform={`translate(0, -2)`}

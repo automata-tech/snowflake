@@ -86,7 +86,7 @@ export const tracksFromCategory = (category: string): TrackId[] => trackIds.redu
   return list
 }, [])
 
-type categoryPoints = {categoryId: string, points: number};
+export type categoryPoints = {categoryId: string, points: number};
 
 export const categoryPointsFromMilestoneMap = (milestoneMap: MilestoneMap, includeAll?: boolean = false) =>  {
   let pointsByCategory = new Map()

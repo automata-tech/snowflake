@@ -3,7 +3,7 @@
 import * as d3 from 'd3'
 import { pointsToLevels, categoryPointsFromMilestoneMap, categoryColorScaleReal, categoryColorScaleDisabled, categoryIds, maxLevel } from '../constants'
 import React from 'react'
-import type { MilestoneMap } from '../constants'
+import type { categoryPoints, MilestoneMap } from '../constants'
 
 const margins = {
   top: 30,
@@ -72,7 +72,7 @@ class LevelThermometer extends React.Component<Props> {
          + "z";
   }
 
-  renderLevel(categoryPoint, last, points, cumulativePoints, funcColor) {
+  renderLevel(categoryPoint: categoryPoints, last: boolean, points: number, cumulativePoints: number, funcColor: (string) => string) {
     const x = this.pointScale(cumulativePoints)
     const width = this.pointScale(cumulativePoints + points) - x
     const color = funcColor(categoryPoint.categoryId)

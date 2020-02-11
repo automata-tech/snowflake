@@ -6,7 +6,8 @@ type Props = {
   increaseFocusedMilestoneFn: () => void,
   selectNextTrackFn: () => void,
   decreaseFocusedMilestoneFn: () => void,
-  selectPrevTrackFn: () => void
+  selectPrevTrackFn: () => void,
+  setSillyFn: (silly: boolean) => void,
 }
 
 class KeyboardListener extends React.Component<Props> {
@@ -32,13 +33,18 @@ class KeyboardListener extends React.Component<Props> {
         this.props.selectPrevTrackFn()
         e.preventDefault()
         break
+      case 'BracketLeft':
+        this.props.setSillyFn(true)
+        break
+      case 'BracketRight':
+        this.props.setSillyFn(false)
+        break
     }
   }
 
   render() {
     return null
   }
-
 }
 
 export default KeyboardListener

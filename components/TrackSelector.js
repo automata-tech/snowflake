@@ -9,14 +9,16 @@ type Props = {
   focusedTrackId: TrackId,
   setFocusedTrackIdFn: (TrackId) => void,
   othersExpanded: boolean,
-  detailed: boolean,
+  silly: boolean,
   onToggleOthersFn: () => void,
   toggleCoreTechTrackFn: (TrackId) => void,
 }
 
 class TrackSelector extends React.Component<Props> {
   renderTrack(trackId: TrackId) {
+    const track = tracks[trackId];
     const color = categoryColorScale(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]);
+    const sillyName = track.sillyName || track.displayName;
     return (
       <div key={trackId} className="track-selector-item"
         onClick={() => this.props.setFocusedTrackIdFn(trackId)} onContextMenu={(e) => {
@@ -50,7 +52,7 @@ class TrackSelector extends React.Component<Props> {
           }
         `}</style>
         <div className="track-selector-label">
-          {tracks[trackId].displayName}
+          {this.props.silly ? sillyName : track.displayName}
         </div>
         <div className="track-selector-value" style={{border: '4px solid ' + (trackId == this.props.focusedTrackId ? '#000': color), background: color}}>
           {this.props.milestoneByTrack[trackId].level}

@@ -7,6 +7,7 @@ import type { MilestoneMap, TrackId, Milestone } from '../constants'
 type Props = {
   milestoneByTrack: MilestoneMap,
   trackId: TrackId,
+  silly: boolean,
   handleTrackMilestoneChangeFn: (TrackId, Milestone) => void,
   handleTrackNotesChangeFn: (TrackId, string) => void,
 }
@@ -18,6 +19,7 @@ class Track extends React.Component<Props> {
     const currentNotes = currentLevelData.notes || "";
     const currentMilestoneId = currentLevelData.level;
     const currentMilestone = track.milestones[currentMilestoneId - 1];
+    const sillyName = track.sillyName || track.displayName;
 
     return (
       <div className="track">
@@ -52,7 +54,7 @@ class Track extends React.Component<Props> {
             line-height: 1.5em;
           }
         `}</style>
-        <h2>{track.category}: {track.displayName}</h2>
+        <h2>{track.category}: {this.props.silly ? sillyName : track.displayName}</h2>
         <p className="track-description">{track.description}</p>
         <div style={{display: 'flex'}}>
           <table style={{flex: 0, marginRight: 50}}>

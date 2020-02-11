@@ -22,6 +22,7 @@ type SnowflakeAppState = {
   focusedTrackId: TrackId,
   otherTechTracksExanded: boolean,
   detailedView: boolean,
+  silly: boolean,
 }
 
 const hashToState = (hash: String): ?SnowflakeAppState => {
@@ -41,6 +42,7 @@ const hashToState = (hash: String): ?SnowflakeAppState => {
         result.milestoneByTrack[trackId] = {level: track};
       }
     });
+    result.silly = false;
     return result;
   } catch (SyntaxError) {
     return null;
@@ -75,6 +77,7 @@ const emptyState = (): SnowflakeAppState => {
     focusedTrackId: trackIds[0],
     otherTechTracksExanded: false,
     detailedView: false,
+    silly: false,
   }
 }
 
@@ -93,6 +96,7 @@ const defaultState = (): SnowflakeAppState => {
     focusedTrackId: trackIds[0],
     otherTechTracksExanded: true,
     detailedView: false,
+    silly: false,
   }
 }
 
@@ -235,17 +239,22 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
             setFocusedTrackIdFn={this.setFocusedTrackId.bind(this)}
             othersExpanded={this.state.otherTechTracksExanded}
             onToggleOthersFn={this.onToggleOtherTechTracks.bind(this)}
-            toggleCoreTechTrackFn={this.toggleCoreTechTrack.bind(this)} />
+            toggleCoreTechTrackFn={this.toggleCoreTechTrack.bind(this)}
+            silly={this.state.silly}
+          />
         <KeyboardListener
             selectNextTrackFn={this.shiftFocusedTrack.bind(this, 1)}
             selectPrevTrackFn={this.shiftFocusedTrack.bind(this, -1)}
             increaseFocusedMilestoneFn={this.shiftFocusedTrackMilestoneByDelta.bind(this, 1)}
-            decreaseFocusedMilestoneFn={this.shiftFocusedTrackMilestoneByDelta.bind(this, -1)} />
+            decreaseFocusedMilestoneFn={this.shiftFocusedTrackMilestoneByDelta.bind(this, -1)}
+            setSillyFn={this.setSilly.bind(this)}
+          />
         <Track
             milestoneByTrack={this.state.milestoneByTrack}
             trackId={this.state.focusedTrackId}
             handleTrackMilestoneChangeFn={(track, milestone) => this.handleTrackMilestoneChange(track, milestone)}
             handleTrackNotesChangeFn={(track, notes) => this.handleTrackNotesChange(track, notes)}
+            silly={this.state.silly}
           />
         <div style={{display: 'flex', paddingBottom: '20px'}}>
           <div style={{flex: 1}}>
@@ -323,6 +332,10 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
     let titles = eligibleTitles(this.state.milestoneByTrack, this.state.milestoneByTrack[MilestoneCoreTechTracks])
     roleTrack = roleTracks.indexOf(roleTrack) == -1 ? roleTracks[0] : roleTrack
     this.setState({ roleTrack })
+  }
+
+  setSilly(silly: boolean) {
+    this.setState({ silly })
   }
 
   reset() {

@@ -18,11 +18,12 @@ export type TrackId =
 type TrackMilestone = {|
   summary: string,
   signals: string[],
-  examples ?: string[]
+  examples?: string[]
 |}
 
 export type Track = {|
   displayName: string,
+  sillyName?: string,
   category: string, // TK categoryId type?
   description: string,
   milestones: [
@@ -40,7 +41,8 @@ type Tracks = {
 
 export const tracks: Tracks = {
   "FRONT_END": {
-    "displayName": "Front-End Sorcery",
+    "displayName": "Front-End",
+    "sillyName": "Front-End Sorcery",
     "category": "Software",
     "description": "Ability to create browser-side applications, knowledge of the associated technologies (HTML, CSS, JavaScript), understanding of the domain-specific challenges and best practices",
     "milestones": [ {
@@ -107,7 +109,8 @@ export const tracks: Tracks = {
   },
 
   "BACK_END": {
-    "displayName": "Back-End Wizardry",
+    "displayName": "Back-End",
+    "sillyName": "Back-End Wizardry",
     "category": "Software",
     "description": "Ability to create server-side applications, knowledge of the associated technologies (HTTP, Websocket, Databases and the ones we use in the company: Go and SQLite), understanding of the domain-specific challenges and best practices",
     "milestones": [{
@@ -131,7 +134,7 @@ export const tracks: Tracks = {
       ],
       "examples": [
         "Identified need for new session storage",
-        "Acted as caretaker for the protobuf map",
+        "Acted as caretaker for the Brain data parsing",
         "Updated codebase dependencies",
       ],
     }, {
@@ -139,7 +142,8 @@ export const tracks: Tracks = {
       "signals": [
         "Acts as primary maintainer for existing critical systems",
         "Integrates third party services effectively",
-        "Writes playbooks for new service maintenance",
+        "Ensures modern security principles are being followed",
+        "Builds reliable systems able to recover from errors, which are logged for debugging and audit purposes",
       ],
       "examples": [
         "Implemented API session system",
@@ -155,7 +159,7 @@ export const tracks: Tracks = {
       ],
       "examples": [
         "Designed lock context architecture",
-        "Designed authentication architecture",
+        "Integrated a system enabling the automatic upload of a wide range of metrics with different granularity to the cloud",
         "Created toolpath migration system",
       ],
     }, {
@@ -166,19 +170,20 @@ export const tracks: Tracks = {
         "Identifies and solves systemic problems with current architecture",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Designed the system so it is able to handle the C10k problem (and similar scaling issues)",
+        "Championed the use of logging processing in order to predict faults and report problems before they happen",
+        "Has given talks on system design and architecture and published articles regarded as essentials in the industry",
       ],
     }],
   },
 
   "LINUX": {
-    "displayName": "Linux System Hegemon",
+    "displayName": "Linux System",
+    "sillyName": "Linux System Druidry",
     "category": "Software",
     "description": "Ability to create Linux commands and daemons, knowledge of the associated technologies (Linux, syscalls and the ones we use in the company: Go and C++), understanding of the domain-specific challenges and best practices (build systems, etc), able to engineer our update system to be reliable and adapt our Yocto distribution",
     "milestones": [{
-      "summary": "TODO",
+      "summary": "Understanding of the basic concepts of Linux (shells, libraries, exit status, signals, etc) and its basic commands and build systems (coreutils, configure, automake, Makefile)",
       "signals": [
         "TODO",
         "TODO",
@@ -190,7 +195,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Understands advanced Linux concepts (syscalls, fds, networking, etc), able to proeficiently administer a Linux system (systemd, cron, shell scripts, ip, etc)",
       "signals": [
         "TODO",
         "TODO",
@@ -202,7 +207,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Able to make changes on our Yocto recipes, maintains our update system components, able to write complex programs administering a Linux system reliably and autonomously based on limited inputs",
       "signals": [
         "TODO",
         "TODO",
@@ -214,7 +219,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Acts as maintainer of our whole Linux system, optimizing its build (time and size) while enabling platform developers' jobs, deep understanding of Linux security (secure boot, disk encryption, etc)",
       "signals": [
         "TODO",
         "TODO",
@@ -226,7 +231,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Deep understanding of the Linux kernel, especially the network stack, able to submit kernel patches and create kernel modules",
       "signals": [
         "TODO",
         "TODO",
@@ -241,11 +246,12 @@ export const tracks: Tracks = {
   },
 
   "SYS_PROG": {
-    "displayName": "System Programming Rock Star",
+    "displayName": "System Programming",
+    "sillyName": "System Programming Archery",
     "category": "Software",
     "description": "Ability to maintain complex system applications (C++, ZeroMQ, protobuf) and their build systems (CMake), understand of the domain-specific challenges (threading, network) and best practices, knowledge of cryptography",
     "milestones": [{
-      "summary": "TODO",
+      "summary": "Able to ",
       "signals": [
         "TODO",
         "TODO",
@@ -388,7 +394,31 @@ export const tracks: Tracks = {
     "category": "Software",
     "description": "Ability to integrate solutions to different systems (e.g. Embedded C, Linux System, Web Client) in order to provide fundamental robotic features, adaptation to the system domain-specific problems, understanding of efficient math and programming",
     "milestones": [{
-      "summary": "TODO",
+      "summary": "Able to modify underlying robotic code (IK, Motion Planning, Controls, etc) while following the particular codebase style and architecture",
+      "signals": [
+        "TODO",
+        "TODO",
+        "TODO",
+      ],
+      "examples": [
+        "PROTOTYPE/MATLAB",
+        "TODO",
+        "TODO",
+      ],
+    }, {
+      "summary": "Able to add new entrypoints (exported functions, types, etc) matching the platform style and intrisicasies",
+      "signals": [
+        "TODO",
+        "TODO",
+        "TODO",
+      ],
+      "examples": [
+        "PROTOTYPE/MATLAB",
+        "TODO",
+        "TODO",
+      ],
+    }, {
+      "summary": "Acts as a maintainer for specific components of the system, ensuring modern software guidelines and architectures are followed",
       "signals": [
         "TODO",
         "TODO",
@@ -400,7 +430,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Delivers complex software systems that enable robotics algorithms (performance, extensibility, tuning, etc), expert at performance optimizations for at least one of the robotics platform",
       "signals": [
         "TODO",
         "TODO",
@@ -412,31 +442,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
-      "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "TODO",
-      "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "TODO",
+      "summary": "Defines the company policy on software usage in robotics, designs tools and processes enabling fast prototyping and implementation, ensure correct usage of robotics libraries accross the company code",
       "signals": [
         "TODO",
         "TODO",
@@ -451,7 +457,8 @@ export const tracks: Tracks = {
   },
 
   "MFG_TOOL": {
-    "displayName": "Manufacturing Tooling Necromancer",
+    "displayName": "Manufacturing Tooling",
+    "sillyName": "Manufacturing Tooling Necromancy",
     "category": "Software",
     "description": "Ability to create tools and applications that will be used in the manufacturing process, knowledge of the associated technologies (Python, ansible, etc), deployment, contact with Tharsus",
     "milestones": [{
@@ -518,7 +525,8 @@ export const tracks: Tracks = {
   },
 
   "DEV_OPS": {
-    "displayName": "DevOps Rogue",
+    "displayName": "DevOps",
+    "sillyName": "DevOps Roguery",
     "category": "Software",
     "description": "Ability to deploy and maintain infrastructure (cloud, local, etc), knowledge of performance, scaling and security, expertise with build pipelines",
     "milestones": [{
@@ -601,7 +609,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "Able to fully maintain ",
+      "summary": "Able to fully maintain the deployed website, implementing changes requested by the stakeholders",
       "signals": [
         "TODO",
         "TODO",
@@ -613,7 +621,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Deep understanding of the integrated platforms and its third party components, able to deliver complex changes",
       "signals": [
         "TODO",
         "TODO",
@@ -625,7 +633,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Knows all about performance optimizations and profiling of the platform, contributes to the ecosystem through support requests, plugins, themes or core platform changes",
       "signals": [
         "TODO",
         "TODO",
@@ -637,7 +645,7 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Created a plugin used by hundred of websites, have maintained a wide-range of systems and versions",
       "signals": [
         "TODO",
         "TODO",
@@ -652,32 +660,33 @@ export const tracks: Tracks = {
   },
 
   "DATABASES": {
-    "displayName": "Databases Architect",
+    "displayName": "Databases",
+    "sillyName": "Databases Masonry",
     "category": "Software",
-    "description": "TBC",
+    "description": "Ability to design maintainable and efficient database designs, knowledge of a wide range of data storing systems, understanding of querying language",
     "milestones": [
       {
-        "summary": "TBC",
+        "summary": "Understands SQL, able to craft queries that account for the chosen database intricacies",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
       {
-        "summary": "TBC",
+        "summary": "Ability to craft a straight-forward and scalable schema in a recommended database system, knowledge of migrations and performance bottlenecks of that particular database",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
       {
-        "summary": "TBC",
+        "summary": "Knowledge of multiple databases (milestone 1 and 2 for each), understand of sharding, clustering, replication and other similar mechanisms",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
       {
-        "summary": "TBC",
+        "summary": "Ability to tune different database systems to get the most performance out of them, certified by the database vendor, interacts with the database community",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
       {
-        "summary": "TBC",
+        "summary": "Created their own database system, known in the community for their work and research",
         "signals": ["TBC"],
         "examples": ["TBC"]
       }
@@ -685,9 +694,10 @@ export const tracks: Tracks = {
   },
 
   "USER_EXP": {
-    "displayName": "User Experience Seer",
+    "displayName": "User Experience",
+    "sillyName": "User Experience Astrology",
     "category": "Software",
-    "description": "The ability to design engaging, accessible and straight-forward user journeys on different devices (mobile, desktop, etc) and for different audiences (engineering, layman, etc)",
+    "description": "Ability to design engaging, accessible and straight-forward user journeys on different devices (mobile, desktop, etc) and for different audiences (engineering, layman, etc)",
     "milestones": [
       {
         "summary": "Follows the company guidelines on UX, develop new or existing journeys and behaviors based on someone else's recommendation",
@@ -700,7 +710,7 @@ export const tracks: Tracks = {
         "examples": ["TBC"]
       },
       {
-        "summary": "Iterate design ideas through fast prototyping using recommended technologies, champion accessibility through all user journeys",
+        "summary": "Iterate design ideas through fast prototyping using recommended technologies, champion complete accessibility through all user journeys",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
@@ -718,7 +728,8 @@ export const tracks: Tracks = {
   },
 
   "IT": {
-    "displayName": "Information Technology Paladin",
+    "displayName": "Information Technology",
+    "sillyName": "Information Technology Paladin",
     "category": "Software",
     "description": "TBC",
     "milestones": [
@@ -751,32 +762,33 @@ export const tracks: Tracks = {
   },
 
   "DATA_SCIENCE": {
-    "displayName": "Data Science Dexterity",
+    "displayName": "Data Science",
+    "sillyName": "Data Science Dexterity",
     "category": "Software",
-    "description": "TBC",
+    "description": "Ability to extract insights from different data sources using a wide-range of tools and databases (Python, Google Sheets, Google App Script, SQL etc), knowledge of data science theory (data cleaning, etc), understanding of data visualisation (dashboards, plots, etc)",
     "milestones": [
       {
-        "summary": "TBC",
+        "summary": "Able to use multiple data sources in order to extract insights used in decision-making via plots and dashboards",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
       {
-        "summary": "TBC",
+        "summary": "Build resilient data processing able to clean data, improve signal-to-noise ratio, cope with deletion of records, etc",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
       {
-        "summary": "TBC",
+        "summary": "Acts as a maintainer of multiple critical systems, ensure efficient processing through performance optimizations",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
       {
-        "summary": "TBC",
+        "summary": "Knowledge of the legal implications of data processing (security, GDPR, etc), champion proper data processes in the company",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
       {
-        "summary": "TBC",
+        "summary": "Define company policy towards data management, processing and security, accountable for data breaches",
         "signals": ["TBC"],
         "examples": ["TBC"]
       }

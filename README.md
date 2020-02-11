@@ -1,4 +1,4 @@
-# Fork ![Build status](https://github.com/automata-tech/eva_python_sdk/workflows/Build%20&%20Deploy/badge.svg)
+# Fork ![Build status](https://github.com/automata-tech/snowflake/workflows/Build%20&%20Deploy/badge.svg)
 
 This is a fork of Medium's engineering growth tool adapted for [Automata](https://automata.tech).
 The tool is hosted [publicly](https://automata-tech.github.io/snowflake/).

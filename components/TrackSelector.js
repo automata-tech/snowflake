@@ -63,10 +63,12 @@ class TrackSelector extends React.Component<Props> {
 
   render() {
     const coreTechTrackIds = trackIds.filter(trackId => isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]))
-    const otherTechTrackIds = trackIds.filter(trackId =>
-      !isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]) && this.props.milestoneByTrack[trackId].level > 0
-    )
     const softTrackIds = trackIds.filter(trackId => softCategories.has(tracks[trackId].category))
+    const otherTechTrackIds = trackIds.filter(trackId =>
+      !isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks])
+      && !softCategories.has(tracks[trackId].category)
+      && this.props.milestoneByTrack[trackId].level > 0
+    )
 
     return (
       <div className="track-selector">

@@ -125,6 +125,7 @@ export const tracks: Tracks = {
         "Added releaseToken trigger on session expiry",
         "Added a toolpath migration endpoint",
         "Called the AuthManager correctly",
+        "Updated codebase dependencies",
       ],
     }, {
       "summary": "Develops new instances of existing architecture, or minor improvements to existing architecture",
@@ -136,7 +137,8 @@ export const tracks: Tracks = {
       "examples": [
         "Identified need for new session storage",
         "Acted as caretaker for the Brain data parsing",
-        "Updated codebase dependencies",
+        "Implemented toolpath calculation integration with libtoolpath",
+        "Built websocket server",
       ],
     }, {
       "summary": "Designs standalone systems of moderate complexity, or major new features in existing systems",
@@ -147,9 +149,9 @@ export const tracks: Tracks = {
         "Builds reliable systems able to recover from errors, which are logged for debugging and audit purposes",
       ],
       "examples": [
-        "Implemented API session system",
-        "Implemented toolpath calculation integration with libtoolpath",
-        "Built websocket server",
+        "Created toolpath migration system",
+        "Designed lock context architecture",
+        "TODO",
       ],
     }, {
       "summary": "Builds complex, reusable architectures that pioneer best practices for other engineers, or multi-system services",
@@ -159,9 +161,9 @@ export const tracks: Tracks = {
         "Makes appropriate buy vs build choices",
       ],
       "examples": [
-        "Designed lock context architecture",
         "Integrated a system enabling the automatic upload of a wide range of metrics with different granularity to the cloud",
-        "Created toolpath migration system",
+        "Designed the system so it is able to handle the C10k problem (and similar scaling issues)",
+        "TODO",
       ],
     }, {
       "summary": "Is an industry-leading expert in server side engineering or sets strategic server side direction for an eng team",
@@ -171,9 +173,9 @@ export const tracks: Tracks = {
         "Identifies and solves systemic problems with current architecture",
       ],
       "examples": [
-        "Designed the system so it is able to handle the C10k problem (and similar scaling issues)",
-        "Championed the use of logging processing in order to predict faults and report problems before they happen",
         "Has given talks on system design and architecture and published articles regarded as essentials in the industry",
+        "Championed the use of logging processing in order to predict faults and report problems before they happen",
+        "TODO",
       ],
     }],
   },
@@ -184,11 +186,47 @@ export const tracks: Tracks = {
     "category": "Software",
     "description": "Ability to create Linux commands and daemons, knowledge of the associated technologies (Linux, syscalls and the ones we use in the company: Go and C++), understanding of the domain-specific challenges and best practices (build systems, etc), able to engineer our update system to be reliable and adapt our Yocto distribution",
     "milestones": [{
-      "summary": "Understanding of the basic concepts of Linux (shells, libraries, exit status, signals, etc) and its basic commands and build systems (coreutils, configure, automake, Makefile)",
+      "summary": "Works effectively on an established Linux system, following current best practices",
       "signals": [
+        "Understanding of the basic concepts of Linux (daemons, shells, libraries, exit status, signals, etc)",
+        "Knowledge of basic Linux commands and build systems (coreutils, configure, automake, Makefile, etc)",
+        "Working knowledge of Docker",
+      ],
+      "examples": [
+        "Wrote a shell script to automate a task",
         "TODO",
         "TODO",
+      ],
+    }, {
+      "summary": "Extends established Linux system and administer simple Linux systems completely",
+      "signals": [
+        "Understands advanced Linux concepts (syscalls, fds, networking, etc)",
+        "Able to proeficiently administer a Linux system (systemd, cron, ip, network stack, etc)",
+        "Proeficiency with Docker",
+      ],
+      "examples": [
+        "Wrote your own Dockerfile from scratch",
         "TODO",
+        "TODO",
+      ],
+    }, {
+      "summary": "Designs and maintains complete Linux systems and demonstrates a nuanced understanding of its architecture",
+      "signals": [
+        "Able to make changes on our Yocto recipes",
+        "Maintains our update system components",
+        "Able to write complex programs administering a Linux system reliably and autonomously based on limited inputs",
+      ],
+      "examples": [
+        "Wrote a delta-system to update network configuration",
+        "TODO",
+        "TODO",
+      ],
+    }, {
+      "summary": "Builds complex, reusable Linux systems (and their build systems) that pioneer best practices and enable engineers to work more effectively",
+      "signals": [
+        "Acts as maintainer of our whole Linux system",
+        "Optimizing Yocto build (time and size) while enabling platform developers' jobs",
+        "Deep understanding of Linux security (secure boot, disk encryption, etc)",
       ],
       "examples": [
         "TODO",
@@ -196,46 +234,10 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "Understands advanced Linux concepts (syscalls, fds, networking, etc), able to proeficiently administer a Linux system (systemd, cron, shell scripts, ip, etc)",
+      "summary": "Is an industry-leading Linux expert and sets strategic direction for Linux usage in the dev team",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "Able to make changes on our Yocto recipes, maintains our update system components, able to write complex programs administering a Linux system reliably and autonomously based on limited inputs",
-      "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "Acts as maintainer of our whole Linux system, optimizing its build (time and size) while enabling platform developers' jobs, deep understanding of Linux security (secure boot, disk encryption, etc)",
-      "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "Deep understanding of the Linux kernel, especially the network stack, able to submit kernel patches and create kernel modules",
-      "signals": [
-        "TODO",
-        "TODO",
+        "Deep understanding of the Linux kernel, especially the network stack",
+        "Able to submit kernel patches and create kernel modules",
         "TODO",
       ],
       "examples": [
@@ -252,62 +254,62 @@ export const tracks: Tracks = {
     "category": "Software",
     "description": "Ability to maintain complex system applications (C++, ZeroMQ, protobuf) and their build systems (CMake), understand of the domain-specific challenges (threading, network) and best practices, knowledge of cryptography",
     "milestones": [{
-      "summary": "Able to ",
+      "summary": "Works effectively within established system architectures, following current best practices",
       "signals": [
+        "Solid network understanding (TCP/IP, UDP, ZeroMQ, etc)",
+        "Able to use concurrency primitives correctly (mutex, condvar, semaphores, etc)",
+        "Creates and reviews small PRs",
+      ],
+      "examples": [
+        "Added a new servo property to change the payload",
+        "Added a new control message in the Control Engine",
+        "Added a libautomata endpoint for the Backend",
+      ],
+    }, {
+      "summary": "Develops new components in the existing architecture, or minor improvements to existing architecture",
+      "signals": [
+        "Able to understand and maintain the CMake build system",
+        "Good understanding of the peripherals (CANBus, CANOpen, Linux, etc)",
+        "Knowledge of common design patterns and abstractions",
+      ],
+      "examples": [
+        "Changed the libtoolpath goTo to return an Executor instead of setpoints",
+        "Moved toolpath calculation to a thread",
         "TODO",
-        "TODO",
+      ],
+    }, {
+      "summary": "Designs major new features and demonstrates an advanced understanding of system programming",
+      "signals": [
+        "Acts as primary maintainer for existing critical components",
+        "Builds reliable systems able to recover from errors, which are logged for debugging and audit purposes",
         "TODO",
       ],
       "examples": [
-        "TODO",
+        "Built a parser and compiler able to transform a toolpath into a serie of extendable instructions",
         "TODO",
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Builds complex, reusable architectures that pioneer best practices and enable engineers to work more effectively",
       "signals": [
-        "TODO",
-        "TODO",
+        "Pioneers architecture migrations that reduce programmer burden",
+        "Makes architectural decisions that eliminate entire classes of bugs",
         "TODO",
       ],
       "examples": [
-        "TODO",
+        "Built an extendable system to abstract communication with the other devices on the CANBus",
         "TODO",
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Is an industry-leading expert in system development and sets strategic direction for the dev team",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Written their own thread scheduler",
+        "Participated in a working group for the next version of C++",
+        "Defines a long-term vision for the brain and ensures new features are in service of it",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "TODO",
-      "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "TODO",
-      "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
+        "Presented a talk on CANBus parsing to the London C++ meetup",
         "TODO",
         "TODO",
       ],
@@ -395,34 +397,22 @@ export const tracks: Tracks = {
     "category": "Software",
     "description": "Ability to integrate solutions to different systems (e.g. Embedded C, Linux System, Web Client) in order to provide fundamental robotic features, adaptation to the system domain-specific problems, understanding of efficient math and programming",
     "milestones": [{
-      "summary": "Able to modify underlying robotic code (IK, Motion Planning, Controls, etc) while following the particular codebase style and architecture",
+      "summary": "Works effectively within established libraries, following current best practices",
       "signals": [
-        "TODO",
-        "TODO",
+        "Able to modify underlying robotic code (e.g. IK) while following the particular codebase style and architecture",
+        "Develops Matlab prototypes and implement them in the target platform following best practices",
         "TODO",
       ],
       "examples": [
-        "PROTOTYPE/MATLAB",
+        "Added the backend_is_valid_pose function to check pose validity",
         "TODO",
         "TODO",
       ],
     }, {
-      "summary": "Able to add new entrypoints (exported functions, types, etc) matching the platform style and intrisicasies",
+      "summary": "Develops new functions and systems in the existing libraries, or minor improvements to the underlying architecture",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "PROTOTYPE/MATLAB",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "Acts as a maintainer for specific components of the system, ensuring modern software guidelines and architectures are followed",
-      "signals": [
-        "TODO",
-        "TODO",
+        "Able to add new entrypoints (exported functions, types, etc) matching the platform style",
+        "Understanding of the chosen platform intrisicasies and limitations",
         "TODO",
       ],
       "examples": [
@@ -431,11 +421,12 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "Delivers complex software systems that enable robotics algorithms (performance, extensibility, tuning, etc), expert at performance optimizations for at least one of the robotics platform",
+      "summary": "Designs major new components and demonstrates an advanced understanding of the platform limitations and performance optimizations",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Acts as a maintainer for specific components of the system (e.g. motion planning)",
+        "Ensures modern software guidelines and architectures are being followed",
+        "Designs tools and processes enabling fast prototyping and implementation",
+        "Is the software quality voice in their team",
       ],
       "examples": [
         "TODO",
@@ -443,9 +434,21 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "Defines the company policy on software usage in robotics, designs tools and processes enabling fast prototyping and implementation, ensure correct usage of robotics libraries accross the company code",
+      "summary": "Builds complex, reusable systems that pioneer best practices and enable control engineers to work more effectively",
       "signals": [
+        "Delivers complex software systems that enable robotics algorithms (performance, extensibility, tuning, etc)",
+        "Expert at performance optimizations for at least one of the robotics platform",
+        "Ensure correct usage of robotics libraries accross the company code",
+      ],
+      "examples": [
         "TODO",
+        "TODO",
+        "TODO",
+      ],
+    }, {
+      "summary": "Is an industry-leading expert in software development and sets the software strategic direction for the control team",
+      "signals": [
+        "Defines the company policy on software usage in robotics",
         "TODO",
         "TODO",
       ],
@@ -598,64 +601,65 @@ export const tracks: Tracks = {
     "category": "Software",
     "description": "Ability to integrate different web services and components together, understanding of web best practices and systems, able to deliver and maintain web products effectively",
     "milestones": [{
-      "summary": "Able to effect minor changes to layout (HTML) and styling (CSS), can deploy websites by following written instructions",
+      "summary": "Works effectively within framework, understands basic browser concepts, following current best practices",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Able to effect minor changes to layout (HTML) and styling (CSS)",
+        "Can deploy websites by following written instructions",
+        "Understands resource loading priority",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Changed the buy button label to 'Request a callback'",
+        "Implemented a change and deployed it on your own",
+        "Moved the loading of a font to the header to prevent FOUCs",
       ],
     }, {
-      "summary": "Able to fully maintain the deployed website, implementing changes requested by the stakeholders",
+      "summary": "Develops new content in the framework, or minor improvements to existing architecture",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Able to fully maintain the deployed website",
+        "Implementing various changes requested by the stakeholders (new pages, layout change, script changes)",
+        "Understands Javascript and its usage, limitations and support",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Updated the Wordpress plugins",
+        "Knows how to generate and use a Lighthouse report",
+        "Created new pages in the admin panel and added them to the menu",
       ],
     }, {
-      "summary": "Deep understanding of the integrated platforms and its third party components, able to deliver complex changes",
+      "summary": "Designs major new features and demonstrates an advanced understanding of the platform and browser",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Deep understanding of the integrated platforms and its third party components",
+        "Able to deliver complex changes to the browser on all the supported devices and platforms",
+        "Knowledge of web profiling and the current system bottlenecks",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Reduced the load time to less than a second",
+        "Removed all static assets from Wordpress (including plugin ones)",
+        "Created a plugin enabling easy migration from staging to live by any team member",
+        "Added automated testing of the page load time and appearance to prevent regressions",
       ],
     }, {
-      "summary": "Knows all about performance optimizations and profiling of the platform, contributes to the ecosystem through support requests, plugins, themes or core platform changes",
+      "summary": "Builds complex, reusable architectures that pioneer best practices and enable integrators to work more effectively",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Knows all about performance optimizations and profiling of the platform",
+        "Contributes to the ecosystem through support requests, plugins, themes or core platform changes",
+        "Created tools and processes to speed up integration of new systems (plugins, scripts, etc) including regression and performance testing",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Added monit to monitor the website load time and deployement status, running load and scaling tests",
+        "Opened a ticket with WP Migrate DB Pro to keep the orders after a database deployement and got the issue fixed",
+        "Built a system allowing to do a full deployement including rollback from the admin panel",
       ],
     }, {
-      "summary": "Created a plugin used by hundred of websites, have maintained a wide-range of systems and versions",
+      "summary": "Is an industry-leading expert in the chosen platform and sets strategic direction for the dev team",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Has maintained live websites using the given platform on a wide-range of systems and versions",
+        "Worked on the core development of the platform",
+        "Has a portfolio of hundred of live websites",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Given talks at conferences on the performance profiling and optimization of the given platform",
+        "Created a plugin used by hundred of websites",
+        "Worked 5 years as a lead developer at a high-profile web agency",
       ],
     }],
   },
@@ -667,29 +671,69 @@ export const tracks: Tracks = {
     "description": "Ability to design maintainable and efficient database designs, knowledge of a wide range of data storing systems, understanding of querying language",
     "milestones": [
       {
-        "summary": "Understands SQL, able to craft queries that account for the chosen database intricacies",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Works effectively within established databases architectures, following current best practices",
+        "signals": [
+          "Understands SQL",
+          "Able to craft queries that account for the chosen database intricacies",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Ability to craft a straight-forward and scalable schema in a recommended database system, knowledge of migrations and performance bottlenecks of that particular database",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Develops simple schemas, or minor improvements to existing schemas",
+        "signals": [
+          "Ability to craft a straight-forward and scalable schema in a recommended database system",
+          "Knowledge of migrations and performance bottlenecks of that particular database",
+          "TODO",
+        ],
+        "examples": [
+          "Created a SQL schema for Munkeybutler",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Knowledge of multiple databases (milestone 1 and 2 for each), understand of sharding, clustering, replication and other similar mechanisms",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Designs complex schemas and demonstrates an advanced understanding of database constraints and usage",
+        "signals": [
+          "Knowledge of multiple databases (milestone 1 and 2 for each)",
+          "Understand of sharding, clustering, replication and other similar mechanisms",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Ability to tune different database systems to get the most performance out of them, certified by the database vendor, interacts with the database community",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Builds complex and efficient database setups that pioneer best practices and enable engineers to work more effectively",
+        "signals": [
+          "Ability to tune different database systems to get the most performance out of them",
+          "Certified by the database vendor",
+          "Interacts with the database community",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Created their own database system, known in the community for their work and research",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Is an industry-leading expert in database engineering and architecture and sets strategic direction concerning database usages for the dev team",
+        "signals": [
+          "Created their own database system",
+          "Known in the community for their work and research",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       }
     ]
   },
@@ -701,29 +745,69 @@ export const tracks: Tracks = {
     "description": "Ability to design engaging, accessible and straight-forward user journeys on different devices (mobile, desktop, etc) and for different audiences (engineering, layman, etc)",
     "milestones": [
       {
-        "summary": "Follows the company guidelines on UX, develop new or existing journeys and behaviors based on someone else's recommendation",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Works effectively within established UX guidelines, following current best practices",
+        "signals": [
+          "Follows the company guidelines on UX",
+          "Develop new or existing journeys and behaviors based on someone else's recommendation",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Keep the user in their mind at all time, creates low-fidelity mockup using recommended tools, design with all supported devices and platforms in mind",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Develops new user journeys, or minor improvements to existing ones",
+        "signals": [
+          "Keep the user in their mind at all time",
+          "Creates low-fidelity mockup using recommended tools",
+          "Design with all supported devices and platforms in mind",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Iterate design ideas through fast prototyping using recommended technologies, champion complete accessibility through all user journeys",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Designs major new user journeys and demonstrates a nuanced understanding of accessibility",
+        "signals": [
+          "Iterate design ideas through fast prototyping using recommended technologies",
+          "Champion complete accessibility through all user journeys",
+          "Deliver design through A/B testing (using data to support their choices)",
+        ],
+        "examples": [
+          "Animated a workshop on accessible design for vision-impaired people",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Deliver design through A/B testing (using data to support their choices), understands the theory (psychology, etc) behind HMI design and use it to produce the right feelings and reactions from the user",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Builds complex, reusable user journeys templates and documentation that pioneer best practices and enable engineers to work more effectively",
+        "signals": [
+          "Understands the theory (psychology, etc) behind HMI design and use it to produce the right feelings and reactions from the user",
+          "Builds templates for common journeys and patterns to enforce good design and consistency across the product",
+          "Oversee and review any work on user journeys to enforce consistency and high quality interactions",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Define the company philosophy towards user experience, oversee and review any work on user journeys to enforce consistency and high quality interactions",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Is an industry-leading expert in user experience and sets strategic direction for the dev team",
+        "signals": [
+          "Define the company philosophy towards user experience",
+          "Has given talks on user experience based on data collected through different studies and analysis",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       }
     ]
   },
@@ -736,28 +820,68 @@ export const tracks: Tracks = {
     "milestones": [
       {
         "summary": "TBC",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "signals": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
         "summary": "TBC",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "signals": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
         "summary": "TBC",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "signals": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
         "summary": "TBC",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "signals": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
         "summary": "TBC",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "signals": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       }
     ]
   },
@@ -769,29 +893,69 @@ export const tracks: Tracks = {
     "description": "Ability to extract insights from different data sources using a wide-range of tools and databases (Python, Google Sheets, Google App Script, SQL etc), knowledge of data science theory (data cleaning, etc), understanding of data visualisation (dashboards, plots, etc)",
     "milestones": [
       {
-        "summary": "Able to use multiple data sources in order to extract insights used in decision-making via plots and dashboards",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Works effectively within established frameworks and data sources, following current best practices",
+        "signals": [
+          "Able to use multiple data sources in order to extract insights",
+          "Adds plots to existing dashboards used in decision-making",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Build resilient data processing able to clean data, improve signal-to-noise ratio, cope with deletion of records, etc",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Develops new simple data visualisation tools, or minor improvements to existing ones",
+        "signals": [
+          "Build resilient data processing able to clean data, improve signal-to-noise ratio",
+          "TODO",
+          "TODO",
+        ],
+        "examples": [
+          "Cope with deletion of records in the delivery dashboard",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Acts as a maintainer of multiple critical systems, ensure efficient processing through performance optimizations",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Designs major new data visualisation elements and demonstrates a nuanced understanding of performance constraints and data visualisations",
+        "signals": [
+          "Acts as a maintainer of multiple critical systems",
+          "Ensure efficient processing through performance optimizations",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Knowledge of the legal implications of data processing (security, GDPR, etc), champion proper data processes in the company",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Builds complex, reusable frameworks and tools that pioneer best practices and enable engineers to work more effectively",
+        "signals": [
+          "Knowledge of the legal implications of data processing (security, GDPR, etc)",
+          "Championed proper data processes all across the business",
+          "Built a data visualisation framework enabling new plots and dashboards to be delivered in a day with efficient and clean presentation",
+        ],
+        "examples": [
+          "Ensured that we are compliant with GDPR",
+          "TODO",
+          "TODO",
+        ],
       },
       {
-        "summary": "Define company policy towards data management, processing and security, accountable for data breaches",
-        "signals": ["TBC"],
-        "examples": ["TBC"]
+        "summary": "Is an industry-leading expert in data management and presentation and sets strategic direction for the company",
+        "signals": [
+          "Define company policy towards data management, processing and security",
+          "Accountable for data breaches",
+          "TODO",
+        ],
+        "examples": [
+          "TODO",
+          "TODO",
+          "TODO",
+        ],
       }
     ]
   },

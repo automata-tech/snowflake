@@ -251,7 +251,7 @@ export const tracks: Tracks = {
     "displayName": "System Programming",
     "sillyName": "System Programming Archery",
     "category": "Software",
-    "description": "Ability to maintain complex system applications (C++, ZeroMQ, protobuf) and their build systems (CMake), understand of the domain-specific challenges (threading, network) and best practices, knowledge of cryptography",
+    "description": "Ability to maintain complex system applications (C++, ZeroMQ, protobuf, Python) and their build systems (CMake, Pyinstaller), understand of the domain-specific challenges (threading, network) and best practices, knowledge of cryptography and security",
     "milestones": [{
       "summary": "Works effectively within established system architectures, following current best practices",
       "signals": [
@@ -261,8 +261,8 @@ export const tracks: Tracks = {
       ],
       "examples": [
         "Added a new servo property to change the payload",
-        "Added a new control message in the Control Engine",
         "Added a libautomata endpoint for the Backend",
+        "Tweaked the arguments of a test in production processes and testing"
       ],
     }, {
       "summary": "Develops new components in the existing architecture, or minor improvements to existing architecture",
@@ -274,14 +274,14 @@ export const tracks: Tracks = {
       "examples": [
         "Changed the libtoolpath goTo to return an Executor instead of setpoints",
         "Moved toolpath calculation to a thread",
-        "TODO",
+        "Added a new test in production processes and testing",
       ],
     }, {
       "summary": "Designs major new features and demonstrates an advanced understanding of system programming",
       "signals": [
         "Acts as primary maintainer for existing critical components",
         "Builds reliable systems able to recover from errors, which are logged for debugging and audit purposes",
-        "TODO",
+        "Abstracts hardware/network concerns to make the business logic more steam-lined",
       ],
       "examples": [
         "Built a parser and compiler able to transform a toolpath into a serie of extendable instructions",

@@ -110,11 +110,19 @@ export const isTechnicalTrack = (trackId: TrackId): bool =>
 export const isCoreTechTrack = (trackId: TrackId, coreTechTracks: TrackId[]): bool =>
   coreTechTracks.indexOf(trackId) !== -1
 
+export const nonCoreTechTrack = (trackId: TrackId, coreTechTracks: TrackId[], milestoneMap: MilestoneMap): bool =>
+  !isCoreTechTrack(trackId, coreTechTracks)
+  && isTechnicalTrack(trackId)
+  && milestoneMap[trackId].level > 0
+
 export const doesTrackCount = (trackId: TrackId, coreTechTracks: TrackId[]): bool =>
   !isTechnicalTrack(trackId) || isCoreTechTrack(trackId, coreTechTracks)
 
 export const countingTracks = (coreTechTracks: TrackId[]): TrackId[] =>
   trackIds.filter(trackId => doesTrackCount(trackId, coreTechTracks))
+
+export const allTracksWithPoints = (coreTechTracks: TrackId[], milestoneMap: MilestoneMap): TrackId[] =>
+  trackIds.filter(trackId => doesTrackCount(trackId, coreTechTracks) || nonCoreTechTrack(trackId, coreTechTracks, milestoneMap))
 
 export const totalPointsFromMilestoneMapAll = (milestoneMap: MilestoneMap): number =>
   trackIds.map(trackId => milestoneToPoints(milestoneMap[trackId]))
@@ -126,7 +134,7 @@ export const totalPointsFromMilestoneMap = (milestoneMap: MilestoneMap): number 
 
 export const categoryColorScaleReal = d3.scaleOrdinal()
   .domain(categoryIds)
-  .range(['#00abc2', '#428af6', '#e1439f', '#e54552', '#baed91'])
+  .range(['#8A1C7C', '#D4AFB9', '#E59500', '#D1CFE2', '#840032', '#F9DC5C', '#E84855', '#24E098', '#938BA1', '#B0C6CE', '#899D78', '#F0BCD4', '#4BD15D', '#DA4167', '#1F0322', '#DD7826'])
 
 export const categoryColorScaleDisabled = (category: string) =>
   d3.color(categoryColorScaleReal(category)).darker(2)

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { trackIds, tracks, categoryColorScale, isTechnicalTrack, isCoreTechTrack, techCategories, softCategories, tracksFromCategory, MilestoneCoreTechTracks, maxCoreTechTracks } from '../constants'
+import { trackIds, tracks, categoryColorScale, isTechnicalTrack, isCoreTechTrack, nonCoreTechTrack, techCategories, softCategories, tracksFromCategory, MilestoneCoreTechTracks, maxCoreTechTracks } from '../constants'
 import type { MilestoneMap, TrackId } from '../constants'
 
 type Props = {
@@ -63,12 +63,8 @@ class TrackSelector extends React.Component<Props> {
 
   render() {
     const coreTechTrackIds = trackIds.filter(trackId => isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]))
+    const otherTechTrackIds = trackIds.filter(trackId => nonCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks], this.props.milestoneByTrack))
     const softTrackIds = trackIds.filter(trackId => softCategories.has(tracks[trackId].category))
-    const otherTechTrackIds = trackIds.filter(trackId =>
-      !isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks])
-      && !softCategories.has(tracks[trackId].category)
-      && this.props.milestoneByTrack[trackId].level > 0
-    )
     const categoriesOptions = Array.from(techCategories.keys()).map((category, i) => (
       <option key={i} value={category}>{category}</option>
     ))
@@ -91,6 +87,9 @@ class TrackSelector extends React.Component<Props> {
           h3 {
             margin-bottom: 5px;
           }
+          select {
+            font-size: 100%;
+          }
         `}</style>
         <h3>Core technical skills [{coreTechTrackIds.length}/{maxCoreTechTracks}] <small>(right-click on a skill to select/deselect it as a core skill)</small></h3>
         <div className="track-selector-break" />
@@ -109,7 +108,7 @@ class TrackSelector extends React.Component<Props> {
         <h3>
           <select value={this.props.selectedCategory} onChange={(e) => this.props.selectCategoryFn(e.target.value)}>
             {categoriesOptions}
-          </select> Technical skills
+          </select> skills
         </h3>
         {(
           <React.Fragment>

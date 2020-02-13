@@ -2,7 +2,7 @@
 
 import React from 'react'
 import * as d3 from 'd3'
-import { trackIds, milestones, tracks, categoryColorScale, countingTracks, MilestoneCoreTechTracks } from '../constants'
+import { trackIds, milestones, tracks, categoryColorScale, countingTracks, MilestoneCoreTechTracks, allTracksWithPoints } from '../constants'
 import type { TrackId, Milestone, MilestoneMap } from '../constants'
 
 const width = 400
@@ -33,7 +33,9 @@ class NightingaleChart extends React.Component<Props> {
   }
 
   render() {
-    const currentTrackIds = this.props.detailed ? trackIds : countingTracks(this.props.milestoneByTrack[MilestoneCoreTechTracks]);
+    const currentTrackIds = this.props.detailed
+      ? allTracksWithPoints(this.props.milestoneByTrack[MilestoneCoreTechTracks], this.props.milestoneByTrack)
+      : countingTracks(this.props.milestoneByTrack[MilestoneCoreTechTracks]);
 
     this.arcFn = d3.arc()
       .innerRadius(milestone => this.radiusScale(milestone))

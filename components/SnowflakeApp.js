@@ -6,7 +6,7 @@ import KeyboardListener from '../components/KeyboardListener'
 import Track from '../components/Track'
 import Wordmark from '../components/Wordmark'
 import LevelThermometer from '../components/LevelThermometer'
-import { eligibleTitles, trackIds, tracks, milestones, milestoneToPoints, roleTracks, isTechnicalTrack, MilestoneCoreTechTracks, maxCoreTechTracks, countingTracks, categoryIds } from '../constants'
+import { eligibleTitles, trackIds, tracks, milestones, milestoneToPoints, roleTracks, isTechnicalTrack, MilestoneCoreTechTracks, maxCoreTechTracks, countingTracks, categoryIds, allTracksWithPoints } from '../constants'
 import PointSummaries from '../components/PointSummaries'
 import type { Milestone, MilestoneMap, TrackId } from '../constants'
 import React from 'react'
@@ -301,7 +301,9 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
   }
 
   shiftFocusedTrack(delta: number) {
-    const ctracks = this.state.detailedView ? trackIds : countingTracks(this.state.milestoneByTrack[MilestoneCoreTechTracks]);
+    const ctracks = this.state.detailedView
+      ? allTracksWithPoints(this.state.milestoneByTrack[MilestoneCoreTechTracks], this.state.milestoneByTrack)
+      : countingTracks(this.state.milestoneByTrack[MilestoneCoreTechTracks]);
     let index = ctracks.indexOf(this.state.focusedTrackId)
     index = (index + delta + ctracks.length) % ctracks.length
     const focusedTrackId = ctracks[index]

@@ -2,9 +2,9 @@
 
 export type TrackId =
   'FRONT_END' | 'BACK_END' | 'LINUX' | 'SYS_PROG' | 'FIRMWARE' | 'APPLIED_ROBOTICS' |
-  'MFG_TOOL' | 'DEV_OPS' | 'WEB_MASTERY' | 'DATABASES' | 'USER_EXP' | 'IT' | 'DATA_SCIENCE' |
-  'CTRL_MODEL' | 'TRAJ_MODEL' |
-  'ELEC_DESIGN' | 'PCB' |
+  'DESKTOP_APPS' | 'DEV_OPS' | 'WEB_MASTERY' | 'DATABASES' | 'USER_EXP' | 'DATA_SCIENCE' |
+  'CONTROLS_MATH' | 'CONTROLS_CONTROL_THEORY' | 'CONTROLS_SIMS' | 'CONTROLS_RESEARCH' | 'CONTROLS_SIMS' | 'CONTROLS_JIG_DESIGN' |
+  'ELEC_DESIGN' | 'PCB' | 'CABLING' |
   'ELEC_SAFE' | 'EMC_RED' | 'FUNC_SAFE' | 'MACH_SAFE' | 'OCC_HAS' | 'RISK_ASSESS' | 'TECH_FILE' | 'WORLD_MARKETS' |
   'IMPACT' | 'COMMUNICATION' | 'CRAFT' | 'INITIATIVE' |
   'PROF_DEV' | 'DEV_DESIGN' | 'WELLBEING' | 'INSPIRE' |
@@ -460,16 +460,16 @@ export const tracks: Tracks = {
     }],
   },
 
-  "MFG_TOOL": {
-    "displayName": "Manufacturing Tooling",
-    "sillyName": "Manufacturing Tooling Necromancy",
+  "DESKTOP_APPS": {
+    "displayName": "Desktop Applications",
+    "sillyName": "Desktop Applications Hegemony",
     "category": "Software",
-    "description": "Ability to create tools and applications that will be used in the manufacturing process, knowledge of the associated technologies (Python, ansible, etc), deployment, contact with Tharsus",
+    "description": "Ability to create desktop applications (Python), knowledge of the associated technologies and framework (Qt, Tkinter, etc), understanding of the domain-specific challenges and best practices",
     "milestones": [{
-      "summary": "TODO",
+      "summary": "Works effectively within established applications, following current best practices",
       "signals": [
-        "TODO",
-        "TODO",
+        "Makes minor modifications to existing screens",
+        "Fixes simple design quality issues",
         "TODO",
       ],
       "examples": [
@@ -478,10 +478,22 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Develops new features in the existing architecture, or minor improvements to existing architecture",
       "signals": [
+        "Makes sensible abstractions based on template and code patterns",
+        "Specs and builds interactive components independently",
+        "Prototypes simple new features quickly",
+      ],
+      "examples": [
         "TODO",
         "TODO",
+        "TODO",
+      ],
+    }, {
+      "summary": "Designs major new features and demonstrates a nuanced understanding of system constraints",
+      "signals": [
+        "Provides useful design feedback and suggests feasible alternatives",
+        "Acts a caretaker for all of application code",
         "TODO",
       ],
       "examples": [
@@ -490,11 +502,11 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Builds complex, reusable architectures that pioneer best practices and enable engineers to work more effectively",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Pioneers architecture migrations that reduce programmer burden",
+        "Implements complex UI transitions that bring delight",
+        "Makes architectural decisions that eliminate entire classes of bugs",
       ],
       "examples": [
         "TODO",
@@ -502,22 +514,10 @@ export const tracks: Tracks = {
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Is an industry-leading expert in desktop developer and sets strategic direction for the dev team",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "TODO",
-      "signals": [
-        "TODO",
-        "TODO",
+        "Identifies and solved systemic problems with current architecture",
+        "Defines a long-term vision for desktop applications and ensures projects are in service of it",
         "TODO",
       ],
       "examples": [
@@ -534,62 +534,63 @@ export const tracks: Tracks = {
     "category": "Software",
     "description": "Ability to deploy and maintain infrastructure (cloud, local, etc), knowledge of performance, scaling and security, expertise with build pipelines",
     "milestones": [{
-      "summary": "TODO",
+      "summary": "Works effectively within established systems, following current best practices",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Knows how to use a deployement script (terraform, ansible, etc)",
+        "Can edit a Jenkinsfile to add a new step",
+        "Understanding of AWS resources and concepts",
+        "Understanding of Docker, compose, etc",
       ],
       "examples": [
-        "TODO",
+        "Added a flake8 check to PPaT",
+        "Created a Docker image for Munkeybutler and its database",
+        "Added a new project to Jenkins",
+      ],
+    }, {
+      "summary": "Develops new instances of existing architecture, or minor improvements to existing architecture",
+      "signals": [
+        "Able to add a group of resources in terraform (e.g. EC2 instance, associated VPC, etc)",
+        "Knows how to use Ansible",
+        "Uses the Jenkins to deploy production products",
+      ],
+      "examples": [
+        "Created a new instance to host Wordpress and configured the CDN to pass traffic correctly",
+        "Added a package to an existing machine and deployed it using Ansible",
+        "Created an Ansible playbook to deploy new manufacturing software changes to Tharsus",
+      ],
+    }, {
+      "summary": "Designs standalone systems of moderate complexity, or major new changes in existing systems",
+      "signals": [
+        "Acts as primary maintainer for existing critical systems",
+        "Ensures modern security principles are being followed",
+        "Builds reliable systems able to recover from errors, which are logged for debugging and audit purposes",
+      ],
+      "examples": [
+        "Wrote terraform modules used by the rest of team",
+        "Fixed a service outage on our AWS hosting at 3am",
+        "Performed a security audit and pentest",
+      ],
+    }, {
+      "summary": "Builds complex, reusable architectures that pioneer best practices for other engineers, or multi-system services",
+      "signals": [
+        "Delivers complex systems that achieve their goals",
+        "Avoids subtle architectural mistakes when considering new systems",
+        "Makes appropriate buy vs build choices",
+      ],
+      "examples": [
+        "Created template and reusable systems allowing anybody to host a new product in 15min with modern security and performance standards",
         "TODO",
         "TODO",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "Is an industry-leading expert in dev ops and sets strategic infrastructure direction for the company",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "Makes decisions that have positive, long term, wide ranging consequences",
+        "Designs transformational projects of significant complexity and scope",
+        "Is a recognized figure in cloud hosting, scaling and migration communities",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "TODO",
-      "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "TODO",
-      "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-    }, {
-      "summary": "TODO",
-      "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
-      ],
-      "examples": [
-        "TODO",
+        "Maintains the terraform provider package for a cloud provider",
         "TODO",
         "TODO",
       ],
@@ -812,80 +813,6 @@ export const tracks: Tracks = {
     ]
   },
 
-  "IT": {
-    "displayName": "Information Technology",
-    "sillyName": "Information Technology Paladin",
-    "category": "Software",
-    "description": "TBC",
-    "milestones": [
-      {
-        "summary": "TBC",
-        "signals": [
-          "TODO",
-          "TODO",
-          "TODO",
-        ],
-        "examples": [
-          "TODO",
-          "TODO",
-          "TODO",
-        ],
-      },
-      {
-        "summary": "TBC",
-        "signals": [
-          "TODO",
-          "TODO",
-          "TODO",
-        ],
-        "examples": [
-          "TODO",
-          "TODO",
-          "TODO",
-        ],
-      },
-      {
-        "summary": "TBC",
-        "signals": [
-          "TODO",
-          "TODO",
-          "TODO",
-        ],
-        "examples": [
-          "TODO",
-          "TODO",
-          "TODO",
-        ],
-      },
-      {
-        "summary": "TBC",
-        "signals": [
-          "TODO",
-          "TODO",
-          "TODO",
-        ],
-        "examples": [
-          "TODO",
-          "TODO",
-          "TODO",
-        ],
-      },
-      {
-        "summary": "TBC",
-        "signals": [
-          "TODO",
-          "TODO",
-          "TODO",
-        ],
-        "examples": [
-          "TODO",
-          "TODO",
-          "TODO",
-        ],
-      }
-    ]
-  },
-
   "DATA_SCIENCE": {
     "displayName": "Data Science",
     "sillyName": "Data Science Dexterity",
@@ -960,137 +887,285 @@ export const tracks: Tracks = {
     ]
   },
 
-
-  "CTRL_MODEL": {
-    "displayName": "Controls Modelling",
+  "CONTROLS_MATH": {
+    "displayName": "Advanced mathematics",
     "category": "Robotics",
-    "description": "Ability to prototype and model control systems (using Matlab and Simulink), knowledge of controller designs and associated algorithms, understanding of dynamics, ability to read and use technical papers on robotics",
+    "description": "Ability to understand complex mathematics such linear algebra, geometry, optimisations, statistics. Capability of working effectively with rigid body dynamics and the related algebraic operations.",
     "milestones": [{
-      "summary": "TODO",
+      "summary": "",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
     }],
   },
 
-  "TRAJ_MODEL": {
-    "displayName": "Trajectory Planning Modelling",
+  "CONTROLS_CONTROL_THEORY": {
+    "displayName": "Control Theory",
     "category": "Robotics",
-    "description": "Ability to prototype and model kinematics and planning systems (using Matlab and Simulink), knowledge planning and solving algorithms, understanding of kinematics and motion planning, ability to read and use technical papers on robotics",
+    "description": "Ability to understand statics and dynamics of multibody systems. Capability of analysing, designing and controlling linear and nonlinear systems. Knowledge of control stability, feddback linearization and optimal control techniques.",
     "milestones": [{
-      "summary": "TODO",
+      "summary": "",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
     }, {
-      "summary": "TODO",
+      "summary": "",
       "signals": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
       ],
       "examples": [
-        "TODO",
-        "TODO",
-        "TODO",
+        "",
+      ],
+    }],
+  },
+
+  "CONTROLS_SIMS": {
+    "displayName": "Applied simulation",
+    "category": "Robotics",
+    "description": "Ability to perform computational modelling, proficiency with physics / analytical frameworks, applied optimisation. Profiency with multimody simulation softwares - Matlab/Simulink/Simscape/Adams.",
+    "milestones": [{
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }],
+  },
+
+  "CONTROLS_RESEARCH": {
+    "displayName": "Research proficiency",
+    "category": "Robotics",
+    "description": "Capability to perform literature searches and reviews. Ability to effectively communicate scientific data and results, experimental design and management, data visualisation.",
+    "milestones": [{
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }],
+  },
+
+
+  "CONTROLS_SIMS": {
+    "displayName": "Applied simulation",
+    "category": "Robotics",
+    "description": "Ability to perform computational modelling, proficiency with physics / analytical frameworks, applied optimisation. Profiency with multimody simulation softwares - Matlab/Simulink/Simscape/Adams.",
+    "milestones": [{
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }],
+  },
+
+  "CONTROLS_JIG_DESIGN": {
+    "displayName": "Jig design",
+    "category": "Robotics",
+    "description": "Capability of creating jigs to test robot performance/assess unknown parameters. Profiency in designing, executing and testing a jig from start to end, including MAIT (manufacturing, assembly, integration and testing)",
+    "milestones": [{
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
+      ],
+    }, {
+      "summary": "",
+      "signals": [
+        "",
+      ],
+      "examples": [
+        "",
       ],
     }],
   },
@@ -1250,6 +1325,64 @@ export const tracks: Tracks = {
         "Championed the use of new PCB manufacturing technologies which enable innovative product features",
         "Member of the IPC standards committee for PCB design",
         "Created education materials widely accepted across the industry as a best practise guides",
+      ],
+    }],
+  },
+
+  "CABLING": {
+    "displayName": "Cabling",
+    "category": "Electronics",
+    "description": "Ability to produce detailed designs and specifications for a variety of cable assemblies, suitable for a wide range of applications and environments. Working knowledge of applicable standards, cabling conventions, common design formulas, available parts, tooling, inspection and manufacturing techniques.",
+    "milestones": [{
+      "summary": "Can specify simple cables ready for manufacturing internally or externally to the organisation",
+      "signals": [
+        "Recognises a range of connector and cable types (e.g. RF, power, multipole circular, coax, etc.)",
+        "Can identify common cables used in consumer electronics (e.g. HDMI, USB, DVI, IEC)",
+      ],
+      "examples": [
+        "Identifies appropriate connectors and cables, and produces a pinout diagram",
+      ],
+    }, {
+      "summary": "Can confidently specify and design simple cable assemblies to a level suitable for external manufacturer",
+      "signals": [
+        "Understands how to dimension and tolerance a cable design",
+        "Capable of using CAD to produce detailed 2D drawings, core diagrams, BOMs, etc.",
+        "Familiar with standard symbols used in core diagrams (e.g. twisted cable, shielding, etc.)",
+      ],
+      "examples": [
+        "Designing a 2-way power cable, fully specifying the parts and tooling required",
+        "Specifying a simple RF cable, such as a 50 Ohm BNC to SMA cable",
+      ],
+    }, {
+      "summary": "Able to specify and design a range of complex cable assemblies with some guidance",
+      "signals": [
+        "Familiar with appropriate IPC standards for cabling",
+        "Can advise on appropriate reworking techniques (e.g. cable splicing, contact extraction, etc.)"
+      ],
+      "examples": [
+        "Provides detailed assembly instructions and inspection criteria in designs",
+        "Sources appropriate connectors based on the intended environment, expected voltage/current, signal types, dimensions, etc.",
+      ],
+    }, {
+      "summary": "Can confidently design complex cable looms with little to no supervision",
+      "signals": [
+        "Reviews other designer's work",
+        "Working knowledge of common design calculations (e.g. bundle size, voltage drop, current verses temperature rise, etc.)",
+      ],
+      "examples": [
+        "Designing a multi-way 360 deg shielded cable for a harsh EMC environment",
+        "Producing a detailed routing and clipping diagram for a complex machine cabling loom",
+        "Specifying a custom fibre optic cable assembly for a high speed network"
+      ],
+    }, {
+      "summary": "Highly experienced designer, having worked on a wide range of compex cable assemblies for different applications and environments",
+      "signals": [
+        "Mentors other members of staff in cable design",
+        "Technical leader for engineering projects",
+      ],
+      "examples": [
+        "Sets company-wide standards and procedures for cabling design and manufacture",
+        "Designs automated test hardware for efficient inspection of large volume cable production",
       ],
     }],
   },

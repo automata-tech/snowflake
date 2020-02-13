@@ -42,6 +42,10 @@ const hashToState = (hash: String): ?SnowflakeAppState => {
         result.milestoneByTrack[trackId] = {level: track};
       }
     });
+    // Delete historical skills
+    for (const toDelete of ['CTRL_MODEL', 'TRAJ_MODEL', 'MFG_TOOL', 'IT']) {
+      delete result.milestoneByTrack[toDelete];
+    }
     result.silly = false;
     return result;
   } catch (SyntaxError) {

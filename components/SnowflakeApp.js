@@ -6,7 +6,7 @@ import KeyboardListener from '../components/KeyboardListener'
 import Track from '../components/Track'
 import Wordmark from '../components/Wordmark'
 import LevelThermometer from '../components/LevelThermometer'
-import { eligibleTitles, trackIds, milestones, milestoneToPoints, roleTracks, isTechnicalTrack, MilestoneCoreTechTracks, maxCoreTechTracks, countingTracks } from '../constants'
+import { eligibleTitles, trackIds, tracks, milestones, milestoneToPoints, roleTracks, isTechnicalTrack, MilestoneCoreTechTracks, maxCoreTechTracks, countingTracks, categoryIds } from '../constants'
 import PointSummaries from '../components/PointSummaries'
 import type { Milestone, MilestoneMap, TrackId } from '../constants'
 import React from 'react'
@@ -20,7 +20,7 @@ type SnowflakeAppState = {
   title: string,
   roleTrack: string,
   focusedTrackId: TrackId,
-  otherTechTracksExanded: boolean,
+  techCategorySelected: string,
   detailedView: boolean,
   silly: boolean,
 }
@@ -46,6 +46,13 @@ const hashToState = (hash: String): ?SnowflakeAppState => {
     for (const toDelete of ['CTRL_MODEL', 'TRAJ_MODEL', 'MFG_TOOL', 'IT']) {
       delete result.milestoneByTrack[toDelete];
     }
+    // Ensure a tech category is selected
+    if (!result.techCategorySelected) {
+      result.techCategorySelected = tracks[trackIds[0]].category;
+    }
+    // Remove previous properties
+    delete result.othersExpanded;
+    // Disable silly mode
     result.silly = false;
     return result;
   } catch (SyntaxError) {
@@ -73,13 +80,14 @@ const emptyState = (): SnowflakeAppState => {
   });
   milestoneByTrack[MilestoneCoreTechTracks] = [];
 
+  const defaultTrack = trackIds[0];
   return {
     name: '',
     title: '',
     roleTrack: '',
     milestoneByTrack,
-    focusedTrackId: trackIds[0],
-    otherTechTracksExanded: false,
+    focusedTrackId: defaultTrack,
+    techCategorySelected: tracks[defaultTrack].category,
     detailedView: false,
     silly: false,
   }
@@ -96,13 +104,14 @@ const defaultState = (): SnowflakeAppState => {
     .sort(() => 0.5 - Math.random())
     .slice(0, maxCoreTechTracks - 2);
 
+  const defaultTrack = milestoneByTrack[MilestoneCoreTechTracks][0];
   return {
     name: 'Miéville Pickleberry',
     title: 'Senior Documancer Analyst',
     roleTrack: 'Individual Contributor',
     milestoneByTrack,
-    focusedTrackId: trackIds[0],
-    otherTechTracksExanded: false,
+    focusedTrackId: defaultTrack,
+    techCategorySelected: tracks[defaultTrack].category,
     detailedView: false,
     silly: false,
   }
@@ -244,9 +253,9 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
         <TrackSelector
             milestoneByTrack={this.state.milestoneByTrack}
             focusedTrackId={this.state.focusedTrackId}
+            selectedCategory={this.state.techCategorySelected}
             setFocusedTrackIdFn={this.setFocusedTrackId.bind(this)}
-            othersExpanded={this.state.otherTechTracksExanded}
-            onToggleOthersFn={this.onToggleOtherTechTracks.bind(this)}
+            selectCategoryFn={this.selectCategory.bind(this)}
             toggleCoreTechTrackFn={this.toggleCoreTechTrack.bind(this)}
             silly={this.state.silly}
           />
@@ -305,8 +314,8 @@ class SnowflakeApp extends React.Component<Props, SnowflakeAppState> {
     this.setState({ focusedTrackId })
   }
 
-  onToggleOtherTechTracks() {
-    this.setState({ otherTechTracksExanded: !this.state.otherTechTracksExanded })
+  selectCategory(category: string) {
+    this.setState({ techCategorySelected: category })
   }
 
   toggleCoreTechTrack(trackId: TrackId) {

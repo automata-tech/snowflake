@@ -9,10 +9,9 @@ export type TrackId =
   'IMPACT' | 'COMMUNICATION' | 'CRAFT' | 'INITIATIVE' |
   'PROF_DEV' | 'DEV_DESIGN' | 'WELLBEING' | 'INSPIRE' |
   'MENTORSHIP' | 'EVANGELISM' | 'HIRING' | 'COMMUNITY' |
-  "IDEATION A" | "IDEATION B" | "REALISATION A" | "REALISATION B" | "VALIDATION/SIMULATION A" | "VALIDATION/SIMULATION B" | "IMPLEMENTATION A" | "IMPLEMENTATION B" |
-  "DRIVING CHANGE A" | "DRIVING CHANGE B" | "DFM A" | "DFM B" | "NPI A" | "NPI B" | "DIAGNOSTIC TOOLS" | "PROCESS DOCUMENTATION" | "QUALITY CONTROL A" | "QUALITY CONTROL B" | "DRIVING CHANGE A" | "DRIVING CHANGE B" |
-  "SUPPLY CHAIN MANAGEMENT A" | "SUPPLY CHAIN MANAGEMENT B" |
-  "INVENTORY CONTROL A" | "INVENTORY CONTROL B" | "LOGISTICS " | "PRODUCTION MANAGEMENT A" | "PRODUCTION MANAGEMENT B" | "SYSTEM DEVELOPMENT A" | "SYSTEM DEVELOPMENT B" | "CHANGE MANAGEMENT" |
+  "IDEATION A" | "IDEATION B" | "REALISATION A" | "REALISATION B" | "VALIDATION/SIMULATION A" | "VALIDATION/SIMULATION B" | "IMPLEMENTATION A" | "IMPLEMENTATION B" | "DRIVING CHANGE [DES] A" | "DE-DRIVING CHANGE [DES] B" |
+  "DFM A" | "DFM B" | "NPI A" | "NPI B" | "DIAGNOSTIC TOOLS" | "PROCESS DOCUMENTATION" | "QUALITY CONTROL A" | "QUALITY CONTROL B" | "DRIVING CHANGE [MANF] A" | "DRIVING CHANGE [MANF] B" |
+  "SUPPLY CHAIN MANAGEMENT A" | "SUPPLY CHAIN MANAGEMENT B" | "INVENTORY CONTROL A" | "INVENTORY CONTROL B" | "LOGISTICS " | "PRODUCTION MANAGEMENT A" | "PRODUCTION MANAGEMENT B" | "SYSTEM DEVELOPMENT A" | "SYSTEM DEVELOPMENT B" | "CHANGE MANAGEMENT" |
   "CHANGE CONTROL A" | "CHANGE CONTROL B" | "QUALITY TOOLS A" | "QUALITY TOOLS B" | "TEST & VALIDATION A" | "TEST & VALIDATION B" | "SUPPLIER DEVELOPMENT A" | "SUPPLIER DEVELOPMENT B" | "DRIVING CHANGE A" | "DRIVING CHANGE B" |
   "CUSTOMER FOCUS" | "DATA COLLECTION & ANALYSIS" | "UNDERSTANDING OF THE MARKET" | "UNDERSTANDING OF THE TECHNOLOGY" | "CAN SET STRATEGY AND CLEARLY COMMUNICATE RATIONALE" | "CREATES A COMPANY OF MISSIONARIES NOT MERCENARIES" | "START WITH THE PROBLEM" | "THINK BIG, START SMALL, SHIP OFTEN" | "TACKLE THE BIGGEST RISKS AT THE START AND SHIP TO LEARN" | "SHIP THE WHOLE CUSTOMER EXPERIENCE" | "DELIVER AN OUTCOME" | "OWNERSHIP" | "DECISIVENESS" | "A BRILLIANT COMMUNICATOR" | "COLLABORATES & EMPOWERS"
 
@@ -2500,8 +2499,8 @@ export const tracks: Tracks = {
       }
     ]
   },
-  "DRIVING CHANGE A": {
-    "displayName": "Driving Change A",
+  "DRIVING CHANGE [DES] A": {
+    "displayName": "Driving Change [Des] A",
     "category": "Design Engineering",
     "description":
       "Ability to Influence, Communicate and Generate Consensus on Change",
@@ -2538,20 +2537,20 @@ export const tracks: Tracks = {
       }
     ]
   },
-  "DRIVING CHANGE B": {
-    "displayName": "Driving Change B",
+  "DE-DRIVING CHANGE [DES] B": {
+    "displayName": "DE-Driving Change [Des] B",
     "category": "Design Engineering",
     "description": "Identifying and Creating Meaningful Measurable Improvement",
     "milestones": [
       {
         "summary":
-          "Can define, scope and execute small projects within a DMAIC framework and create realisable measurable performance measures for proposed outcomes",
+          "Can reduce complexity, define, scope and execute small projects within a DMAIC framework and create realisable measurable performance measures for proposed outcomes",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
       {
         "summary":
-          "As above  Executes quantitative tracking to show how implemented outcomes have been demonstrated and quantify the anticipated performance gain.",
+          "As above  Can take complex contrary issues, identify insights and reduce compexity and use quantitative tracking to show how  outcomes have produced the anticipated performance gain.",
         "signals": ["TBC"],
         "examples": ["TBC"]
       },
@@ -2877,8 +2876,8 @@ export const tracks: Tracks = {
       }
     ]
   },
-  "DRIVING CHANGE A": {
-    "displayName": "Driving Change A",
+  "DRIVING CHANGE [MANF] A": {
+    "displayName": "Driving Change [Manf] A",
     "category": "Manufacturing Development",
     "description":
       "Ability to Influence, create change and introduce Best practice",
@@ -2915,8 +2914,8 @@ export const tracks: Tracks = {
       }
     ]
   },
-  "DRIVING CHANGE B": {
-    "displayName": "Driving Change B",
+  "DRIVING CHANGE [MANF] B": {
+    "displayName": "Driving Change [Manf] B",
     "category": "Manufacturing Development",
     "description":
       "Propergation of the DMAIC cycle and use of data driven decision making",

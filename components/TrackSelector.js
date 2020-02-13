@@ -8,9 +8,9 @@ type Props = {
   milestoneByTrack: MilestoneMap,
   focusedTrackId: TrackId,
   setFocusedTrackIdFn: (TrackId) => void,
-  othersExpanded: boolean,
+  selectedCategory: string,
+  selectCategoryFn: (string) => void,
   silly: boolean,
-  onToggleOthersFn: () => void,
   toggleCoreTechTrackFn: (TrackId) => void,
 }
 
@@ -69,6 +69,9 @@ class TrackSelector extends React.Component<Props> {
       && !softCategories.has(tracks[trackId].category)
       && this.props.milestoneByTrack[trackId].level > 0
     )
+    const categoriesOptions = Array.from(techCategories.keys()).map((category, i) => (
+      <option key={i} value={category}>{category}</option>
+    ))
 
     return (
       <div className="track-selector">
@@ -84,13 +87,6 @@ class TrackSelector extends React.Component<Props> {
           }
           .track-selector-break {
             flex-basis: 100%;
-          }
-          .track-selector-expand {
-            font-size: 10px;
-            font-weight: none;
-            display: inline-block;
-            margin-left: 10px;
-            cursor: pointer;
           }
           h3 {
             margin-bottom: 5px;
@@ -111,24 +107,18 @@ class TrackSelector extends React.Component<Props> {
         ))}
         <div className="track-selector-break" />
         <h3>
-          Technical skills
-          <span className="track-selector-expand" onClick={this.props.onToggleOthersFn}>{this.props.othersExpanded ? '▲' : '▼'}</span>
+          <select value={this.props.selectedCategory} onChange={(e) => this.props.selectCategoryFn(e.target.value)}>
+            {categoriesOptions}
+          </select> Technical skills
         </h3>
-        {this.props.othersExpanded && Array.from(techCategories.keys()).map((category, i) => {
-          const tracks = tracksFromCategory(category)
-          return (
-            <React.Fragment key={i}>
-              <div className="track-selector-break" />
-              <h3>
-                {category} skills
-              </h3>
-              <div className="track-selector-break" />
-              {tracks.map(trackId => (
-                this.renderTrack(trackId)
-              ))}
-            </React.Fragment>
-          )
-        })}
+        {(
+          <React.Fragment>
+            <div className="track-selector-break" />
+            {tracksFromCategory(this.props.selectedCategory).map(trackId => (
+              this.renderTrack(trackId)
+            ))}
+          </React.Fragment>
+        )}
         <div className="track-selector-break" />
         <h3>Automata skills</h3>
         <div className="track-selector-break" />

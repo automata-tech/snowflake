@@ -88,9 +88,13 @@ const emptyState = (): SnowflakeAppState => {
 const defaultState = (): SnowflakeAppState => {
   const milestoneByTrack = {};
   trackIds.forEach((trackId) => {
-    milestoneByTrack[trackId] = {level: coerceMilestone(Math.round(Math.random() * 4))};
+    milestoneByTrack[trackId] = {level: coerceMilestone(Math.floor(Math.pow(Math.random(), 8) * 4))};
   });
-  milestoneByTrack[MilestoneCoreTechTracks] = trackIds.filter(isTechnicalTrack).sort(() => 0.5 - Math.random()).slice(0, maxCoreTechTracks);
+  milestoneByTrack[MilestoneCoreTechTracks] =
+    trackIds
+    .filter((trackId) => (isTechnicalTrack(trackId) && milestoneByTrack[trackId].level > 0))
+    .sort(() => 0.5 - Math.random())
+    .slice(0, maxCoreTechTracks - 2);
 
   return {
     name: 'Miéville Pickleberry',
@@ -98,7 +102,7 @@ const defaultState = (): SnowflakeAppState => {
     roleTrack: 'Individual Contributor',
     milestoneByTrack,
     focusedTrackId: trackIds[0],
-    otherTechTracksExanded: true,
+    otherTechTracksExanded: false,
     detailedView: false,
     silly: false,
   }

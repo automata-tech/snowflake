@@ -1,8 +1,8 @@
 // @flow
 import * as d3 from 'd3'
 
-import { tracks } from './constants_tracks';
-import type { Track, TrackId } from './constants_tracks';
+import { tracks } from './tracks';
+import type { Track, TrackId } from './tracks';
 
 export type { Track, TrackId }
 export { tracks }

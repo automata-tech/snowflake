@@ -28,7 +28,7 @@ class PointSummaries extends React.Component<Props, State> {
   render() {
     const { active, inactive } = pointsTotal(this.props.milestoneByTrack, this.props.coreTechTracks)
 
-    let currentLevel, nextLevel
+    let currentLevel
 
     let pointsForCurrentLevel = active
     while (!(currentLevel = pointsToLevels[pointsForCurrentLevel])) {
@@ -36,7 +36,7 @@ class PointSummaries extends React.Component<Props, State> {
     }
 
     let pointsToNextLevel = 1
-    while (!(nextLevel = pointsToLevels[active + pointsToNextLevel])) {
+    while (!(pointsToLevels[active + pointsToNextLevel])) {
       pointsToNextLevel++
       if (pointsToNextLevel > maxPoints) {
         pointsToNextLevel = 'N/A'

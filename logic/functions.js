@@ -3,7 +3,7 @@
 import * as d3 from 'd3'
 import { techCategories, baseCategoryColor } from './categories'
 import { trackIds, tracks } from './tracks'
-import type { TrackId, Category } from './tracks'
+import type { TrackId } from './tracks'
 import type { MilestoneMap, Milestone } from './milestones'
 
 export const isTechnicalTrack = (trackId: TrackId): boolean =>

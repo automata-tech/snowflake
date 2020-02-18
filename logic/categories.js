@@ -26,6 +26,7 @@ export const tracksFromCategory = (category: Category): TrackId[] => trackIds.re
   return list
 }, [])
 
+// eslint-disable-next-line no-unused-vars
 export const baseCategoryColor = (category: Category): string => {
   return '#ff00ff'
 }

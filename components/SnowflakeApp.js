@@ -128,14 +128,14 @@ class SnowflakeApp extends React.Component<Props, AppState> {
         </Head>
 
         <div className="wordmark">
-          <a href="https://automata.tech/" target="_blank">
+          <a href="https://automata.tech/" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270.47 243.81"><title>Icon_001</title><path d="M216.72,177a35.82,35.82,0,1,1,17.91,66.84H101Z" /><path d="M71.66,208A35.82,35.82,0,1,1,4.82,190.06L71.66,74.29Z" /><path d="M117.34,66.84a35.82,35.82,0,1,1,48.93-48.93l66.84,115.78Z" /></svg>
           </a>
         </div>
         <div className="title">
           <h2>Snowflake</h2>
           <p>
-            Score yourself honestly based on where you are <strong>currently</strong> performing at Automata, even if you feel you are capable of performing at a higher level but don't currently have the opportunity to.
+            Score yourself honestly based on where you are <strong>currently</strong> performing at Automata, even if you feel you are capable of performing at a higher level but don&apos;t currently have the opportunity to.
           </p>
         </div>
         <div className="d-flex">
@@ -165,7 +165,7 @@ class SnowflakeApp extends React.Component<Props, AppState> {
                 <label htmlFor="detailed-input">Detailed view</label>
 
                 <div className="reset">
-                  <button onClick={e => this.reset()}>Reset</button>
+                  <button onClick={() => this.reset()}>Reset</button>
                 </div>
               </div>
             </form>
@@ -216,11 +216,11 @@ class SnowflakeApp extends React.Component<Props, AppState> {
           />
         <div className="d-flex footer">
           <div className="flex-1">
-            Made with ❤️ by <a href="https://medium.engineering" target="_blank">Medium Eng</a>.
-            Adapted with 🤔 by <a href="https://automata.tech" target="_blank">Automata</a>.
-            Learn about the <a href="https://medium.com/s/engineering-growth-framework" target="_blank">this version of our growth framework</a>
-            {' '}and <a href="https://medium.engineering/engineering-growth-at-medium-4935b3234d25" target="_blank">what we do currently</a>.
-            Get the <a href="https://github.com/automata-tech/snowflake" target="_blank">source code</a>.
+            Made with ❤️ by <a href="https://medium.engineering" target="_blank" rel="noopener noreferrer">Medium Eng</a>.
+            Adapted with <span title="Original LB Productions">🤔</span> by <a href="https://automata.tech" target="_blank" rel="noopener noreferrer">Automata</a>.
+            Learn about the <a href="https://medium.com/s/engineering-growth-framework" target="_blank" rel="noopener noreferrer">this version of our growth framework</a>
+            {' '}and <a href="https://medium.engineering/engineering-growth-at-medium-4935b3234d25" target="_blank" rel="noopener noreferrer">what we do currently</a>.
+            Get the <a href="https://github.com/automata-tech/snowflake" target="_blank" rel="noopener noreferrer">source code</a>.
           </div>
         </div>
       </main>

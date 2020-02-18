@@ -6,7 +6,7 @@ import React from 'react'
 import type { TrackId, Category } from '../logic/tracks'
 import { categoryColor } from '../logic/categories'
 import { pointsToLevels, pointsByCategory, maxPoints } from '../logic/milestones'
-import type { CategoryPoints, MilestoneMap } from '../logic/milestones'
+import type { MilestoneMap } from '../logic/milestones'
 
 const margins = {
   top: 30,

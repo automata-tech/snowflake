@@ -1,4 +1,8 @@
 {
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -6,5 +10,8 @@
   ],
   "plugins": [
     "flowtype"
-  ]
+  ],
+  "rules": {
+    "no-unused-vars": [2, {"args": "all", "varsIgnorePattern": "^_"}]
+  }
 }

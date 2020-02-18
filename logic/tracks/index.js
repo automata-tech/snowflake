@@ -12,20 +12,21 @@ import * as MFGOps from './mfg_ops';
 import * as Quality from './quality';
 import * as Product from './product';
 import * as Marketing from './marketing';
+import * as Design from './design';
 import * as Automata from './automata';
 
 export type TrackId =
   Software.TrackId | Robotics.TrackId | Electronics.TrackId |
   Safety.TrackId |
   DesignEng.TrackId | MFGDev.TrackId | MFGOps.TrackId | Quality.TrackId |
-  Product.TrackId | Marketing.TrackId |
+  Product.TrackId | Marketing.TrackId | Design.TrackId |
   Automata.TrackId
 
 export type Category =
   Software.Category | Robotics.Category | Electronics.Category |
   Safety.Category |
   DesignEng.Category | MFGDev.Category | MFGOps.Category | Quality.Category |
-  Product.Category | Marketing.Category |
+  Product.Category | Marketing.Category | Design.Category |
   Automata.Category
 
 export type Track = TrackT<Category>;
@@ -44,6 +45,7 @@ export const tracks: Tracks<TrackId, Category> = {
 
   ...Product.Tracks,
   ...Marketing.Tracks,
+  ...Design.Tracks,
 
   ...Automata.Tracks,
 }

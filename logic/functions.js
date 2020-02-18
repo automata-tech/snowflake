@@ -1,7 +1,6 @@
 // @flow
 
-import * as d3 from 'd3'
-import { techCategories, baseCategoryColor } from './categories'
+import { techCategories, scaleColor } from './categories'
 import { trackIds, tracks } from './tracks'
 import type { TrackId } from './tracks'
 import type { MilestoneMap, Milestone } from './milestones'
@@ -30,4 +29,4 @@ export const allTracksWithPoints = (coreTechTracks: TrackId[], milestoneMap: Mil
   trackIds.filter(trackId => doesTrackCount(trackId, coreTechTracks) || nonCoreTechTrack(trackId, coreTechTracks, milestoneMap[trackId].level))
 
 export const trackColor = (track: TrackId, milestone: Milestone, coreTechTracks: TrackId[]) =>
-  d3.color(baseCategoryColor(tracks[track].category)).darker(doesTrackCount(track, coreTechTracks) ? 5 - milestone : 0)
+  scaleColor(tracks[track].category, doesTrackCount(track, coreTechTracks) ? milestone : 0)

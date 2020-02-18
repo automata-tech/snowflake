@@ -3,6 +3,7 @@
 import * as d3 from 'd3'
 import { trackIds, tracks } from './tracks'
 import type { TrackId, Category } from './tracks'
+import type { Milestone } from './milestones'
 
 export const categoryIds: Set<Category> = trackIds.reduce((set, trackId) => {
   set.add(tracks[trackId].category)
@@ -31,5 +32,8 @@ export const baseCategoryColor = (category: Category): string => {
   return '#ff00ff'
 }
 
+export const scaleColor = (category: Category, milestone: Milestone): string =>
+  d3.color(baseCategoryColor(category)).darker((5 - milestone) * 0.65)
+
 export const categoryColor = (category: Category, counts: boolean): string =>
-  d3.color(baseCategoryColor(category)).darker(counts ? 3 : 0)
+  scaleColor(category, counts ? 5 : 0)

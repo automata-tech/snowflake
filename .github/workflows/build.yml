@@ -15,6 +15,8 @@ jobs:
       run: npm install
     - name: Flow linting
       run: npm run flow
+    - name: JS linting
+      run: npm run lint
     - name: Building
       run: npm run export
     # See https://github.com/zeit/next.js/wiki/Deploying-a-Next.js-app-into-GitHub-Pages#add-a-nojekyll-file

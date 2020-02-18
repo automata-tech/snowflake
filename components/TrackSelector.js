@@ -1,15 +1,20 @@
 // @flow
 
 import React from 'react'
-import { trackIds, tracks, categoryColorScale, isTechnicalTrack, isCoreTechTrack, nonCoreTechTrack, techCategories, softCategories, tracksFromCategory, MilestoneCoreTechTracks, maxCoreTechTracks } from '../constants'
-import type { MilestoneMap, TrackId } from '../constants'
+import { trackIds, tracks } from '../logic/tracks'
+import type { TrackId, Category } from '../logic/tracks'
+import { maxCoreTechTracks } from '../logic/milestones'
+import type { MilestoneMap } from '../logic/milestones'
+import { isCoreTechTrack, nonCoreTechTrack, trackColor } from '../logic/functions'
+import { techCategories, softCategories, tracksFromCategory } from '../logic/categories'
 
 type Props = {
   milestoneByTrack: MilestoneMap,
+  coreTechTracks: TrackId[],
   focusedTrackId: TrackId,
   setFocusedTrackIdFn: (TrackId) => void,
-  selectedCategory: string,
-  selectCategoryFn: (string) => void,
+  selectedCategory: Category,
+  selectCategoryFn: (Category) => void,
   silly: boolean,
   toggleCoreTechTrackFn: (TrackId) => void,
 }
@@ -17,7 +22,7 @@ type Props = {
 class TrackSelector extends React.Component<Props> {
   renderTrack(trackId: TrackId) {
     const track = tracks[trackId];
-    const color = categoryColorScale(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]);
+    const color = trackColor(trackId, this.props.milestoneByTrack[trackId].level, this.props.coreTechTracks);
     const sillyName = track.sillyName || track.displayName;
     return (
       <div key={trackId} className="track-selector-item"
@@ -62,8 +67,8 @@ class TrackSelector extends React.Component<Props> {
   }
 
   render() {
-    const coreTechTrackIds = trackIds.filter(trackId => isCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]))
-    const otherTechTrackIds = trackIds.filter(trackId => nonCoreTechTrack(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks], this.props.milestoneByTrack))
+    const coreTechTrackIds = trackIds.filter(trackId => isCoreTechTrack(trackId, this.props.coreTechTracks))
+    const otherTechTrackIds = trackIds.filter(trackId => nonCoreTechTrack(trackId, this.props.coreTechTracks, this.props.milestoneByTrack[trackId].level))
     const softTrackIds = trackIds.filter(trackId => softCategories.has(tracks[trackId].category))
     const categoriesOptions = Array.from(techCategories.keys()).map((category, i) => (
       <option key={i} value={category}>{category}</option>

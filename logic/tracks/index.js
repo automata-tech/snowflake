@@ -1,7 +1,6 @@
 // @flow
 
-import type { Track, Tracks } from './types';
-export type { Track };
+import type { Track as TrackT, Tracks } from './types';
 
 import * as Software from './software';
 import * as Robotics from './robotics';
@@ -29,6 +28,8 @@ export type Category =
   Product.Category | Marketing.Category |
   Automata.Category
 
+export type Track = TrackT<Category>;
+
 export const tracks: Tracks<TrackId, Category> = {
   ...Software.Tracks,
   ...Robotics.Tracks,
@@ -46,3 +47,5 @@ export const tracks: Tracks<TrackId, Category> = {
 
   ...Automata.Tracks,
 }
+
+export const trackIds: TrackId[] = Object.keys(tracks)

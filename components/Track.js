@@ -1,11 +1,16 @@
 // @flow
 
-import { tracks, milestones, categoryColorScale, MilestoneCoreTechTracks } from '../constants'
 import React from 'react'
-import type { MilestoneMap, TrackId, Milestone } from '../constants'
+
+import { tracks } from '../logic/tracks'
+import type { TrackId } from '../logic/tracks'
+import { milestones } from '../logic/milestones'
+import type { MilestoneMap, Milestone } from '../logic/milestones'
+import { trackColor } from '../logic/functions'
 
 type Props = {
   milestoneByTrack: MilestoneMap,
+  coreTechTracks: TrackId[],
   trackId: TrackId,
   silly: boolean,
   handleTrackMilestoneChangeFn: (TrackId, Milestone) => void,
@@ -53,15 +58,18 @@ class Track extends React.Component<Props> {
           ul {
             line-height: 1.5em;
           }
+          .track-selector {
+            margin-right: 50px;
+          }
         `}</style>
         <h2>{track.category}: {this.props.silly ? sillyName : track.displayName}</h2>
         <p className="track-description">{track.description}</p>
-        <div style={{display: 'flex'}}>
-          <table style={{flex: 0, marginRight: 50}}>
+        <div className="d-flex">
+          <table className="flex-0 track-selector">
             <tbody>
               {milestones.slice().reverse().map((milestone) => {
                 const isMet = milestone <= currentMilestoneId
-                const color = categoryColorScale(this.props.trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks])
+                const color = trackColor(this.props.trackId, currentMilestoneId, this.props.coreTechTracks)
                 return (
                   <tr key={milestone}>
                     <td onClick={() => this.props.handleTrackMilestoneChangeFn(this.props.trackId, milestone)}
@@ -74,7 +82,7 @@ class Track extends React.Component<Props> {
             </tbody>
           </table>
           {currentMilestone ? (
-            <div style={{flex: 1}}>
+            <div className="flex-1">
               <h3>{currentMilestone.summary}</h3>
               <h4>Example behaviors:</h4>
               <ul>

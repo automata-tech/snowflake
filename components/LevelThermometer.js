@@ -1,9 +1,12 @@
 // @flow
 
 import * as d3 from 'd3'
-import { pointsToLevels, categoryPointsFromMilestoneMap, categoryColorScaleReal, categoryColorScaleDisabled, categoryIds, maxLevel } from '../constants'
 import React from 'react'
-import type { categoryPoints, MilestoneMap } from '../constants'
+
+import type { TrackId, Category } from '../logic/tracks'
+import { categoryColor } from '../logic/categories'
+import { pointsToLevels, pointsByCategory, maxPoints } from '../logic/milestones'
+import type { CategoryPoints, MilestoneMap } from '../logic/milestones'
 
 const margins = {
   top: 30,
@@ -16,6 +19,7 @@ const width = 550
 
 type Props = {
   milestoneByTrack: MilestoneMap,
+  coreTechTracks: TrackId[],
   detailed: boolean,
 }
 
@@ -30,7 +34,7 @@ class LevelThermometer extends React.Component<Props> {
     super(props)
 
     this.pointScale = d3.scaleLinear()
-      .domain([0, maxLevel])
+      .domain([0, maxPoints])
       .rangeRound([0, width - margins.left - margins.right]);
 
     this.topAxisFn = d3.axisTop()
@@ -72,39 +76,41 @@ class LevelThermometer extends React.Component<Props> {
          + "z";
   }
 
-  renderLevel(categoryPoint: categoryPoints, last: boolean, points: number, cumulativePoints: number, funcColor: (string) => string) {
+  renderLevel(category: Category, last: boolean, points: number, cumulativePoints: number, color: string) {
     const x = this.pointScale(cumulativePoints)
     const width = this.pointScale(cumulativePoints + points) - x
-    const color = funcColor(categoryPoint.categoryId)
-    return (!last ?
+    if (last) {
+      return (
+        <path
+          key={category}
+          d={this.rightRoundedRect(x, 0, width, height - margins.top - margins.bottom, 3)}
+          style={{ fill: color }}
+        />
+      )
+    }
+    return (
       <rect
-        key={categoryPoint.categoryId}
+        key={category}
         x={x}
         y={0}
         width={width}
         height={height - margins.top - margins.bottom}
         style={{ fill: color, borderRight: "1px solid #000" }}
-      /> :
-      <path
-        key={categoryPoint.categoryId}
-        d={this.rightRoundedRect(x, 0, width, height - margins.top - margins.bottom, 3)}
-        style={{ fill: color }}
       />
     )
   }
 
   render() {
-    let categoryPoints = categoryPointsFromMilestoneMap(this.props.milestoneByTrack)
-    let allCategoryPoints = categoryPointsFromMilestoneMap(this.props.milestoneByTrack, true)
+    let categoryPoints = pointsByCategory(this.props.milestoneByTrack, this.props.coreTechTracks)
     let lastCategoryIndex = 0
     categoryPoints.forEach((categoryPoint, i) => {
-      if (categoryPoint.points > 0) {
+      if (categoryPoint.points.active > 0) {
         lastCategoryIndex = i
       }
     })
     if (this.props.detailed) {
-      allCategoryPoints.forEach((categoryPoint, i) => {
-        if (categoryPoint.points - categoryPoints[i].points > 0) {
+      categoryPoints.forEach((categoryPoint, i) => {
+        if (categoryPoint.points.inactive > 0) {
           lastCategoryIndex = i + categoryPoints.length
         }
       })
@@ -124,24 +130,28 @@ class LevelThermometer extends React.Component<Props> {
         <svg>
           <g transform={`translate(${margins.left},${margins.top})`}>
             {categoryPoints.map((categoryPoint, i) => {
+              const points = categoryPoint.points.active
               const result = this.renderLevel(
-                categoryPoint,
+                categoryPoint.category,
                 i === lastCategoryIndex,
-                categoryPoint.points,
+                points,
                 cumulativePoints,
-                categoryColorScaleReal,
+                categoryColor(categoryPoint.category, true),
               )
-              cumulativePoints += categoryPoint.points
+              cumulativePoints += points
               return result
             })}
-            {this.props.detailed && allCategoryPoints.map((categoryPoint, i) => {
-              const points = categoryPoint.points - categoryPoints[i].points
+            {this.props.detailed && categoryPoints.map((categoryPoint, i) => {
+              const points = categoryPoint.points.inactive
+              if (points == 0) {
+                return null
+              }
               const result = this.renderLevel(
-                categoryPoint,
+                categoryPoint.category,
                 i + categoryPoints.length === lastCategoryIndex,
                 points,
                 cumulativePoints,
-                categoryColorScaleDisabled,
+                categoryColor(categoryPoint.category, false),
               )
               cumulativePoints += points
               return result

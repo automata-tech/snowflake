@@ -2,14 +2,18 @@
 
 import React from 'react'
 import * as d3 from 'd3'
-import { trackIds, milestones, tracks, categoryColorScale, countingTracks, MilestoneCoreTechTracks, allTracksWithPoints } from '../constants'
-import type { TrackId, Milestone, MilestoneMap } from '../constants'
+
+import type { TrackId } from '../logic/tracks'
+import { milestones } from '../logic/milestones'
+import type { Milestone, MilestoneMap } from '../logic/milestones'
+import { countingTracks, allTracksWithPoints, trackColor } from '../logic/functions'
 
 const width = 400
 const arcMilestones = milestones.slice(1) // we'll draw the '0' milestone with a circle, not an arc.
 
 type Props = {
   milestoneByTrack: MilestoneMap,
+  coreTechTracks: TrackId[],
   focusedTrackId: TrackId,
   handleTrackMilestoneChangeFn: (TrackId, Milestone) => void,
   detailed: boolean,
@@ -34,8 +38,8 @@ class NightingaleChart extends React.Component<Props> {
 
   render() {
     const currentTrackIds = this.props.detailed
-      ? allTracksWithPoints(this.props.milestoneByTrack[MilestoneCoreTechTracks], this.props.milestoneByTrack)
-      : countingTracks(this.props.milestoneByTrack[MilestoneCoreTechTracks]);
+      ? allTracksWithPoints(this.props.coreTechTracks, this.props.milestoneByTrack)
+      : countingTracks(this.props.coreTechTracks);
 
     this.arcFn = d3.arc()
       .innerRadius(milestone => this.radiusScale(milestone))
@@ -71,7 +75,7 @@ class NightingaleChart extends React.Component<Props> {
           <g transform={`translate(${width/2},${width/2}) rotate(-33.75)`}>
             {currentTrackIds.map((trackId, i) => {
               const isCurrentTrack = trackId == this.props.focusedTrackId
-              const color = categoryColorScale(trackId, this.props.milestoneByTrack[MilestoneCoreTechTracks]);
+              const color = trackColor(trackId, this.props.milestoneByTrack[trackId].level, this.props.coreTechTracks);
               return (
                 <g key={trackId} transform={`rotate(${i * 360 / currentTrackIds.length})`}>
                   {arcMilestones.map((milestone) => {

@@ -71,6 +71,7 @@ export const migrateState = (result: Object) => {
   delete result.milestoneByTrack['CORE_TECH_TRACKS'];
   // Remove previous properties
   delete result.othersExpanded;
+  delete result.otherTechTracksExanded;
   delete result.roleTrack;
   delete result.focusedTrackId;
   delete result.techCategorySelected;

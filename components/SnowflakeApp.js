@@ -24,8 +24,8 @@ const hashToState = (hash: String): ?AppState => {
     const result = JSON.parse(window.atob(hash.split('#')[1]));
     migrateState(result);
     return result;
-  } catch (SyntaxError) {
-    return null;
+  } catch (e) {
+    throw Error(`Import failed! Are you sure the URL is correct? (otherwise Snowflake might be broken, please report it) [Details: ${e.message}]`)
   }
 }
 

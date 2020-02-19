@@ -3,8 +3,8 @@
 import { isTechnicalTrack } from './functions'
 import { coerceMilestone, maxCoreTechTracks } from './milestones'
 import type { MilestoneMap } from './milestones'
-import { tracks, trackIds } from './tracks'
-import type { TrackId, Category } from './tracks'
+import { trackIds } from './tracks'
+import type { TrackId } from './tracks'
 
 export type AppState = {|
   name: string,
@@ -38,7 +38,6 @@ export const defaultState = (): AppState => {
       .sort(() => 0.5 - Math.random())
       .slice(0, maxCoreTechTracks - 2);
 
-  const defaultTrack = coreTechTracks[0];
   return {
     name: 'Miéville Pickleberry',
     title: 'Senior Documancer Analyst',

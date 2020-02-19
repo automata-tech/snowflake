@@ -31,7 +31,7 @@ class KeyboardListener extends React.Component<Props> {
     window.addEventListener('keydown', this.handleKeyDown)
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown)
   }
 

@@ -1,35 +1,63 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import { trackIds, tracks } from '../logic/tracks'
 import type { TrackId, Category } from '../logic/tracks'
 import { maxCoreTechTracks } from '../logic/milestones'
 import type { MilestoneMap } from '../logic/milestones'
 import { isCoreTechTrack, nonCoreTechTrack, trackColor } from '../logic/functions'
-import { techCategories, softCategories, tracksFromCategory } from '../logic/categories'
+import { techCategories, softCategories, tracksFromCategory, categoryIds } from '../logic/categories'
 
-type Props = {
+type Props = {|
   milestoneByTrack: MilestoneMap,
   coreTechTracks: TrackId[],
   focusedTrackId: TrackId,
   setFocusedTrackIdFn: (TrackId) => void,
-  selectedCategory: Category,
-  selectCategoryFn: (Category) => void,
   silly: boolean,
   toggleCoreTechTrackFn: (TrackId) => void,
-}
+|}
 
-class TrackSelector extends React.Component<Props> {
+type State = {|
+  selectedCategory: Category,
+|}
+
+class TrackSelector extends React.Component<Props, State> {
+  softTrackIds: TrackId[];
+  categoriesOptions: React.Node[];
+
+  constructor(props: Props) {
+    super(props)
+
+    this.softTrackIds = trackIds.filter(trackId => softCategories.has(tracks[trackId].category))
+    this.categoriesOptions = Array.from(techCategories.keys()).map((category, i) => (
+      <option key={i} value={category}>{category}</option>
+    ))
+
+    this.state = {selectedCategory: Array.from(categoryIds)[0]}
+  }
+
+  onTrackClicked = (trackId: TrackId) => {
+    this.props.setFocusedTrackIdFn(trackId)
+  }
+
+  onTrackRightClicked = (e: SyntheticEvent<HTMLDivElement>, trackId: TrackId) => {
+    e.preventDefault()
+    this.props.toggleCoreTechTrackFn(trackId)
+  }
+
+  onCategoryChange = (e: SyntheticInputEvent<HTMLSelectElement>) => {
+    this.setState({selectedCategory: ((e.target.value: any): Category)})
+  }
+
   renderTrack(trackId: TrackId) {
     const track = tracks[trackId];
     const color = trackColor(trackId, this.props.milestoneByTrack[trackId].level, this.props.coreTechTracks);
     const sillyName = track.sillyName || track.displayName;
     return (
       <div key={trackId} className="track-selector-item"
-        onClick={() => this.props.setFocusedTrackIdFn(trackId)} onContextMenu={(e) => {
-          e.preventDefault()
-          this.props.toggleCoreTechTrackFn(trackId)
-        }}>
+        onClick={() => this.onTrackClicked(trackId)}
+        onContextMenu={(e) => { this.onTrackRightClicked(e, trackId) }}
+      >
         <style jsx>{`
           .track-selector-item {
             width: 60px;
@@ -67,12 +95,12 @@ class TrackSelector extends React.Component<Props> {
   }
 
   render() {
-    const coreTechTrackIds = trackIds.filter(trackId => isCoreTechTrack(trackId, this.props.coreTechTracks))
-    const otherTechTrackIds = trackIds.filter(trackId => nonCoreTechTrack(trackId, this.props.coreTechTracks, this.props.milestoneByTrack[trackId].level))
-    const softTrackIds = trackIds.filter(trackId => softCategories.has(tracks[trackId].category))
-    const categoriesOptions = Array.from(techCategories.keys()).map((category, i) => (
-      <option key={i} value={category}>{category}</option>
-    ))
+    const coreTechTrackIds = trackIds.filter(
+      trackId => isCoreTechTrack(trackId, this.props.coreTechTracks)
+    )
+    const otherTechTrackIds = trackIds.filter(
+      trackId => nonCoreTechTrack(trackId, this.props.coreTechTracks, this.props.milestoneByTrack[trackId].level)
+    )
 
     return (
       <div className="track-selector">
@@ -111,14 +139,14 @@ class TrackSelector extends React.Component<Props> {
         ))}
         <div className="track-selector-break" />
         <h3>
-          <select value={this.props.selectedCategory} onChange={(e) => this.props.selectCategoryFn(e.target.value)}>
-            {categoriesOptions}
+          <select value={this.state.selectedCategory} onChange={this.onCategoryChange}>
+            {this.categoriesOptions}
           </select> skills
         </h3>
         {(
           <React.Fragment>
             <div className="track-selector-break" />
-            {tracksFromCategory(this.props.selectedCategory).map(trackId => (
+            {tracksFromCategory(this.state.selectedCategory).map(trackId => (
               this.renderTrack(trackId)
             ))}
           </React.Fragment>
@@ -126,7 +154,7 @@ class TrackSelector extends React.Component<Props> {
         <div className="track-selector-break" />
         <h3>Automata skills</h3>
         <div className="track-selector-break" />
-        {softTrackIds.map(trackId => (
+        {this.softTrackIds.map(trackId => (
           this.renderTrack(trackId)
         ))}
       </div>

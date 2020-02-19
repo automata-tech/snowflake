@@ -11,13 +11,13 @@ import { countingTracks, allTracksWithPoints, trackColor } from '../logic/functi
 const width = 400
 const arcMilestones = milestones.slice(1) // we'll draw the '0' milestone with a circle, not an arc.
 
-type Props = {
+type Props = {|
   milestoneByTrack: MilestoneMap,
   coreTechTracks: TrackId[],
   focusedTrackId: TrackId,
   handleTrackMilestoneChangeFn: (TrackId, Milestone) => void,
   detailed: boolean,
-}
+|}
 
 class NightingaleChart extends React.Component<Props> {
   colorScale: any

@@ -8,10 +8,10 @@ import { doesTrackCount, doesTrackNotCount } from './functions'
 // Milestones
 export type Milestone = 0 | 1 | 2 | 3 | 4 | 5
 
-type MilestoneWithNote = {
+type MilestoneWithNote = {|
   level: Milestone,
   notes?: string,
-}
+|}
 
 export type MilestoneMap = {
   [TrackId]: MilestoneWithNote,

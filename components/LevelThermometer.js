@@ -17,11 +17,11 @@ const margins = {
 const height = 150
 const width = 550
 
-type Props = {
+type Props = {|
   milestoneByTrack: MilestoneMap,
   coreTechTracks: TrackId[],
   detailed: boolean,
-}
+|}
 
 class LevelThermometer extends React.Component<Props> {
   pointScale: any

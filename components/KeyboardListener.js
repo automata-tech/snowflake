@@ -2,20 +2,47 @@
 
 import React from 'react'
 
-type Props = {
+type Props = {|
   increaseFocusedMilestoneFn: () => void,
   selectNextTrackFn: () => void,
   decreaseFocusedMilestoneFn: () => void,
   selectPrevTrackFn: () => void,
   setSillyFn: (silly: boolean) => void,
+|}
+
+let blacklist;
+if (typeof HTMLSelectElement !== "undefined") { // Check SSR
+  const upDownBlacklist = [HTMLSelectElement, HTMLTextAreaElement]
+  const leftRightBlacklist = [HTMLInputElement, HTMLTextAreaElement]
+  const textBlacklist = leftRightBlacklist
+
+  blacklist = {
+    'ArrowUp': upDownBlacklist,
+    'ArrowDown': upDownBlacklist,
+    'ArrowLeft': leftRightBlacklist,
+    'ArrowRight': leftRightBlacklist,
+    'BracketLeft': textBlacklist,
+    'BracketRight': textBlacklist,
+  }
 }
 
 class KeyboardListener extends React.Component<Props> {
   componentDidMount() {
-    window.addEventListener('keydown', (e) => this.handleKeyDown(e)) // TK unlisten
+    window.addEventListener('keydown', this.handleKeyDown)
   }
 
-  handleKeyDown(e: KeyboardEvent) {
+  componentDidUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown)
+  }
+
+  handleKeyDown = (e: KeyboardEvent) => {
+    if (blacklist[e.code]) {
+      for (const kind of blacklist[e.code]) {
+        if (e.target instanceof kind) {
+          return;
+        }
+      }
+    }
     switch(e.code) {
       case 'ArrowUp':
         this.props.increaseFocusedMilestoneFn()
@@ -26,6 +53,9 @@ class KeyboardListener extends React.Component<Props> {
         e.preventDefault()
         break
       case 'ArrowDown':
+        if (e.target instanceof HTMLSelectElement) {
+          return
+        }
         this.props.decreaseFocusedMilestoneFn()
         e.preventDefault()
         break

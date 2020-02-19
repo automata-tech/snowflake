@@ -8,14 +8,14 @@ import { milestones } from '../logic/milestones'
 import type { MilestoneMap, Milestone } from '../logic/milestones'
 import { trackColor } from '../logic/functions'
 
-type Props = {
+type Props = {|
   milestoneByTrack: MilestoneMap,
   coreTechTracks: TrackId[],
   trackId: TrackId,
   silly: boolean,
   handleTrackMilestoneChangeFn: (TrackId, Milestone) => void,
   handleTrackNotesChangeFn: (TrackId, string) => void,
-}
+|}
 
 class Track extends React.Component<Props> {
   render() {

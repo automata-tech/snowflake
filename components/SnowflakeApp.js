@@ -6,9 +6,10 @@ import { pathPrefix } from '../config'
 
 import type { AppState } from '../logic/state'
 import { emptyState, defaultState, migrateState } from '../logic/state'
+import { trackIds } from '../logic/tracks'
 import type { TrackId, Category } from '../logic/tracks'
-import { coerceMilestone, maxCoreTechTracks } from '../logic/milestones'
 import type { Milestone } from '../logic/milestones'
+import { coerceMilestone, maxCoreTechTracks } from '../logic/milestones'
 import { isTechnicalTrack, allTracksWithPoints, countingTracks } from '../logic/functions'
 
 import TrackSelector from '../components/TrackSelector'
@@ -18,41 +19,132 @@ import Track from '../components/Track'
 import LevelThermometer from '../components/LevelThermometer'
 import PointSummaries from '../components/PointSummaries'
 
-const hashToState = (hash: String): ?AppState => {
+import LZString from 'lz-string'
+
+declare class DOMException extends Error {
+  constructor(message?: string, name?: string): void;
+}
+
+const hashToState = (hash: string): ?State => {
   if (!hash) return null;
   try {
-    const result = JSON.parse(window.atob(hash.split('#')[1]));
+    const compressed = hash.split('#')[1]
+    let result: AppState;
+    try {
+      result = JSON.parse(window.atob(compressed))
+    } catch (e) {
+      if ((e instanceof DOMException) || (e instanceof SyntaxError)) {
+        result = JSON.parse(LZString.decompressFromBase64(compressed))
+      } else {
+        throw e;
+      }
+    }
+
+    // URL OPTI
+    if (result.milestoneByTrack) {
+      trackIds.forEach((trackId) => {
+        if (!result.milestoneByTrack[trackId]) {
+          result.milestoneByTrack[trackId] = {level: 0};
+        }
+      });
+    }
+    if (result.coreTechTracks === undefined) {
+      result.coreTechTracks = []
+    }
+    for (const prop of ['name', 'title'])
+      if (result[prop] === undefined) {
+        result[prop] = ''
+      }
+    // /URL OPTI
+
     migrateState(result);
-    return result;
+    return extendState(result);
   } catch (e) {
     throw Error(`Import failed! Are you sure the URL is correct? (otherwise Snowflake might be broken, please report it) [Details: ${e.message}]`)
   }
 }
 
-const stateToHash = (state: AppState) => {
-  if (!state || !state.milestoneByTrack) return null
-  return window.btoa(JSON.stringify(state))
+const stateToHash = (state: State): string => {
+  // URL OPTI
+  const copy: any = Object.assign({}, state)
+  copy.milestoneByTrack = Object.assign({}, copy.milestoneByTrack)
+  delete copy.detailedView;
+  delete copy.silly;
+  delete copy.focusedTrackId;
+  trackIds.forEach((trackId) => {
+    const track = copy.milestoneByTrack[trackId]
+    if (track.level === 0 && !track.notes) {
+      delete copy.milestoneByTrack[trackId]
+    }
+  });
+  if (copy.coreTechTracks.length === 0) {
+    delete copy.coreTechTracks
+  }
+  for (const prop of ['name', 'title'])
+  if (copy[prop] === '') {
+    delete copy[prop]
+  }
+  // /URL OPTI
+
+  return LZString.compressToBase64(JSON.stringify(copy))
 }
 
-type Props = {}
+const extendState = (state: AppState): State => {
+  return ({
+    ...state,
+    detailedView: false,
+    silly: false,
+    focusedTrackId: state.coreTechTracks.length > 0 ? state.coreTechTracks[0] : trackIds[0],
+  }: any) // FIXME: ???
+}
 
-class SnowflakeApp extends React.Component<Props, AppState> {
+type Props = {|
+  ssr: boolean,
+|}
+
+type State = AppState & {|
+  detailedView: boolean,
+    silly: boolean,
+
+      focusedTrackId: TrackId,
+|}
+
+class SnowflakeApp extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
-    this.state = emptyState()
-  }
 
-  componentDidUpdate() {
-    const hash = stateToHash(this.state)
-    if (hash) window.location.replace(`#${hash}`)
+    if (typeof window !== 'undefined') {
+      window.save_data = () => {
+        console.log(stateToHash(this.state))
+      }
+      window.restore_data = (data: string) => {
+        const state = hashToState(`#${data}`)
+        if (state) {
+          this.setState(state)
+        }
+      }
+      window.decode_data = (data: string) => {
+        return hashToState(`#${data}`)
+      }
+    }
+    this.state = extendState(emptyState())
   }
-
   componentDidMount() {
     const state = hashToState(window.location.hash)
     if (state) {
       this.setState(state)
     } else {
-      this.setState(defaultState())
+      this.setState(extendState(defaultState()))
+    }
+  }
+
+  componentDidUpdate() {
+    const hash = stateToHash(this.state)
+    window.location.replace(`#${hash}`)
+
+    if (window.location.hash.split('#')[1] !== hash) {
+      alert(`Could not save Snowflake correctly! Do not close this tab and please contact support!`)
+      window.save_data()
     }
   }
 
@@ -145,14 +237,14 @@ class SnowflakeApp extends React.Component<Props, AppState> {
                   type="text"
                   className="nice-input name-input"
                   value={this.state.name}
-                  onChange={e => this.setState({name: e.target.value})}
+                  onChange={this.setName}
                   placeholder="Name"
                   />
               <input
                   type="text"
                   className="nice-input title-input"
                   value={this.state.title}
-                  onChange={e => this.setState({title: e.target.value})}
+                  onChange={this.setTitle}
                   placeholder="Title"
                   />
               <div className="detailed-input">
@@ -160,12 +252,12 @@ class SnowflakeApp extends React.Component<Props, AppState> {
                     id="detailed-input"
                     type="checkbox"
                     checked={this.state.detailedView}
-                    onChange={e => this.setState({detailedView: e.target.checked})}
+                    onChange={this.setDetailed}
                     />
                 <label htmlFor="detailed-input">Detailed view</label>
 
                 <div className="reset">
-                  <button onClick={() => this.reset()}>Reset</button>
+                  <button onClick={this.reset}>Reset</button>
                 </div>
               </div>
             </form>
@@ -185,7 +277,7 @@ class SnowflakeApp extends React.Component<Props, AppState> {
                 milestoneByTrack={this.state.milestoneByTrack}
                 coreTechTracks={this.state.coreTechTracks}
                 focusedTrackId={this.state.focusedTrackId}
-                handleTrackMilestoneChangeFn={(track, milestone) => this.handleTrackMilestoneChange(track, milestone)}
+                handleTrackMilestoneChangeFn={this.handleTrackMilestoneChange}
                 detailed={this.state.detailedView} />
           </div>
         </div>
@@ -193,10 +285,8 @@ class SnowflakeApp extends React.Component<Props, AppState> {
             milestoneByTrack={this.state.milestoneByTrack}
             coreTechTracks={this.state.coreTechTracks}
             focusedTrackId={this.state.focusedTrackId}
-            selectedCategory={this.state.techCategorySelected}
-            setFocusedTrackIdFn={this.setFocusedTrackId.bind(this)}
-            selectCategoryFn={this.selectCategory.bind(this)}
-            toggleCoreTechTrackFn={this.toggleCoreTechTrack.bind(this)}
+            setFocusedTrackIdFn={this.setFocusedTrackId}
+            toggleCoreTechTrackFn={this.toggleCoreTechTrack}
             silly={this.state.silly}
           />
         <KeyboardListener
@@ -204,14 +294,14 @@ class SnowflakeApp extends React.Component<Props, AppState> {
             selectPrevTrackFn={this.shiftFocusedTrack.bind(this, -1)}
             increaseFocusedMilestoneFn={this.shiftFocusedTrackMilestoneByDelta.bind(this, 1)}
             decreaseFocusedMilestoneFn={this.shiftFocusedTrackMilestoneByDelta.bind(this, -1)}
-            setSillyFn={this.setSilly.bind(this)}
+            setSillyFn={this.setSilly}
           />
         <Track
             milestoneByTrack={this.state.milestoneByTrack}
             coreTechTracks={this.state.coreTechTracks}
             trackId={this.state.focusedTrackId}
-            handleTrackMilestoneChangeFn={(track, milestone) => this.handleTrackMilestoneChange(track, milestone)}
-            handleTrackNotesChangeFn={(track, notes) => this.handleTrackNotesChange(track, notes)}
+            handleTrackMilestoneChangeFn={this.handleTrackMilestoneChange}
+            handleTrackNotesChangeFn={this.handleTrackNotesChange}
             silly={this.state.silly}
           />
         <div className="d-flex footer">
@@ -227,21 +317,21 @@ class SnowflakeApp extends React.Component<Props, AppState> {
     )
   }
 
-  handleTrackMilestoneChange(trackId: TrackId, milestone: Milestone) {
-    const milestoneByTrack = this.state.milestoneByTrack
-    milestoneByTrack[trackId].level = milestone
+  handleTrackMilestoneChange = (trackId: TrackId, milestone: Milestone) => {
+    const milestoneByTrack = Object.assign({}, this.state.milestoneByTrack)
+    milestoneByTrack[trackId] = Object.assign({}, milestoneByTrack[trackId], {level: milestone})
 
     this.setState({ milestoneByTrack, focusedTrackId: trackId })
   }
 
-  handleTrackNotesChange(trackId: TrackId, notes: string) {
+  handleTrackNotesChange = (trackId: TrackId, notes: string) => {
     const milestoneByTrack = this.state.milestoneByTrack
-    milestoneByTrack[trackId].notes = notes
+    milestoneByTrack[trackId] = Object.assign({}, milestoneByTrack[trackId], {notes})
 
     this.setState({ milestoneByTrack, focusedTrackId: trackId })
   }
 
-  shiftFocusedTrack(delta: number) {
+  shiftFocusedTrack = (delta: number) => {
     const ctracks = this.state.detailedView
       ? allTracksWithPoints(this.state.coreTechTracks, this.state.milestoneByTrack)
       : countingTracks(this.state.coreTechTracks);
@@ -251,15 +341,11 @@ class SnowflakeApp extends React.Component<Props, AppState> {
     this.setState({ focusedTrackId })
   }
 
-  setFocusedTrackId(trackId: TrackId) {
+  setFocusedTrackId = (trackId: TrackId) => {
     this.setState({focusedTrackId: trackId})
   }
 
-  selectCategory(category: Category) {
-    this.setState({techCategorySelected: category})
-  }
-
-  toggleCoreTechTrack(trackId: TrackId) {
+  toggleCoreTechTrack = (trackId: TrackId) => {
     if (!isTechnicalTrack(trackId)) {
       return;
     }
@@ -276,7 +362,7 @@ class SnowflakeApp extends React.Component<Props, AppState> {
     this.setState({coreTechTracks, focusedTrackId: trackId})
   }
 
-  shiftFocusedTrackMilestoneByDelta(delta: number) {
+  shiftFocusedTrackMilestoneByDelta = (delta: number) => {
     let prevMilestone = this.state.milestoneByTrack[this.state.focusedTrackId].level
     let milestone = prevMilestone + delta
     if (milestone < 0) milestone = 0
@@ -284,14 +370,26 @@ class SnowflakeApp extends React.Component<Props, AppState> {
     this.handleTrackMilestoneChange(this.state.focusedTrackId, coerceMilestone(milestone))
   }
 
-  setSilly(silly: boolean) {
+  setName = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    this.setState({ name: e.target.value })
+  }
+
+  setTitle = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    this.setState({ title: e.target.value })
+  }
+
+  setDetailed = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    this.setState({ detailedView: e.target.checked })
+  }
+
+  setSilly = (silly: boolean) => {
     this.setState({ silly })
   }
 
-  reset() {
+  reset = () => {
     const sure = confirm("Are you sure you want to reset Snowflake? This cannot be undone.")
     if (sure) {
-      this.setState(emptyState());
+      this.setState(extendState(emptyState()));
     }
   }
 }

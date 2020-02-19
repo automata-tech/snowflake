@@ -5,15 +5,15 @@ import type { TrackId } from '../logic/tracks'
 import { pointsToLevels, pointsTotal, maxPoints } from '../logic/milestones'
 import type { MilestoneMap } from '../logic/milestones'
 
-type Props = {
+type Props = {|
   milestoneByTrack: MilestoneMap,
   coreTechTracks: TrackId[],
   detailed: boolean,
-}
+|}
 
-type State = {
+type State = {|
   showDescriptions: boolean,
-}
+|}
 
 class PointSummaries extends React.Component<Props, State> {
   constructor(props: Props) {

@@ -1,0 +1,2 @@
+// @flow
+declare module 'lz-string' { declare module.exports: any }

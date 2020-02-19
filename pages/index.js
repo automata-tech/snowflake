@@ -3,18 +3,22 @@
 import React from 'react'
 import SnowflakeApp from '../components/SnowflakeApp'
 
-type Props = {
-  children: any,
-}
+type Props = {|
+  ssr: boolean,
+|}
 
-type State = {
+type State = {|
   error?: Error,
-}
+|}
 
-class ErrorBoundary extends React.Component<Props, State> {
+class Page extends React.Component<Props, State> {
   constructor(props: Props) {
-    super(props);
-    this.state = {};
+    super(props)
+    this.state = {error: undefined};
+  }
+
+  static getInitialProps({req}: {req?: any}): Props {
+    return {ssr: !!req}
   }
 
   componentDidCatch(error: Error) {
@@ -25,14 +29,8 @@ class ErrorBoundary extends React.Component<Props, State> {
     if (this.state.error) {
       return <p>Something went wrong: {this.state.error.message}</p>;
     }
-
-    return this.props.children;
+    return <SnowflakeApp ssr={this.props.ssr} />
   }
 }
 
-// eslint-disable-next-line react/display-name
-export default () => (
-  <ErrorBoundary>
-    <SnowflakeApp />
-  </ErrorBoundary>
-)
+export default Page

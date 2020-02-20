@@ -121,7 +121,7 @@ type State = AppState & {|
 
 class SnowflakeApp extends React.Component<Props, State> {
   static SAVE_TIMEOUT = 1000
-  saveTimeout:? TimeoutID;
+  saveTimeout: ?TimeoutID;
   previousState: string;
 
   constructor(props: Props) {

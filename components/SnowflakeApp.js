@@ -201,8 +201,11 @@ class SnowflakeApp extends React.Component<Props, State> {
   readHash() {
     const state = hashToState(window.location.hash)
     if (state) {
-      this.previousState = stateToText(state)
-      this.setState(state)
+      const stateText = stateToText(state)
+      if (stateText !== this.previousState) {
+        this.previousState = stateText
+        this.setState(state)
+      }
     } else {
       this.setState(extendState(defaultState()))
     }
@@ -452,7 +455,7 @@ class SnowflakeApp extends React.Component<Props, State> {
     } else {
       coreTechTracks.splice(trackIndex, 1);
     }
-    this.setState({coreTechTracks, focusedTrackId: trackId})
+    this.setState({coreTechTracks})
   }
 
   shiftFocusedTrackMilestoneByDelta = (delta: number) => {

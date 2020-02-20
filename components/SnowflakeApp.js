@@ -110,6 +110,9 @@ type State = AppState & {|
 |}
 
 class SnowflakeApp extends React.Component<Props, State> {
+  static SAVE_TIMEOUT = 500
+  saveTimeout:? TimeoutID;
+
   constructor(props: Props) {
     super(props)
 
@@ -127,8 +130,10 @@ class SnowflakeApp extends React.Component<Props, State> {
         return hashToState(`#${data}`)
       }
     }
+    this.saveTimeout = null;
     this.state = extendState(emptyState())
   }
+
   componentDidMount() {
     const state = hashToState(window.location.hash)
     if (state) {
@@ -136,9 +141,34 @@ class SnowflakeApp extends React.Component<Props, State> {
     } else {
       this.setState(extendState(defaultState()))
     }
+    window.addEventListener('beforeunload', this.checkSaved)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.checkSaved)
+    this.clearSave()
   }
 
   componentDidUpdate() {
+    this.save()
+  }
+
+  save() {
+    this.clearSave()
+    this.saveTimeout = setTimeout(() => {
+      this.actualSave();
+      this.clearSave();
+    }, SnowflakeApp.SAVE_TIMEOUT);
+  }
+
+  clearSave() {
+    if (this.saveTimeout !== null) {
+      clearTimeout(this.saveTimeout);
+    }
+    this.saveTimeout = null;
+  }
+
+  actualSave = () => {
     const hash = stateToHash(this.state)
     window.location.replace(`#${hash}`)
 
@@ -146,6 +176,15 @@ class SnowflakeApp extends React.Component<Props, State> {
       alert(`Could not save Snowflake correctly! Do not close this tab and please contact support!`)
       window.save_data()
     }
+  }
+
+  checkSaved = (e: any) => { // FIXME: no matching type!
+    if (this.saveTimeout === null) {
+      delete e.returnValue;
+      return;
+    }
+    e.preventDefault()
+    e.returnValue = "Your Snowflake hasn't been saved yet, wait a second before copying the URL and closing the tab"
   }
 
   render() {

@@ -64,13 +64,13 @@ const hashToState = (hash: string): ?State => {
   }
 }
 
-const stateToHash = (state: State): string => {
+const stateToText = (state: State): string => {
   // URL OPTI
   const copy: any = Object.assign({}, state)
   copy.milestoneByTrack = Object.assign({}, copy.milestoneByTrack)
-  delete copy.detailedView;
-  delete copy.silly;
-  delete copy.focusedTrackId;
+  for (const prop of ['detailedView', 'silly', 'focusedTrackId', 'saving']) {
+    delete copy[prop];
+  }
   trackIds.forEach((trackId) => {
     const track = copy.milestoneByTrack[trackId]
     if (track.level === 0 && !track.notes) {
@@ -80,18 +80,28 @@ const stateToHash = (state: State): string => {
   if (copy.coreTechTracks.length === 0) {
     delete copy.coreTechTracks
   }
-  for (const prop of ['name', 'title'])
-  if (copy[prop] === '') {
-    delete copy[prop]
+  for (const prop of ['name', 'title']) {
+    if (copy[prop] === '') {
+      delete copy[prop]
+    }
   }
   // /URL OPTI
 
-  return LZString.compressToBase64(JSON.stringify(copy))
+  return JSON.stringify(copy)
+}
+
+const textToHash = (text: string): string => {
+  return LZString.compressToBase64(text)
+}
+
+const stateToHash = (state: State): string => {
+  return textToHash(stateToText(state))
 }
 
 const extendState = (state: AppState): State => {
   return ({
     ...state,
+    saving: false,
     detailedView: false,
     silly: false,
     focusedTrackId: state.coreTechTracks.length > 0 ? state.coreTechTracks[0] : trackIds[0],
@@ -104,14 +114,15 @@ type Props = {|
 
 type State = AppState & {|
   detailedView: boolean,
-    silly: boolean,
-
-      focusedTrackId: TrackId,
+  silly: boolean,
+  saving: boolean,
+  focusedTrackId: TrackId,
 |}
 
 class SnowflakeApp extends React.Component<Props, State> {
-  static SAVE_TIMEOUT = 500
+  static SAVE_TIMEOUT = 1000
   saveTimeout:? TimeoutID;
+  previousState: string;
 
   constructor(props: Props) {
     super(props)
@@ -132,33 +143,39 @@ class SnowflakeApp extends React.Component<Props, State> {
     }
     this.saveTimeout = null;
     this.state = extendState(emptyState())
+    this.previousState = stateToText(this.state)
   }
 
   componentDidMount() {
-    const state = hashToState(window.location.hash)
-    if (state) {
-      this.setState(state)
-    } else {
-      this.setState(extendState(defaultState()))
-    }
+    this.readHash()
     window.addEventListener('beforeunload', this.checkSaved)
+    window.addEventListener('hashchange', this.hashChanged)
   }
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.checkSaved)
+    window.removeEventListener('hashchange', this.hashChanged)
     this.clearSave()
   }
 
   componentDidUpdate() {
-    this.save()
+    const textState = stateToText(this.state)
+    if (textState !== this.previousState) {
+      console.debug("state changed")
+      this.previousState = textState
+      this.save()
+    }
   }
 
   save() {
+    const wasSaving = this.saveTimeout !== null;
+    console.debug("schedule save")
     this.clearSave()
-    this.saveTimeout = setTimeout(() => {
-      this.actualSave();
-      this.clearSave();
-    }, SnowflakeApp.SAVE_TIMEOUT);
+    this.saveTimeout = setTimeout(this.actualSave, SnowflakeApp.SAVE_TIMEOUT);
+    if (!wasSaving) {
+      console.debug("wasn't saving")
+      this.setState({saving: true});
+    }
   }
 
   clearSave() {
@@ -169,6 +186,9 @@ class SnowflakeApp extends React.Component<Props, State> {
   }
 
   actualSave = () => {
+    console.debug("actually saved")
+    this.clearSave()
+
     const hash = stateToHash(this.state)
     window.location.replace(`#${hash}`)
 
@@ -178,7 +198,24 @@ class SnowflakeApp extends React.Component<Props, State> {
     }
   }
 
+  readHash() {
+    const state = hashToState(window.location.hash)
+    if (state) {
+      this.previousState = stateToText(state)
+      this.setState(state)
+    } else {
+      this.setState(extendState(defaultState()))
+    }
+  }
+
+  hashChanged = () => {
+    this.setState({saving: false}, () => {
+      this.readHash()
+    })
+  }
+
   checkSaved = (e: any) => { // FIXME: no matching type!
+    console.debug("still saving?")
     if (this.saveTimeout === null) {
       delete e.returnValue;
       return;
@@ -207,6 +244,11 @@ class SnowflakeApp extends React.Component<Props, State> {
             margin: 19px auto 0;
             width: 128px;
           }
+          .wordmark-anim {
+            -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
+  	        animation: heartbeat 1.5s ease-in-out infinite both;
+          }
+          @-webkit-keyframes heartbeat{from{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:center center;transform-origin:center center;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}10%{-webkit-transform:scale(.91);transform:scale(.91);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}17%{-webkit-transform:scale(.98);transform:scale(.98);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}33%{-webkit-transform:scale(.87);transform:scale(.87);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}45%{-webkit-transform:scale(1);transform:scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}}@keyframes heartbeat{from{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:center center;transform-origin:center center;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}10%{-webkit-transform:scale(.91);transform:scale(.91);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}17%{-webkit-transform:scale(.98);transform:scale(.98);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}33%{-webkit-transform:scale(.87);transform:scale(.87);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}45%{-webkit-transform:scale(1);transform:scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}}
           .title {
             margin: 20px 0 40px;
           }
@@ -235,7 +277,7 @@ class SnowflakeApp extends React.Component<Props, State> {
           .detailed-input label {
             padding-left: 5px;
           }
-          .detailed-input .reset {
+          .detailed-input .special-button {
             display: inline-block;
             margin-left: 15px;
           }
@@ -249,6 +291,11 @@ class SnowflakeApp extends React.Component<Props, State> {
           .flex-0 {
             flex: 0;
           }
+
+          .saving-info {
+            margin: 5px;
+            text-align: center;
+          }
         `}</style>
         <Head>
           <title>Automata Snowflake</title>
@@ -258,10 +305,13 @@ class SnowflakeApp extends React.Component<Props, State> {
           <link rel="icon" type="image/png" sizes="16x16" href={`${pathPrefix}favicon-16x16.png`} />
         </Head>
 
-        <div className="wordmark">
+        <div className={`${this.state.saving ? 'wordmark-anim' : ''} wordmark`}>
           <a href="https://automata.tech/" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270.47 243.81"><title>Icon_001</title><path d="M216.72,177a35.82,35.82,0,1,1,17.91,66.84H101Z" /><path d="M71.66,208A35.82,35.82,0,1,1,4.82,190.06L71.66,74.29Z" /><path d="M117.34,66.84a35.82,35.82,0,1,1,48.93-48.93l66.84,115.78Z" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270.47 243.81">
+              <path d="M216.72,177a35.82,35.82,0,1,1,17.91,66.84H101Z" /><path d="M71.66,208A35.82,35.82,0,1,1,4.82,190.06L71.66,74.29Z" /><path d="M117.34,66.84a35.82,35.82,0,1,1,48.93-48.93l66.84,115.78Z" />
+            </svg>
           </a>
+          <h3 className="saving-info">{this.state.saving ? '🔄 Saving...' : '✅ Saved'}</h3>
         </div>
         <div className="title">
           <h2>Snowflake</h2>
@@ -295,8 +345,12 @@ class SnowflakeApp extends React.Component<Props, State> {
                     />
                 <label htmlFor="detailed-input">Detailed view</label>
 
-                <div className="reset">
+                <div className="special-button">
                   <button onClick={this.reset}>Reset</button>
+                </div>
+
+                <div className="special-button">
+                  <button onClick={this.actualSave}>Save</button>
                 </div>
               </div>
             </form>

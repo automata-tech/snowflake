@@ -247,11 +247,16 @@ class SnowflakeApp extends React.Component<Props, State> {
             margin: 19px auto 0;
             width: 128px;
           }
-          .wordmark-anim {
-            -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
-  	        animation: heartbeat 1.5s ease-in-out infinite both;
+          .wordmark-silly {
+            -webkit-animation: vibrate-3 0.5s linear infinite both;
+            animation: vibrate-3 0.5s linear infinite both;
           }
-          @-webkit-keyframes heartbeat{from{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:center center;transform-origin:center center;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}10%{-webkit-transform:scale(.91);transform:scale(.91);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}17%{-webkit-transform:scale(.98);transform:scale(.98);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}33%{-webkit-transform:scale(.87);transform:scale(.87);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}45%{-webkit-transform:scale(1);transform:scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}}@keyframes heartbeat{from{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:center center;transform-origin:center center;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}10%{-webkit-transform:scale(.91);transform:scale(.91);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}17%{-webkit-transform:scale(.98);transform:scale(.98);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}33%{-webkit-transform:scale(.87);transform:scale(.87);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}45%{-webkit-transform:scale(1);transform:scale(1);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}}
+          @-webkit-keyframes vibrate-3{0%{-webkit-transform:translate(0);transform:translate(0)}10%{-webkit-transform:translate(-2px,-2px);transform:translate(-2px,-2px)}20%{-webkit-transform:translate(2px,-2px);transform:translate(2px,-2px)}30%{-webkit-transform:translate(-2px,2px);transform:translate(-2px,2px)}40%{-webkit-transform:translate(2px,2px);transform:translate(2px,2px)}50%{-webkit-transform:translate(-2px,-2px);transform:translate(-2px,-2px)}60%{-webkit-transform:translate(2px,-2px);transform:translate(2px,-2px)}70%{-webkit-transform:translate(-2px,2px);transform:translate(-2px,2px)}80%{-webkit-transform:translate(-2px,-2px);transform:translate(-2px,-2px)}90%{-webkit-transform:translate(2px,-2px);transform:translate(2px,-2px)}100%{-webkit-transform:translate(0);transform:translate(0)}}@keyframes vibrate-3{0%{-webkit-transform:translate(0);transform:translate(0)}10%{-webkit-transform:translate(-2px,-2px);transform:translate(-2px,-2px)}20%{-webkit-transform:translate(2px,-2px);transform:translate(2px,-2px)}30%{-webkit-transform:translate(-2px,2px);transform:translate(-2px,2px)}40%{-webkit-transform:translate(2px,2px);transform:translate(2px,2px)}50%{-webkit-transform:translate(-2px,-2px);transform:translate(-2px,-2px)}60%{-webkit-transform:translate(2px,-2px);transform:translate(2px,-2px)}70%{-webkit-transform:translate(-2px,2px);transform:translate(-2px,2px)}80%{-webkit-transform:translate(-2px,-2px);transform:translate(-2px,-2px)}90%{-webkit-transform:translate(2px,-2px);transform:translate(2px,-2px)}100%{-webkit-transform:translate(0);transform:translate(0)}}
+          .wordmark-saving {
+            -webkit-animation: jello-vertical 1s ease-in-out infinite both;
+  	        animation: jello-vertical 1s ease-in-out infinite both;
+          }
+          @-webkit-keyframes jello-vertical{0%{-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}30%{-webkit-transform:scale3d(.75,1.25,1);transform:scale3d(.75,1.25,1)}40%{-webkit-transform:scale3d(1.25,.75,1);transform:scale3d(1.25,.75,1)}50%{-webkit-transform:scale3d(.85,1.15,1);transform:scale3d(.85,1.15,1)}65%{-webkit-transform:scale3d(1.05,.95,1);transform:scale3d(1.05,.95,1)}75%{-webkit-transform:scale3d(.95,1.05,1);transform:scale3d(.95,1.05,1)}100%{-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}}@keyframes jello-vertical{0%{-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}30%{-webkit-transform:scale3d(.75,1.25,1);transform:scale3d(.75,1.25,1)}40%{-webkit-transform:scale3d(1.25,.75,1);transform:scale3d(1.25,.75,1)}50%{-webkit-transform:scale3d(.85,1.15,1);transform:scale3d(.85,1.15,1)}65%{-webkit-transform:scale3d(1.05,.95,1);transform:scale3d(1.05,.95,1)}75%{-webkit-transform:scale3d(.95,1.05,1);transform:scale3d(.95,1.05,1)}100%{-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}}
           .title {
             margin: 20px 0 40px;
           }
@@ -308,7 +313,7 @@ class SnowflakeApp extends React.Component<Props, State> {
           <link rel="icon" type="image/png" sizes="16x16" href={`${pathPrefix}favicon-16x16.png`} />
         </Head>
 
-        <div className={`${this.state.saving ? 'wordmark-anim' : ''} wordmark`}>
+        <div className={`${this.state.saving ? 'wordmark-saving' : ''} ${this.state.silly ? 'wordmark-silly' : ''} wordmark`}>
           <a href="https://automata.tech/" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270.47 243.81">
               <path d="M216.72,177a35.82,35.82,0,1,1,17.91,66.84H101Z" /><path d="M71.66,208A35.82,35.82,0,1,1,4.82,190.06L71.66,74.29Z" /><path d="M117.34,66.84a35.82,35.82,0,1,1,48.93-48.93l66.84,115.78Z" />

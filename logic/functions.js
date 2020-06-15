@@ -8,25 +8,12 @@ import type { MilestoneMap, Milestone } from './milestones'
 export const isTechnicalTrack = (trackId: TrackId): boolean =>
   techCategories.has(tracks[trackId].category)
 
-export const isCoreTechTrack = (trackId: TrackId, coreTechTracks: TrackId[]): boolean =>
-  coreTechTracks.indexOf(trackId) !== -1
-
-export const nonCoreTechTrack = (trackId: TrackId, coreTechTracks: TrackId[], milestone: Milestone): boolean =>
-  !isCoreTechTrack(trackId, coreTechTracks)
-  && isTechnicalTrack(trackId)
+export const isUsedTechnicalTrack = (trackId: TrackId, milestone: Milestone): boolean =>
+  isTechnicalTrack(trackId)
   && milestone > 0
 
-export const doesTrackCount = (trackId: TrackId, coreTechTracks: TrackId[]): boolean =>
-  !isTechnicalTrack(trackId) || isCoreTechTrack(trackId, coreTechTracks)
+export const allUsedTracks = (milestoneMap: MilestoneMap): TrackId[] =>
+  trackIds.filter(trackId => !isTechnicalTrack(trackId) || isUsedTechnicalTrack(trackId, milestoneMap[trackId].level))
 
-export const doesTrackNotCount = (trackId: TrackId, coreTechTracks: TrackId[]): boolean =>
-  !doesTrackCount(trackId, coreTechTracks)
-
-export const countingTracks = (coreTechTracks: TrackId[]): TrackId[] =>
-  trackIds.filter(trackId => doesTrackCount(trackId, coreTechTracks))
-
-export const allTracksWithPoints = (coreTechTracks: TrackId[], milestoneMap: MilestoneMap): TrackId[] =>
-  trackIds.filter(trackId => doesTrackCount(trackId, coreTechTracks) || nonCoreTechTrack(trackId, coreTechTracks, milestoneMap[trackId].level))
-
-export const trackColor = (track: TrackId, milestone: Milestone, coreTechTracks: TrackId[]) =>
-  scaleColor(tracks[track].category, doesTrackCount(track, coreTechTracks) ? milestone : 0)
+export const trackColor = (track: TrackId, milestone: Milestone) =>
+  scaleColor(tracks[track].category, milestone)

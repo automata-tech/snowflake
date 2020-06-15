@@ -3,18 +3,15 @@
 import * as React from 'react'
 import { trackIds, tracks } from '../logic/tracks'
 import type { TrackId, Category } from '../logic/tracks'
-import { maxCoreTechTracks } from '../logic/milestones'
 import type { MilestoneMap } from '../logic/milestones'
-import { isCoreTechTrack, nonCoreTechTrack, trackColor } from '../logic/functions'
+import { trackColor, isUsedTechnicalTrack } from '../logic/functions'
 import { techCategories, softCategories, tracksFromCategory, categoryIds } from '../logic/categories'
 
 type Props = {|
   milestoneByTrack: MilestoneMap,
-  coreTechTracks: TrackId[],
   focusedTrackId: TrackId,
   setFocusedTrackIdFn: (TrackId) => void,
   silly: boolean,
-  toggleCoreTechTrackFn: (TrackId) => void,
 |}
 
 type State = {|
@@ -40,23 +37,17 @@ class TrackSelector extends React.Component<Props, State> {
     this.props.setFocusedTrackIdFn(trackId)
   }
 
-  onTrackRightClicked = (e: SyntheticEvent<HTMLDivElement>, trackId: TrackId) => {
-    e.preventDefault()
-    this.props.toggleCoreTechTrackFn(trackId)
-  }
-
   onCategoryChange = (e: SyntheticInputEvent<HTMLSelectElement>) => {
     this.setState({selectedCategory: ((e.target.value: any): Category)})
   }
 
   renderTrack(trackId: TrackId) {
     const track = tracks[trackId];
-    const color = trackColor(trackId, this.props.milestoneByTrack[trackId].level, this.props.coreTechTracks);
+    const color = trackColor(trackId, this.props.milestoneByTrack[trackId].level);
     const sillyName = track.sillyName || track.displayName;
     return (
       <div key={trackId} className="track-selector-item"
         onClick={() => this.onTrackClicked(trackId)}
-        onContextMenu={(e) => { this.onTrackRightClicked(e, trackId) }}
       >
         <style jsx>{`
           .track-selector-item {
@@ -95,11 +86,8 @@ class TrackSelector extends React.Component<Props, State> {
   }
 
   render() {
-    const coreTechTrackIds = trackIds.filter(
-      trackId => isCoreTechTrack(trackId, this.props.coreTechTracks)
-    )
-    const otherTechTrackIds = trackIds.filter(
-      trackId => nonCoreTechTrack(trackId, this.props.coreTechTracks, this.props.milestoneByTrack[trackId].level)
+    const techTrackIds = trackIds.filter(
+      trackId => isUsedTechnicalTrack(trackId, this.props.milestoneByTrack[trackId].level)
     )
 
     return (
@@ -124,17 +112,9 @@ class TrackSelector extends React.Component<Props, State> {
             font-size: 100%;
           }
         `}</style>
-        <h3>Core technical skills [{coreTechTrackIds.length}/{maxCoreTechTracks}] <small>(right-click on a skill to select/deselect it as a core skill)</small></h3>
+        <h3>Technical skills</h3>
         <div className="track-selector-break" />
-        {coreTechTrackIds.map(trackId => (
-          this.renderTrack(trackId)
-        ))}
-        <div className="track-selector-break" />
-        <h3>
-          Other technical skills <small>(do not count towards your milestone)</small>
-        </h3>
-        <div className="track-selector-break" />
-        {otherTechTrackIds.map(trackId => (
+        {techTrackIds.map(trackId => (
           this.renderTrack(trackId)
         ))}
         <div className="track-selector-break" />

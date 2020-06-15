@@ -10,7 +10,6 @@ import { trackColor } from '../logic/functions'
 
 type Props = {|
   milestoneByTrack: MilestoneMap,
-  coreTechTracks: TrackId[],
   trackId: TrackId,
   silly: boolean,
   handleTrackMilestoneChangeFn: (TrackId, Milestone) => void,
@@ -69,7 +68,7 @@ class Track extends React.Component<Props> {
             <tbody>
               {milestones.slice().reverse().map((milestone) => {
                 const isMet = milestone <= currentMilestoneId
-                const color = trackColor(this.props.trackId, currentMilestoneId, this.props.coreTechTracks)
+                const color = trackColor(this.props.trackId, currentMilestoneId)
                 return (
                   <tr key={milestone}>
                     <td onClick={() => this.props.handleTrackMilestoneChangeFn(this.props.trackId, milestone)}

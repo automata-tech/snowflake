@@ -1,7 +1,6 @@
 // @flow
 
-import { isTechnicalTrack } from './functions'
-import { coerceMilestone, maxCoreTechTracks } from './milestones'
+import { coerceMilestone } from './milestones'
 import type { MilestoneMap } from './milestones'
 import { trackIds } from './tracks'
 import type { TrackId } from './tracks'
@@ -32,17 +31,12 @@ export const defaultState = (): AppState => {
   trackIds.forEach((trackId) => {
     milestoneByTrack[trackId] = {level: coerceMilestone(Math.floor(Math.pow(Math.random(), 8) * 4))};
   });
-  const coreTechTracks =
-    trackIds
-      .filter((trackId) => (isTechnicalTrack(trackId) && milestoneByTrack[trackId].level > 0))
-      .sort(() => 0.5 - Math.random())
-      .slice(0, maxCoreTechTracks - 2);
 
   return {
     name: 'Miéville Pickleberry',
     title: 'Senior Documancer Analyst',
     milestoneByTrack,
-    coreTechTracks,
+    coreTechTracks: [],
   }
 }
 

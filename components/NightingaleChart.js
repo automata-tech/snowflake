@@ -6,17 +6,15 @@ import * as d3 from 'd3'
 import type { TrackId } from '../logic/tracks'
 import { milestones } from '../logic/milestones'
 import type { Milestone, MilestoneMap } from '../logic/milestones'
-import { countingTracks, allTracksWithPoints, trackColor } from '../logic/functions'
+import { allUsedTracks, trackColor } from '../logic/functions'
 
 const width = 400
 const arcMilestones = milestones.slice(1) // we'll draw the '0' milestone with a circle, not an arc.
 
 type Props = {|
   milestoneByTrack: MilestoneMap,
-  coreTechTracks: TrackId[],
   focusedTrackId: TrackId,
   handleTrackMilestoneChangeFn: (TrackId, Milestone) => void,
-  detailed: boolean,
 |}
 
 class NightingaleChart extends React.Component<Props> {
@@ -37,9 +35,7 @@ class NightingaleChart extends React.Component<Props> {
   }
 
   render() {
-    const currentTrackIds = this.props.detailed
-      ? allTracksWithPoints(this.props.coreTechTracks, this.props.milestoneByTrack)
-      : countingTracks(this.props.coreTechTracks);
+    const currentTrackIds = allUsedTracks(this.props.milestoneByTrack);
 
     this.arcFn = d3.arc()
       .innerRadius(milestone => this.radiusScale(milestone))
@@ -75,7 +71,7 @@ class NightingaleChart extends React.Component<Props> {
           <g transform={`translate(${width/2},${width/2}) rotate(-33.75)`}>
             {currentTrackIds.map((trackId, i) => {
               const isCurrentTrack = trackId == this.props.focusedTrackId
-              const color = trackColor(trackId, this.props.milestoneByTrack[trackId].level, this.props.coreTechTracks);
+              const color = trackColor(trackId, this.props.milestoneByTrack[trackId].level);
               return (
                 <g key={trackId} transform={`rotate(${i * 360 / currentTrackIds.length})`}>
                   {arcMilestones.map((milestone) => {
@@ -93,7 +89,7 @@ class NightingaleChart extends React.Component<Props> {
                   <circle
                       r="8"
                       cx="0"
-                      cy={this.props.detailed ? (i % 2 == 0 ? -50 : -35) : -50}
+                      cy={currentTrackIds.length > 16 ? (i % 2 == 0 ? -50 : -35) : -50}
                       style={{fill: color}}
                       className={"track-milestone " + (isCurrentTrack && !currentMilestoneId ? "track-milestone-current" : "")}
                       onClick={() => this.props.handleTrackMilestoneChangeFn(trackId, 0)} />

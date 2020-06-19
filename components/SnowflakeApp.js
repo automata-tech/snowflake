@@ -9,15 +9,13 @@ import { emptyState, defaultState, migrateState } from '../logic/state'
 import { trackIds } from '../logic/tracks'
 import type { TrackId } from '../logic/tracks'
 import type { Milestone } from '../logic/milestones'
-import { coerceMilestone, maxCoreTechTracks } from '../logic/milestones'
-import { isTechnicalTrack, allTracksWithPoints, countingTracks } from '../logic/functions'
+import { coerceMilestone } from '../logic/milestones'
+import { allUsedTracks } from '../logic/functions'
 
 import TrackSelector from '../components/TrackSelector'
 import NightingaleChart from '../components/NightingaleChart'
 import KeyboardListener from '../components/KeyboardListener'
 import Track from '../components/Track'
-import LevelThermometer from '../components/LevelThermometer'
-import PointSummaries from '../components/PointSummaries'
 
 import LZString from 'lz-string'
 
@@ -102,7 +100,6 @@ const extendState = (state: AppState): State => {
   return ({
     ...state,
     saving: false,
-    detailedView: false,
     silly: false,
     focusedTrackId: state.coreTechTracks.length > 0 ? state.coreTechTracks[0] : trackIds[0],
   }: any) // FIXME: ???
@@ -113,7 +110,6 @@ type Props = {|
 |}
 
 type State = AppState & {|
-  detailedView: boolean,
   silly: boolean,
   saving: boolean,
   focusedTrackId: TrackId,
@@ -278,14 +274,11 @@ class SnowflakeApp extends React.Component<Props, State> {
             border-bottom: 2px solid #ccc;
             outline: 0;
           }
-          .detailed-input {
+          .extra-inputs {
             font-size: 10px;
             margin: 10px 0 15px;
           }
-          .detailed-input label {
-            padding-left: 5px;
-          }
-          .detailed-input .special-button {
+          .extra-inputs .special-button {
             display: inline-block;
             margin-left: 15px;
           }
@@ -344,15 +337,7 @@ class SnowflakeApp extends React.Component<Props, State> {
                   onChange={this.setTitle}
                   placeholder="Title"
                   />
-              <div className="detailed-input">
-                <input
-                    id="detailed-input"
-                    type="checkbox"
-                    checked={this.state.detailedView}
-                    onChange={this.setDetailed}
-                    />
-                <label htmlFor="detailed-input">Detailed view</label>
-
+              <div className="extra-inputs">
                 <div className="special-button">
                   <button onClick={this.reset}>Reset</button>
                 </div>
@@ -362,32 +347,26 @@ class SnowflakeApp extends React.Component<Props, State> {
                 </div>
               </div>
             </form>
-            <PointSummaries
-              milestoneByTrack={this.state.milestoneByTrack}
-              coreTechTracks={this.state.coreTechTracks}
-              detailed={this.state.detailedView}
-            />
-            <LevelThermometer
-              milestoneByTrack={this.state.milestoneByTrack}
-              coreTechTracks={this.state.coreTechTracks}
-              detailed={this.state.detailedView}
-            />
+            <div>
+              <p>Details for each level:</p>
+              <p><b>Level 5</b> <u>Company leader</u> Strategic thinker, capable of setting direction and fostering growth in colleagues - starting to influence industry best practice</p>
+              <p><b>Level 4</b> <u>Change Driver</u> Able to identify and solve most issues and problems. Uses skills to set & drive team or company objectives</p>
+              <p><b>Level 3</b> <u>Change Maker</u> Understands the business, identifies issues and prioritises independently to drive value and supports others</p>
+              <p><b>Level 2</b> <u>Self Starter</u> Needs limited management to add meaningfully to the business</p>
+              <p><b>Level 1</b> <u>Contributer</u> Requires management support to set objectives and deliverables</p>
+            </div>
           </div>
           <div className="flex-0">
             <NightingaleChart
                 milestoneByTrack={this.state.milestoneByTrack}
-                coreTechTracks={this.state.coreTechTracks}
                 focusedTrackId={this.state.focusedTrackId}
-                handleTrackMilestoneChangeFn={this.handleTrackMilestoneChange}
-                detailed={this.state.detailedView} />
+                handleTrackMilestoneChangeFn={this.handleTrackMilestoneChange} />
           </div>
         </div>
         <TrackSelector
             milestoneByTrack={this.state.milestoneByTrack}
-            coreTechTracks={this.state.coreTechTracks}
             focusedTrackId={this.state.focusedTrackId}
             setFocusedTrackIdFn={this.setFocusedTrackId}
-            toggleCoreTechTrackFn={this.toggleCoreTechTrack}
             silly={this.state.silly}
           />
         <KeyboardListener
@@ -399,7 +378,6 @@ class SnowflakeApp extends React.Component<Props, State> {
           />
         <Track
             milestoneByTrack={this.state.milestoneByTrack}
-            coreTechTracks={this.state.coreTechTracks}
             trackId={this.state.focusedTrackId}
             handleTrackMilestoneChangeFn={this.handleTrackMilestoneChange}
             handleTrackNotesChangeFn={this.handleTrackNotesChange}
@@ -433,9 +411,7 @@ class SnowflakeApp extends React.Component<Props, State> {
   }
 
   shiftFocusedTrack = (delta: number) => {
-    const ctracks = this.state.detailedView
-      ? allTracksWithPoints(this.state.coreTechTracks, this.state.milestoneByTrack)
-      : countingTracks(this.state.coreTechTracks);
+    const ctracks = allUsedTracks(this.state.milestoneByTrack);
     let index = ctracks.indexOf(this.state.focusedTrackId)
     index = (index + delta + ctracks.length) % ctracks.length
     const focusedTrackId = ctracks[index]
@@ -444,23 +420,6 @@ class SnowflakeApp extends React.Component<Props, State> {
 
   setFocusedTrackId = (trackId: TrackId) => {
     this.setState({focusedTrackId: trackId})
-  }
-
-  toggleCoreTechTrack = (trackId: TrackId) => {
-    if (!isTechnicalTrack(trackId)) {
-      return;
-    }
-    const coreTechTracks = this.state.coreTechTracks.slice(0)
-    const trackIndex = coreTechTracks.indexOf(trackId);
-    if (trackIndex === -1) {
-      if (coreTechTracks.length >= maxCoreTechTracks) {
-        return;
-      }
-      coreTechTracks.push(trackId);
-    } else {
-      coreTechTracks.splice(trackIndex, 1);
-    }
-    this.setState({coreTechTracks})
   }
 
   shiftFocusedTrackMilestoneByDelta = (delta: number) => {
@@ -477,10 +436,6 @@ class SnowflakeApp extends React.Component<Props, State> {
 
   setTitle = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({ title: e.target.value })
-  }
-
-  setDetailed = (e: SyntheticInputEvent<HTMLInputElement>) => {
-    this.setState({ detailedView: e.target.checked })
   }
 
   setSilly = (silly: boolean) => {
